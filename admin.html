@@ -21,7 +21,7 @@
       border-radius: 30px;
       padding: 30px;
       border: 1px solid rgba(255,215,0,0.2);
-    } 
+    }
     .admin-page .admin-box h1 {
       font-family: 'Bebas Neue', sans-serif;
       color: #FFD700;
@@ -107,6 +107,7 @@
       font-size: 1rem;
       cursor: pointer;
       transition: 0.3s;
+      width: 100%;
     }
     .admin-page .login-section .google-btn:hover { transform: scale(1.02); }
     .admin-page .login-section p { color: #666; margin-top: 12px; font-size: 0.8rem; }
@@ -148,9 +149,22 @@
       color: #FFD700;
       text-decoration: underline;
     }
+    .admin-menu-item { display: none !important; }
+    .admin-menu-item.visible { display: flex !important; }
   </style>
 </head>
 <body>
+
+<!-- ANIMATED BACKGROUND -->
+<div class="bg-animation">
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div>
+</div>
+<div class="bg-orbs">
+  <div class="orb"></div><div class="orb"></div><div class="orb"></div>
+</div>
 
 <!-- HEADER -->
 <header class="site-header">
@@ -172,7 +186,7 @@
   <button class="close-btn" id="closeMenuBtn"><i class="fas fa-times"></i></button>
   <a href="index.html"><i class="fas fa-home"></i> Home</a>
   <a href="pro-apks.html"><i class="fas fa-crown"></i> Pro APKs</a>
-  <a href="admin.html"><i class="fas fa-user-shield"></i> Admin</a>
+  <a href="admin.html" class="admin-menu-item" id="adminMenuItem"><i class="fas fa-user-shield"></i> Admin</a>
   <a href="index.html#transaction"><i class="fas fa-credit-card"></i> Transaction</a>
   <a href="index.html#social"><i class="fas fa-share-alt"></i> Social</a>
   <a href="#" class="menu-highlight"><i class="fas fa-phone"></i> 0317 3724356</a>
@@ -183,7 +197,7 @@
   <div class="admin-box">
     <h1><i class="fas fa-user-shield"></i> Admin Panel</h1>
     
-    <!-- Access Denied (shown when not admin) -->
+    <!-- Access Denied -->
     <div id="accessDenied" style="display:none;">
       <div class="access-denied">
         <i class="fas fa-lock"></i>
@@ -271,6 +285,7 @@
   const accessDenied = document.getElementById('accessDenied');
   const googleLoginBtn = document.getElementById('googleLoginBtn');
   const adminLogoutBtn = document.getElementById('adminLogoutBtn');
+  const adminMenuItem = document.getElementById('adminMenuItem');
 
   let adminEmails = [];
 
@@ -299,39 +314,34 @@
   }
 
   function updateUI(isAdmin, isLoggedIn) {
-    // Hide all first
     loginSection.classList.add('hidden');
     uploadSection.classList.remove('active');
     accessDenied.style.display = 'none';
+    adminMenuItem.classList.remove('visible');
     
     if (!isLoggedIn) {
-      // Not logged in - show login
       loginSection.classList.remove('hidden');
     } else if (isLoggedIn && isAdmin) {
-      // Logged in and admin - show upload
       uploadSection.classList.add('active');
+      adminMenuItem.classList.add('visible');
     } else if (isLoggedIn && !isAdmin) {
-      // Logged in but not admin - show access denied
       accessDenied.style.display = 'block';
     }
   }
 
-  auth.onAuthStateChanged(async (user) => {
-    if (user) {
-      const isAdmin = await isUserAdmin(user);
-      updateUI(isAdmin, true);
-      if (isAdmin) {
-        loadAdminAPKs();
-      }
-    } else {
-      updateUI(false, false);
+  // ===== GOOGLE SIGN IN =====
+  function handleGoogleSignIn() {
+    console.log('Google Sign In clicked');
+    
+    if (typeof firebase === 'undefined') {
+      alert('Firebase is not loaded. Please refresh the page.');
+      return;
     }
-  });
-
-  googleLoginBtn.addEventListener('click', function() {
+    
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider)
       .then(async (result) => {
+        console.log('Signed in:', result.user.email);
         const isAdmin = await isUserAdmin(result.user);
         if (isAdmin) {
           updateUI(true, true);
@@ -343,8 +353,24 @@
         }
       })
       .catch((error) => {
-        alert('Login failed: ' + error.message);
+        console.error('Sign in error:', error);
+        alert('Sign in failed: ' + error.message);
       });
+  }
+
+  // Attach event listener
+  googleLoginBtn.addEventListener('click', handleGoogleSignIn);
+
+  auth.onAuthStateChanged(async (user) => {
+    if (user) {
+      const isAdmin = await isUserAdmin(user);
+      updateUI(isAdmin, true);
+      if (isAdmin) {
+        loadAdminAPKs();
+      }
+    } else {
+      updateUI(false, false);
+    }
   });
 
   adminLogoutBtn.addEventListener('click', function() {
