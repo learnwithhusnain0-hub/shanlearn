@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes, viewport-fit=cover">
+  <title>Learn with Shan · Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Additional styles for admin visibility */
+    .admin-menu-item { display: none; }
+    .admin-menu-item.visible { display: flex; }
+  </style>
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div id="loadingScreen">
+  <div class="loader-particles">
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
+  </div>
+  <div class="loader-glow g1"></div>
+  <div class="loader-glow g2"></div>
+  <div class="loader-spinner">
+    <div class="ring-1"></div>
+    <div class="ring-2"></div>
+    <div class="ring-3"></div>
+    <div class="center-icon">
+      <i class="fas fa-graduation-cap"></i>
+    </div>
+  </div>
+  <div class="loader-brand">LEARN WITH SHAN</div>
+  <div class="loader-progress">
+    <div class="bar"></div>
+  </div>
+  <div class="loader-percent">LOADING</div>
+  <div class="loader-dots">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+</div>
+
+<!-- ANIMATED BACKGROUND -->
+<div class="bg-animation">
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div>
+</div>
+<div class="bg-orbs">
+  <div class="orb"></div><div class="orb"></div><div class="orb"></div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="logo-area">
+    <img class="logo-icon" src="https://i.ibb.co/ds4SFQsf/IMG-20260615-WA0025-1.webp" alt="Logo" />
+    <span class="logo-text">LEARN WITH SHAN</span>
+  </div>
+  <div style="display:flex; align-items:center; gap:10px;">
+    <a href="signin.html" class="signin-btn"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+      <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </button>
+  </div>
+</header>
+
+<!-- SIDE MENU -->
+<div class="menu-overlay" id="menuOverlay"></div>
+<nav class="side-menu" id="sideMenu">
+  <button class="close-btn" id="closeMenuBtn"><i class="fas fa-times"></i></button>
+  <a href="index.html"><i class="fas fa-home"></i> Home</a>
+  <a href="#tutor"><i class="fas fa-user-tie"></i> Tutor</a>
+  <a href="#tiktok"><i class="fab fa-tiktok"></i> TikTok</a>
+  <a href="#youtube"><i class="fab fa-youtube"></i> YouTube Automation</a>
+  <a href="#aitools"><i class="fas fa-robot"></i> AI Tools</a>
+  <a href="#editing"><i class="fas fa-video"></i> Video Editing</a>
+  <a href="pro-apks.html"><i class="fas fa-crown"></i> Pro APKs</a>
+  <a href="admin.html" class="admin-menu-item" id="adminMenuItem"><i class="fas fa-user-shield"></i> Admin</a>
+  <a href="#transaction"><i class="fas fa-credit-card"></i> Transaction</a>
+  <a href="#social"><i class="fas fa-share-alt"></i> Social</a>
+  <a href="#" class="menu-highlight"><i class="fas fa-phone"></i> 0317 3724356</a>
+</nav>
+
+<!-- REST OF THE CONTENT (same as before) -->
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="typing-wrapper" id="typingText">
+      <span class="highlight">Learn & Earn</span> with Digital Skills
+      <span class="cursor-blink"></span>
+    </div>
+    <p class="hero-sub">Masterclass 2026 · Multiple Income Streams</p>
+    <div class="hero-badge"><i class="fas fa-fire"></i> TikTok · YouTube · AI · Editing</div>
+  </div>
+</section>
+
+<!-- TUTOR -->
+<section class="tutor-section container" id="tutor">
+  <div class="tutor-grid">
+    <div class="tutor-img">
+      <img src="https://i.ibb.co/dsCK5njX/WA-1781702904687.webp" alt="Muhammad Shan" />
+    </div>
+    <div class="tutor-info">
+      <h3>Muhammad Shan</h3>
+      <p>Passionate digital educator helping students build sustainable online income. With years of practical experience, I've developed proven systems to master TikTok, YouTube automation, AI tools, and video editing — all designed for beginners to start earning quickly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TIKTOK SECTION -->
+<section class="platform-section container" id="tiktok">
+  <div class="platform-header reveal">
+    <div class="icon"><i class="fab fa-tiktok"></i></div>
+    <div>
+      <h2><span class="word-by-word"><span class="word" style="--word-index:0">TikTok</span> <span class="word" style="--word-index:1">Mastery</span></span></h2>
+      <p>Complete guide to monetize your TikTok presence</p>
+    </div>
+  </div>
+  <div class="platform-grid">
+    <div class="platform-card reveal reveal-delay-1">
+      <div class="card-icon"><i class="fas fa-rocket"></i></div>
+      <h4><span class="word-by-word"><span class="word" style="--word-index:0">Creativity</span> <span class="word" style="--word-index:1">Program</span></span></h4>
+      <p>UK/USA account setup, RPM optimization, region bypass strategies.</p>
+      <span class="benefit-tag">🔥 High RPM</span>
+    </div>
+    <div class="platform-card reveal reveal-delay-2">
+      <div class="card-icon"><i class="fas fa-gamepad"></i></div>
+      <h4><span class="word-by-word"><span class="word" style="--word-index:0">Gaming</span> <span class="word" style="--word-index:1">Incentive</span></span></h4>
+      <p>Faceless channel, 1k followers strategy, auto-content system.</p>
+      <span class="benefit-tag">🎮 No Face</span>
+    </div>
+    <div class="platform-card reveal reveal-delay-3">
+      <div class="card-icon"><i class="fas fa-broadcast-tower"></i></div>
+      <h4><span class="word-by-word"><span class="word" style="--word-index:0">Live</span> <span class="word" style="--word-index:1">Streaming</span></span></h4>
+      <p>Live incentive, diamonds conversion, US/UK audience targeting.</p>
+      <span class="benefit-tag">💎 Real Payouts</span>
+    </div>
+    <div class="platform-card reveal reveal-delay-4">
+      <div class="card-icon"><i class="fas fa-shopping-cart"></i></div>
+      <h4><span class="word-by-word"><span class="word" style="--word-index:0">TikTok</span> <span class="word" style="--word-index:1">Shop</span></span></h4>
+      <p>Zero inventory, affiliate commissions, product sourcing hacks.</p>
+      <span class="benefit-tag">🛍️ Passive Income</span>
+    </div>
+  </div>
+</section>
+
+<!-- YOUTUBE AUTOMATION SECTION -->
+<section class="platform-section container" id="youtube">
+  <div class="platform-header reveal">
+    <div class="icon"><i class="fab fa-youtube"></i></div>
+    <div>
+      <h2><span class="word-by-word"><span class="word" style="--word-index:0">YouTube</span> <span class="word" style="--word-index:1">Automation</span></span></h2>
+      <p>Build passive income with automated YouTube channels</p>
+    </div>
+  </div>
+  <div class="platform-grid">
+    <div class="platform-card reveal reveal-delay-1">
+      <div class="card-icon"><i class="fas fa-robot"></i></div>
+      <h4><span class="word-by-word"><span class="word" style="--word-index:0">Channel</span> <span class="word" style="--word-index:1">Setup</span></span></h4>
+      <p>Niche selection, branding, channel optimization for growth.</p>
+      <span class="benefit-tag">🚀 Ready in 24hr</span>
+    </div>
+    <div class="platform-card reveal reveal-delay-2">
+      <div class="card-icon"><i class="fas fa-magic"></i></div>
+      <h4><span class="word-by-word"><span class="word" style="--word-index:0">Content</span> <span class="word" style="--word-index:1">Automation</span></span></h4>
+      <p>AI-powered script writing, voiceover, and video generation.</p>
+      <span class="benefit-tag">⚡ AI Powered</span>
+    </div>
+    <div class="platform-card reveal reveal-delay-3">
+      <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+      <h4><span class="word-by-word"><span class="word" style="--word-index:0">Monetization</span> <span class="word" style="--word-index:1">Strategy</span></span></h4>
+      <p>Ad revenue, affiliate marketing, sponsorship deals.</p>
+      <span class="benefit-tag">💰 Multiple Streams</span>
+    </div>
+    <div class="platform-card reveal reveal-delay-4">
+      <div class="card-icon"><i class="fas fa-clock"></i></div>
+      <h4><span class="word-by-word"><span class="word" style="--word-index:0">Scale</span> <span class="word" style="--word-index:1">System</span></span></h4>
+      <p>Outsourcing, workflow automation, channel management.</p>
+      <span class="benefit-tag">📈 Unlimited Growth</span>
+    </div>
+  </div>
+</section>
+
+<!-- AI TOOLS SECTION -->
+<section class="platform-section container" id="aitools">
+  <div class="platform-header reveal">
+    <div class="icon"><i class="fas fa-robot"></i></div>
+    <div>
+      <h2><span class="word-by-word"><span class="word" style="--word-index:0">AI</span> <span class="word" style="--word-index:1">Tools</span> <span class="word" style="--word-index:2">Guide</span></span></h2>
+      <p>Leverage AI for content creation, research & productivity</p>
+    </div>
+  </div>
+  <div class="platform-grid">
+    <div class="platform-card reveal reveal-delay-1">
+      <div class="card-icon"><i class="fas fa-pen-fancy"></i></div>
+      <h4><span class="word-by-word"><span class="word" style="--word-index:0">Content</span> <span class="word" style="--word-index:1">Writing</span></span></h4>
+      <p>AI copywriting, script generation, blog posts, and captions.</p>
+      <span class="benefit-tag">✍️ Smart Writing</span>
+    </div>
+    <div class="platform-card reveal reveal-delay-2">
+      <div class="card-icon"><i class="fas fa-image"></i></div>
+      <h4><span class="word-by-word"><span class="word" style="--word-index:0">Image</span> <span class="word" style="--word-index:1">Generation</span></span></h4>
+      <p>AI art, thumbnails, graphics with powerful image tools.</p>
+      <span class="benefit-tag">🎨 Visuals</span>
+    </div>
+    <div class="platform-card reveal reveal-delay-3">
+      <div class="card-icon"><i class="fas fa-microphone"></i></div>
+      <h4><span class="word-by-word"><span class="word" style="--word-index:0">Voice</span> <span class="word" style="--word-index:1">&</span> <span class="word" style="--word-index:2">Audio</span></span></h4>
+      <p>AI voiceovers, music generation, and sound effects.</p>
+      <span class="benefit-tag">🎧 Studio Quality</span>
+    </div>
+    <div class="platform-card reveal reveal-delay-4">
+      <div class="card-icon"><i class="fas fa-brain"></i></div>
+      <h4><span class="word-by-word"><span class="word" style="--word-index:0">Research</span> <span class="word" style="--word-index:1">&</span> <span class="word" style="--word-index:2">Trends</span></span></h4>
+      <p>AI-powered trend analysis, keyword research, competitor tracking.</p>
+      <span class="benefit-tag">📊 Data Driven</span>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO EDITING SECTION -->
+<section class="platform-section container" id="editing">
+  <div class="platform-header reveal">
+    <div class="icon"><i class="fas fa-video"></i></div>
+    <div>
+      <h2><span class="word-by-word"><span class="word" style="--word-index:0">Video</span> <span class="word" style="--word-index:1">Editing</span> <span class="word" style="--word-index:2">Basics</span></span></h2>
+      <p>Essential editing skills for professional content creation</p>
+    </div>
+  </div>
+  <div class="platform-grid">
+    <div class="platform-card reveal reveal-delay-1">
+      <div class="card-icon"><i class="fas fa-cut"></i></div>
+      <h4><span class="word-by-word"><span class="word" style="--word-index:0">Cutting</span> <span class="word" style="--word-index:1">&</span> <span class="word" style="--word-index:2">Trimming</span></span></h4>
+      <p>Basic edits, removing unwanted parts, smooth transitions.</p>
+      <span class="benefit-tag">✂️ Essential</span>
+    </div>
+    <div class="platform-card reveal reveal-delay-2">
+      <div class="card-icon"><i class="fas fa-palette"></i></div>
+      <h4><span class="word-by-word"><span class="word" style="--word-index:0">Color</span> <span class="word" style="--word-index:1">Grading</span></span></h4>
+      <p>Color correction, presets, cinematic look for videos.</p>
+      <span class="benefit-tag">🎨 Cinematic</span>
+    </div>
+    <div class="platform-card reveal reveal-delay-3">
+      <div class="card-icon"><i class="fas fa-music"></i></div>
+      <h4><span class="word-by-word"><span class="word" style="--word-index:0">Audio</span> <span class="word" style="--word-index:1">Editing</span></span></h4>
+      <p>Background music, sound effects, audio syncing.</p>
+      <span class="benefit-tag">🔊 Clear Audio</span>
+    </div>
+    <div class="platform-card reveal reveal-delay-4">
+      <div class="card-icon"><i class="fas fa-film"></i></div>
+      <h4><span class="word-by-word"><span class="word" style="--word-index:0">Effects</span> <span class="word" style="--word-index:1">&</span> <span class="word" style="--word-index:2">Transitions</span></span></h4>
+      <p>Motion graphics, text overlays, professional transitions.</p>
+      <span class="benefit-tag">⚡ Pro Level</span>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSACTION SECTION -->
+<section class="transaction-section container" id="transaction">
+  <div class="trans-box reveal">
+    <h3><i class="fas fa-user-check"></i> User Information</h3>
+    <p class="sub-head">Please fill all fields below</p>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label><i class="fas fa-user"></i> Full Name <span class="required">*</span></label>
+        <input type="text" id="userName" placeholder="Enter your full name" required />
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-city"></i> City <span class="required">*</span></label>
+        <input type="text" id="userCity" placeholder="Enter your city" required />
+      </div>
+      <div class="form-group full-width">
+        <label><i class="fas fa-envelope"></i> Email Address <span class="required">*</span></label>
+        <input type="email" id="userEmail" placeholder="your@email.com" required />
+      </div>
+      <div class="form-group full-width">
+        <label><i class="fas fa-pen"></i> Your Statement <span class="required">*</span></label>
+        <textarea id="userStatement" placeholder="Write your statement or message here..." required></textarea>
+      </div>
+      <div class="submit-row">
+        <button id="submitTransBtn"><i class="fab fa-whatsapp"></i> Submit & Redirect</button>
+      </div>
+    </div>
+    <p style="text-align:center; font-size:0.7rem; color:#555; margin-top:16px;">You'll be redirected to WhatsApp with all your information</p>
+  </div>
+</section>
+
+<!-- SOCIAL FOOTER -->
+<footer class="container" id="social">
+  <div class="social-footer">
+    <a href="#" class="social-icon" data-social="facebook"><i class="fab fa-facebook-f"></i></a>
+    <a href="#" class="social-icon" data-social="youtube"><i class="fab fa-youtube"></i></a>
+    <a href="#" class="social-icon" data-social="tiktok"><i class="fab fa-tiktok"></i></a>
+    <a href="#" class="social-icon" data-social="instagram"><i class="fab fa-instagram"></i></a>
+  </div>
+  <div class="footer-copy">© 2026 Learn with Shan · All rights reserved · 0317 3724356</div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/923173724356?text=Hi%20Shan!%20I%20want%20to%20join%20the%20course" target="_blank" class="float-wa" aria-label="WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- WHATSAPP CHANNEL -->
+<a href="https://whatsapp.com/channel/0029VbCdtdI3LdQWe2Zxdh3t" target="_blank" class="float-channel" aria-label="WhatsApp Channel">
+  <i class="fab fa-whatsapp"></i>
+  <span>Follow Channel</span>
+</a>
+
+<script src="js/firebase-config.js"></script>
+<script>
+  // ===== LOADING SCREEN =====
+  setTimeout(function() {
+    document.getElementById('loadingScreen').classList.add('hidden');
+  }, 2500);
+
+  // ===== TYPING =====
+  const phrases = [
+    '<span class="highlight">Learn & Earn</span> with Digital Skills',
+    '<span class="highlight">TikTok</span> Monetization Mastery',
+    '<span class="highlight">YouTube</span> Automation System',
+    '<span class="highlight">AI</span> Tools & Workflow',
+    '<span class="highlight">Video Editing</span> Pro Skills'
+  ];
+  let idx = 0, charIdx = 0, isDeleting = false;
+  const typingEl = document.getElementById('typingText');
+  let currentPhrase = phrases[0];
+
+  function typeEffect() {
+    const full = currentPhrase;
+    if (!isDeleting) {
+      typingEl.innerHTML = full.substring(0, charIdx + 1) + '<span class="cursor-blink"></span>';
+      charIdx++;
+      if (charIdx === full.length) {
+        isDeleting = true;
+        setTimeout(typeEffect, 1800);
+        return;
+      }
+      setTimeout(typeEffect, 65);
+    } else {
+      typingEl.innerHTML = full.substring(0, charIdx) + '<span class="cursor-blink"></span>';
+      charIdx--;
+      if (charIdx < 0) {
+        isDeleting = false;
+        idx = (idx + 1) % phrases.length;
+        currentPhrase = phrases[idx];
+        charIdx = 0;
+        setTimeout(typeEffect, 300);
+        return;
+      }
+      setTimeout(typeEffect, 35);
+    }
+  }
+  setTimeout(typeEffect, 500);
+
+  // ===== MENU =====
+  const menuToggle = document.getElementById('menuToggle');
+  const sideMenu = document.getElementById('sideMenu');
+  const overlay = document.getElementById('menuOverlay');
+  const closeBtn = document.getElementById('closeMenuBtn');
+
+  function openMenu() { sideMenu.classList.add('open'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+  function closeMenu() { sideMenu.classList.remove('open'); overlay.classList.remove('active'); document.body.style.overflow = ''; }
+
+  menuToggle.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', closeMenu);
+  sideMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+
+  // ===== SCROLL REVEAL =====
+  const revealElements = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -30px 0px' });
+  revealElements.forEach(el => revealObserver.observe(el));
+
+  // ===== CHECK ADMIN ACCESS AND SHOW/HIDE ADMIN MENU =====
+  async function checkAdminAndShowMenu() {
+    const adminMenuItem = document.getElementById('adminMenuItem');
+    const user = auth.currentUser;
+    
+    if (!user) {
+      adminMenuItem.classList.remove('visible');
+      return;
+    }
+    
+    try {
+      // Get admin emails from Firestore
+      const doc = await db.collection('settings').doc('admin').get();
+      let adminEmails = [];
+      if (doc.exists) {
+        const data = doc.data();
+        if (data.emails && Array.isArray(data.emails)) {
+          adminEmails = data.emails;
+        } else if (data.email) {
+          adminEmails = [data.email];
+        }
+      }
+      
+      // Check if current user is admin
+      if (adminEmails.includes(user.email)) {
+        adminMenuItem.classList.add('visible');
+      } else {
+        adminMenuItem.classList.remove('visible');
+      }
+    } catch (error) {
+      console.error('Error checking admin status:', error);
+      adminMenuItem.classList.remove('visible');
+    }
+  }
+
+  // ===== AUTH STATE OBSERVER =====
+  auth.onAuthStateChanged((user) => {
+    checkAdminAndShowMenu();
+  });
+
+  // ===== TRANSACTION =====
+  const submitBtn = document.getElementById('submitTransBtn');
+  const nameInput = document.getElementById('userName');
+  const cityInput = document.getElementById('userCity');
+  const emailInput = document.getElementById('userEmail');
+  const statementInput = document.getElementById('userStatement');
+
+  function validateField(input) {
+    if (input.value.trim() === '') {
+      input.classList.add('error');
+      return false;
+    }
+    input.classList.remove('error');
+    return true;
+  }
+
+  submitBtn.addEventListener('click', function() {
+    const isNameValid = validateField(nameInput);
+    const isCityValid = validateField(cityInput);
+    const isEmailValid = validateField(emailInput);
+    const isStatementValid = validateField(statementInput);
+
+    if (!isNameValid || !isCityValid || !isEmailValid || !isStatementValid) {
+      alert('Please fill all required fields (marked with *).');
+      return;
+    }
+
+    const name = nameInput.value.trim();
+    const city = cityInput.value.trim();
+    const email = emailInput.value.trim();
+    const statement = statementInput.value.trim();
+
+    const msg = `Name: ${name}%0ACity: ${city}%0AEmail: ${email}%0A%0AStatement:%0A${statement}%0A%0A---%0AFrom Learn with Shan Website`;
+    window.open(`https://wa.me/923173724356?text=${msg}`, '_blank');
+  });
+
+  document.querySelectorAll('.form-group input, .form-group textarea').forEach(input => {
+    input.addEventListener('input', function() {
+      if (this.value.trim() !== '') {
+        this.classList.remove('error');
+      }
+    });
+  });
+
+  // ===== SOCIAL ICONS =====
+  const socialMap = {
+    facebook: 'https://www.facebook.com/share/1RdLkzJF4P/',
+    youtube: 'https://youtube.com/@learnwithshan5?si=dfu2Mp79obCnx5cU',
+    tiktok: 'https://www.tiktok.com/@learnwithshan5?_r=1&_t=ZS-97HsCMoLQGK',
+    instagram: 'https://www.instagram.com/learnwithshan5?igsh=MXZ2Z3A1ZW8wNHM4Ng=='
+  };
+  document.querySelectorAll('.social-icon').forEach(icon => {
+    icon.addEventListener('click', function(e) {
+      e.preventDefault();
+      const key = this.dataset.social;
+      const url = socialMap[key];
+      if (url) window.open(url, '_blank');
+    });
+  });
+</script>
+</body>
+</html>

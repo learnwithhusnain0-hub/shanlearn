@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes, viewport-fit=cover">
+  <title>Learn with Shan · Sign In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .signin-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 24px 60px;
+    }
+    .signin-box {
+      max-width: 420px;
+      width: 100%;
+      background: rgba(20,20,18,0.9);
+      border-radius: 30px;
+      padding: 40px 34px;
+      border: 1px solid rgba(255,215,0,0.2);
+      text-align: center;
+    }
+    .signin-box .logo-icon-big {
+      width: 70px;
+      height: 70px;
+      border-radius: 16px;
+      margin-bottom: 16px;
+    }
+    .signin-box h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      color: #FFD700;
+      letter-spacing: 2px;
+    }
+    .signin-box p {
+      color: #888;
+      font-size: 0.9rem;
+      margin: 8px 0 24px;
+    }
+    .signin-box .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 20px 0;
+      color: #555;
+      font-size: 0.8rem;
+    }
+    .signin-box .divider::before,
+    .signin-box .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255,215,0,0.1);
+    }
+    .signin-box .google-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #4285F4, #34A853);
+      color: #fff;
+      border: none;
+      padding: 14px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .signin-box .google-btn:hover { transform: scale(1.02); }
+    .signin-box .back-link {
+      display: inline-block;
+      margin-top: 16px;
+      color: #666;
+      font-size: 0.85rem;
+      transition: 0.3s;
+    }
+    .signin-box .back-link:hover { color: #FFD700; }
+    .signin-box .user-info {
+      background: rgba(255,215,0,0.05);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255,215,0,0.1);
+    }
+    .signin-box .user-info .avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #FFD700;
+      margin-bottom: 8px;
+    }
+    .signin-box .user-info .email { color: #aaa; font-size: 0.85rem; }
+    .signin-box .user-info .name { color: #fff; font-weight: 600; }
+    .signin-box .signout-btn {
+      background: transparent;
+      border: 1px solid rgba(255,0,0,0.3);
+      color: #ff4444;
+      padding: 8px 24px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .signin-box .signout-btn:hover { background: rgba(255,0,0,0.1); }
+  </style>
+</head>
+<body>
+
+<!-- ANIMATED BACKGROUND -->
+<div class="bg-animation">
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div>
+</div>
+<div class="bg-orbs">
+  <div class="orb"></div><div class="orb"></div><div class="orb"></div>
+</div>
+
+<!-- SIGNIN PAGE -->
+<section class="signin-page">
+  <div class="signin-box">
+    <img class="logo-icon-big" src="https://i.ibb.co/ds4SFQsf/IMG-20260615-WA0025-1.webp" alt="Logo" />
+    <h1>LEARN WITH SHAN</h1>
+    <p>Sign in to access Pro APKs and Admin Panel</p>
+
+    <div id="signinContent">
+      <!-- Not signed in -->
+      <div id="notSignedIn">
+        <button class="google-btn" id="googleSignInBtn">
+          <i class="fab fa-google"></i> Sign in with Google
+        </button>
+        <div class="divider">or</div>
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+      </div>
+
+      <!-- Signed in -->
+      <div id="signedIn" style="display:none;">
+        <div class="user-info">
+          <img class="avatar" id="userAvatar" src="" alt="Avatar" />
+          <div class="name" id="userName">User Name</div>
+          <div class="email" id="userEmail">user@email.com</div>
+        </div>
+        <button class="signout-btn" id="signOutBtn"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+        <div class="divider"></div>
+        <a href="index.html" class="back-link"><i class="fas fa-home"></i> Go to Home</a>
+        <a href="pro-apks.html" class="back-link" style="margin-left:16px;"><i class="fas fa-crown"></i> Pro APKs</a>
+        <a href="admin.html" class="back-link" style="margin-left:16px;" id="adminLink"><i class="fas fa-user-shield"></i> Admin</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="js/firebase-config.js"></script>
+<script>
+  // ===== AUTH STATE =====
+  const notSignedIn = document.getElementById('notSignedIn');
+  const signedIn = document.getElementById('signedIn');
+  const userAvatar = document.getElementById('userAvatar');
+  const userName = document.getElementById('userName');
+  const userEmail = document.getElementById('userEmail');
+  const adminLink = document.getElementById('adminLink');
+
+  // Check if user is admin
+  async function checkAdminStatus(user) {
+    if (!user) return false;
+    try {
+      const doc = await db.collection('settings').doc('admin').get();
+      let adminEmails = [];
+      if (doc.exists) {
+        const data = doc.data();
+        if (data.emails && Array.isArray(data.emails)) {
+          adminEmails = data.emails;
+        } else if (data.email) {
+          adminEmails = [data.email];
+        }
+      }
+      return adminEmails.includes(user.email);
+    } catch (error) {
+      console.error('Error checking admin status:', error);
+      return false;
+    }
+  }
+
+  auth.onAuthStateChanged(async (user) => {
+    if (user) {
+      notSignedIn.style.display = 'none';
+      signedIn.style.display = 'block';
+      userAvatar.src = user.photoURL || 'https://ui-avatars.com/api/?name=' + user.displayName + '&background=FFD700&color=000';
+      userName.textContent = user.displayName || 'User';
+      userEmail.textContent = user.email;
+      
+      // Show/hide admin link based on admin status
+      const isAdmin = await checkAdminStatus(user);
+      adminLink.style.display = isAdmin ? 'inline-block' : 'none';
+    } else {
+      notSignedIn.style.display = 'block';
+      signedIn.style.display = 'none';
+    }
+  });
+
+  // ===== GOOGLE SIGN IN =====
+  document.getElementById('googleSignInBtn').addEventListener('click', function() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider)
+      .then((result) => {
+        // Check if redirect parameter exists
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirect = urlParams.get('redirect');
+        if (redirect) {
+          window.location.href = redirect;
+        }
+      })
+      .catch((error) => {
+        alert('Sign in failed: ' + error.message);
+      });
+  });
+
+  // ===== SIGN OUT =====
+  document.getElementById('signOutBtn').addEventListener('click', function() {
+    auth.signOut().then(() => {
+      notSignedIn.style.display = 'block';
+      signedIn.style.display = 'none';
+    });
+  });
+</script>
+</body>
+</html>
