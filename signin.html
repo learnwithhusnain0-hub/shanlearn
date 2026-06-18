@@ -10,106 +10,222 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <style>
+    /* ===== SIGNIN PAGE - YELLOW + BLACK THEME ===== */
     .signin-page {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 100px 24px 60px;
+      background: #0b0b0b;
     }
     .signin-box {
       max-width: 420px;
       width: 100%;
-      background: rgba(20,20,18,0.9);
+      background: rgba(18,18,16,0.95);
       border-radius: 30px;
       padding: 40px 34px;
-      border: 1px solid rgba(255,215,0,0.2);
+      border: 2px solid #FFD700;
+      box-shadow: 0 0 60px rgba(255,215,0,0.08), inset 0 0 60px rgba(255,215,0,0.02);
       text-align: center;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      position: relative;
+      overflow: hidden;
+    }
+    .signin-box::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 40%, rgba(255,215,0,0.03) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .signin-box > * {
+      position: relative;
+      z-index: 1;
     }
     .signin-box .logo-icon-big {
-      width: 70px;
-      height: 70px;
+      width: 80px;
+      height: 80px;
       border-radius: 16px;
       margin-bottom: 16px;
+      border: 2px solid rgba(255,215,0,0.2);
+      box-shadow: 0 0 30px rgba(255,215,0,0.1);
     }
     .signin-box h1 {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 2rem;
+      font-size: 2.2rem;
       color: #FFD700;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
+      text-shadow: 0 0 30px rgba(255,215,0,0.1);
     }
-    .signin-box p {
-      color: #888;
+    .signin-box .sub-text {
+      color: #999;
       font-size: 0.9rem;
-      margin: 8px 0 24px;
+      margin: 8px 0 28px;
+      letter-spacing: 1px;
     }
     .signin-box .divider {
       display: flex;
       align-items: center;
       gap: 16px;
-      margin: 20px 0;
+      margin: 24px 0;
       color: #555;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
     }
     .signin-box .divider::before,
     .signin-box .divider::after {
       content: '';
       flex: 1;
       height: 1px;
-      background: rgba(255,215,0,0.1);
+      background: linear-gradient(90deg, transparent, rgba(255,215,0,0.2), transparent);
     }
     .signin-box .google-btn {
       width: 100%;
-      background: linear-gradient(135deg, #4285F4, #34A853);
-      color: #fff;
+      background: linear-gradient(135deg, #FFD700, #e6b800);
+      color: #0a0a0a;
       border: none;
-      padding: 14px;
+      padding: 16px;
       border-radius: 30px;
       font-weight: 700;
       font-size: 1rem;
       cursor: pointer;
-      transition: 0.3s;
+      transition: all 0.3s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 12px;
+      box-shadow: 0 8px 30px rgba(255,215,0,0.2);
     }
-    .signin-box .google-btn:hover { transform: scale(1.02); }
+    .signin-box .google-btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 12px 40px rgba(255,215,0,0.35);
+    }
+    .signin-box .google-btn:active {
+      transform: scale(0.97);
+    }
+    .signin-box .google-btn i {
+      font-size: 1.2rem;
+    }
     .signin-box .back-link {
       display: inline-block;
-      margin-top: 16px;
+      margin-top: 18px;
       color: #666;
       font-size: 0.85rem;
       transition: 0.3s;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
     }
-    .signin-box .back-link:hover { color: #FFD700; }
+    .signin-box .back-link:hover {
+      color: #FFD700;
+      border-bottom-color: rgba(255,215,0,0.3);
+    }
+    .signin-box .back-link i {
+      margin-right: 6px;
+    }
+
+    /* ----- Signed In State ----- */
     .signin-box .user-info {
-      background: rgba(255,215,0,0.05);
-      border-radius: 12px;
-      padding: 16px;
+      background: rgba(255,215,0,0.04);
+      border-radius: 16px;
+      padding: 20px;
       margin-bottom: 20px;
       border: 1px solid rgba(255,215,0,0.1);
+      transition: 0.3s;
+    }
+    .signin-box .user-info:hover {
+      border-color: rgba(255,215,0,0.2);
     }
     .signin-box .user-info .avatar {
-      width: 50px;
-      height: 50px;
+      width: 56px;
+      height: 56px;
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid #FFD700;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
+      box-shadow: 0 0 20px rgba(255,215,0,0.1);
     }
-    .signin-box .user-info .email { color: #aaa; font-size: 0.85rem; }
-    .signin-box .user-info .name { color: #fff; font-weight: 600; }
+    .signin-box .user-info .name {
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+    .signin-box .user-info .email {
+      color: #888;
+      font-size: 0.85rem;
+      margin-top: 2px;
+    }
     .signin-box .signout-btn {
       background: transparent;
-      border: 1px solid rgba(255,0,0,0.3);
+      border: 1px solid rgba(255,68,68,0.3);
       color: #ff4444;
-      padding: 8px 24px;
+      padding: 8px 28px;
       border-radius: 20px;
       cursor: pointer;
       transition: 0.3s;
+      font-size: 0.85rem;
+      font-weight: 500;
     }
-    .signin-box .signout-btn:hover { background: rgba(255,0,0,0.1); }
+    .signin-box .signout-btn:hover {
+      background: rgba(255,68,68,0.1);
+      border-color: rgba(255,68,68,0.5);
+    }
+    .signin-box .quick-links {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .signin-box .quick-links .back-link {
+      margin-top: 0;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: rgba(255,215,0,0.04);
+      border: 1px solid rgba(255,215,0,0.06);
+    }
+    .signin-box .quick-links .back-link:hover {
+      background: rgba(255,215,0,0.08);
+      border-color: rgba(255,215,0,0.15);
+    }
+
+    /* ----- Gold Border Animation ----- */
+    .signin-box .gold-border {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #FFD700, #FFA500, #FFD700, transparent);
+      background-size: 300% 100%;
+      animation: goldSlide 4s ease-in-out infinite;
+      z-index: 2;
+    }
+    @keyframes goldSlide {
+      0% { background-position: -300% 0; }
+      50% { background-position: 300% 0; }
+      100% { background-position: -300% 0; }
+    }
+
+    /* ----- Responsive ----- */
+    @media (max-width: 480px) {
+      .signin-box {
+        padding: 30px 20px;
+      }
+      .signin-box h1 {
+        font-size: 1.8rem;
+      }
+      .signin-box .logo-icon-big {
+        width: 64px;
+        height: 64px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -128,9 +244,12 @@
 <!-- SIGNIN PAGE -->
 <section class="signin-page">
   <div class="signin-box">
+    <!-- Gold Border Animation -->
+    <div class="gold-border"></div>
+
     <img class="logo-icon-big" src="https://i.ibb.co/ds4SFQsf/IMG-20260615-WA0025-1.webp" alt="Logo" />
     <h1>LEARN WITH SHAN</h1>
-    <p>Sign in to access Pro APKs and Admin Panel</p>
+    <p class="sub-text">Sign in to access Pro APKs &amp; Admin Panel</p>
 
     <div id="signinContent">
       <!-- Not signed in -->
@@ -151,9 +270,11 @@
         </div>
         <button class="signout-btn" id="signOutBtn"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
         <div class="divider"></div>
-        <a href="index.html" class="back-link"><i class="fas fa-home"></i> Go to Home</a>
-        <a href="pro-apks.html" class="back-link" style="margin-left:16px;"><i class="fas fa-crown"></i> Pro APKs</a>
-        <a href="admin.html" class="back-link" style="margin-left:16px;" id="adminLink"><i class="fas fa-user-shield"></i> Admin</a>
+        <div class="quick-links">
+          <a href="index.html" class="back-link"><i class="fas fa-home"></i> Home</a>
+          <a href="pro-apks.html" class="back-link"><i class="fas fa-crown"></i> Pro APKs</a>
+          <a href="admin.html" class="back-link" id="adminLink"><i class="fas fa-user-shield"></i> Admin</a>
+        </div>
       </div>
     </div>
   </div>
@@ -212,7 +333,6 @@
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider)
       .then((result) => {
-        // Check if redirect parameter exists
         const urlParams = new URLSearchParams(window.location.search);
         const redirect = urlParams.get('redirect');
         if (redirect) {
