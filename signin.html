@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <style>
-    /* ===== SIGNIN PAGE - YELLOW + BLACK THEME ===== */
     .signin-page {
       min-height: 100vh;
       display: flex;
@@ -44,10 +43,7 @@
       pointer-events: none;
       z-index: 0;
     }
-    .signin-box > * {
-      position: relative;
-      z-index: 1;
-    }
+    .signin-box > * { position: relative; z-index: 1; }
     .signin-box .logo-icon-big {
       width: 80px;
       height: 80px;
@@ -107,12 +103,8 @@
       transform: translateY(-2px) scale(1.02);
       box-shadow: 0 12px 40px rgba(255,215,0,0.35);
     }
-    .signin-box .google-btn:active {
-      transform: scale(0.97);
-    }
-    .signin-box .google-btn i {
-      font-size: 1.2rem;
-    }
+    .signin-box .google-btn:active { transform: scale(0.97); }
+    .signin-box .google-btn i { font-size: 1.2rem; }
     .signin-box .back-link {
       display: inline-block;
       margin-top: 18px;
@@ -126,11 +118,7 @@
       color: #FFD700;
       border-bottom-color: rgba(255,215,0,0.3);
     }
-    .signin-box .back-link i {
-      margin-right: 6px;
-    }
-
-    /* ----- Signed In State ----- */
+    .signin-box .back-link i { margin-right: 6px; }
     .signin-box .user-info {
       background: rgba(255,215,0,0.04);
       border-radius: 16px;
@@ -139,9 +127,7 @@
       border: 1px solid rgba(255,215,0,0.1);
       transition: 0.3s;
     }
-    .signin-box .user-info:hover {
-      border-color: rgba(255,215,0,0.2);
-    }
+    .signin-box .user-info:hover { border-color: rgba(255,215,0,0.2); }
     .signin-box .user-info .avatar {
       width: 56px;
       height: 56px;
@@ -194,8 +180,6 @@
       background: rgba(255,215,0,0.08);
       border-color: rgba(255,215,0,0.15);
     }
-
-    /* ----- Gold Border Animation ----- */
     .signin-box .gold-border {
       position: absolute;
       top: 0;
@@ -212,20 +196,13 @@
       50% { background-position: 300% 0; }
       100% { background-position: -300% 0; }
     }
-
-    /* ----- Responsive ----- */
     @media (max-width: 480px) {
-      .signin-box {
-        padding: 30px 20px;
-      }
-      .signin-box h1 {
-        font-size: 1.8rem;
-      }
-      .signin-box .logo-icon-big {
-        width: 64px;
-        height: 64px;
-      }
+      .signin-box { padding: 30px 20px; }
+      .signin-box h1 { font-size: 1.8rem; }
+      .signin-box .logo-icon-big { width: 64px; height: 64px; }
     }
+    .admin-menu-item { display: none !important; }
+    .admin-menu-item.visible { display: flex !important; }
   </style>
 </head>
 <body>
@@ -241,10 +218,35 @@
   <div class="orb"></div><div class="orb"></div><div class="orb"></div>
 </div>
 
+<!-- HEADER -->
+<header class="site-header">
+  <div class="logo-area">
+    <img class="logo-icon" src="https://i.ibb.co/ds4SFQsf/IMG-20260615-WA0025-1.webp" alt="Logo" />
+    <span class="logo-text">LEARN WITH SHAN</span>
+  </div>
+  <div style="display:flex; align-items:center; gap:10px;">
+    <a href="signin.html" class="signin-btn"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+      <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </button>
+  </div>
+</header>
+
+<!-- SIDE MENU -->
+<div class="menu-overlay" id="menuOverlay"></div>
+<nav class="side-menu" id="sideMenu">
+  <button class="close-btn" id="closeMenuBtn"><i class="fas fa-times"></i></button>
+  <a href="index.html"><i class="fas fa-home"></i> Home</a>
+  <a href="pro-apks.html"><i class="fas fa-crown"></i> Pro APKs</a>
+  <a href="admin.html" class="admin-menu-item" id="adminMenuItem"><i class="fas fa-user-shield"></i> Admin</a>
+  <a href="index.html#transaction"><i class="fas fa-credit-card"></i> Transaction</a>
+  <a href="index.html#social"><i class="fas fa-share-alt"></i> Social</a>
+  <a href="#" class="menu-highlight"><i class="fas fa-phone"></i> 0317 3724356</a>
+</nav>
+
 <!-- SIGNIN PAGE -->
 <section class="signin-page">
   <div class="signin-box">
-    <!-- Gold Border Animation -->
     <div class="gold-border"></div>
 
     <img class="logo-icon-big" src="https://i.ibb.co/ds4SFQsf/IMG-20260615-WA0025-1.webp" alt="Logo" />
@@ -282,17 +284,32 @@
 
 <script src="js/firebase-config.js"></script>
 <script>
-  // ===== AUTH STATE =====
-  const notSignedIn = document.getElementById('notSignedIn');
-  const signedIn = document.getElementById('signedIn');
-  const userAvatar = document.getElementById('userAvatar');
-  const userName = document.getElementById('userName');
-  const userEmail = document.getElementById('userEmail');
-  const adminLink = document.getElementById('adminLink');
+  // ===== MENU =====
+  const menuToggle = document.getElementById('menuToggle');
+  const sideMenu = document.getElementById('sideMenu');
+  const overlay = document.getElementById('menuOverlay');
+  const closeBtn = document.getElementById('closeMenuBtn');
 
-  // Check if user is admin
-  async function checkAdminStatus(user) {
-    if (!user) return false;
+  function openMenu() { sideMenu.classList.add('open'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+  function closeMenu() { sideMenu.classList.remove('open'); overlay.classList.remove('active'); document.body.style.overflow = ''; }
+
+  menuToggle.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', closeMenu);
+  sideMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+
+  // ===== CHECK ADMIN FOR MENU =====
+  async function checkAdminMenu() {
+    const adminMenuItem = document.getElementById('adminMenuItem');
+    const adminLink = document.getElementById('adminLink');
+    const user = auth.currentUser;
+    
+    if (!user) {
+      if (adminMenuItem) adminMenuItem.style.display = 'none';
+      if (adminLink) adminLink.style.display = 'none';
+      return;
+    }
+    
     try {
       const doc = await db.collection('settings').doc('admin').get();
       let adminEmails = [];
@@ -304,12 +321,25 @@
           adminEmails = [data.email];
         }
       }
-      return adminEmails.includes(user.email);
+      if (adminEmails.includes(user.email)) {
+        if (adminMenuItem) adminMenuItem.style.display = 'flex';
+        if (adminLink) adminLink.style.display = 'inline-block';
+      } else {
+        if (adminMenuItem) adminMenuItem.style.display = 'none';
+        if (adminLink) adminLink.style.display = 'none';
+      }
     } catch (error) {
-      console.error('Error checking admin status:', error);
-      return false;
+      if (adminMenuItem) adminMenuItem.style.display = 'none';
+      if (adminLink) adminLink.style.display = 'none';
     }
   }
+
+  // ===== AUTH STATE =====
+  const notSignedIn = document.getElementById('notSignedIn');
+  const signedIn = document.getElementById('signedIn');
+  const userAvatar = document.getElementById('userAvatar');
+  const userName = document.getElementById('userName');
+  const userEmail = document.getElementById('userEmail');
 
   auth.onAuthStateChanged(async (user) => {
     if (user) {
@@ -318,10 +348,7 @@
       userAvatar.src = user.photoURL || 'https://ui-avatars.com/api/?name=' + user.displayName + '&background=FFD700&color=000';
       userName.textContent = user.displayName || 'User';
       userEmail.textContent = user.email;
-      
-      // Show/hide admin link based on admin status
-      const isAdmin = await checkAdminStatus(user);
-      adminLink.style.display = isAdmin ? 'inline-block' : 'none';
+      await checkAdminMenu();
     } else {
       notSignedIn.style.display = 'block';
       signedIn.style.display = 'none';
