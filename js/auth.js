@@ -23,12 +23,6 @@ function signInWithGoogle() {
   return auth.signInWithPopup(provider);
 }
 
-// Sign in with Google redirect
-function signInWithGoogleRedirect() {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  return auth.signInWithRedirect(provider);
-}
-
 // Get ID token
 async function getIdToken() {
   const user = auth.currentUser;
@@ -42,14 +36,3 @@ async function getIdToken() {
 function onAuthStateChanged(callback) {
   return auth.onAuthStateChanged(callback);
 }
-
-// Export functions (if using modules)
-// export { 
-//   isUserSignedIn, 
-//   getCurrentUser, 
-//   signOutUser, 
-//   signInWithGoogle,
-//   signInWithGoogleRedirect,
-//   getIdToken,
-//   onAuthStateChanged
-// };
