@@ -95,7 +95,7 @@
   <button class="close-btn" id="closeMenuBtn"><i class="fas fa-times"></i></button>
   <a href="index.html"><i class="fas fa-home"></i> Home</a>
   <a href="#proapks"><i class="fas fa-crown"></i> Pro APKs</a>
-  <a href="admin.html"><i class="fas fa-user-shield"></i> Admin</a>
+  <a href="admin.html" class="admin-menu-item" id="adminMenuItem" style="display:none;"><i class="fas fa-user-shield"></i> Admin</a>
   <a href="index.html#transaction"><i class="fas fa-credit-card"></i> Transaction</a>
   <a href="index.html#social"><i class="fas fa-share-alt"></i> Social</a>
   <a href="#" class="menu-highlight"><i class="fas fa-phone"></i> 0317 3724356</a>
@@ -124,65 +124,8 @@
 </a>
 
 <script src="js/firebase-config.js"></script>
-<script src="js/auth.js"></script>
 <script>
   // ===== MENU =====
   const menuToggle = document.getElementById('menuToggle');
   const sideMenu = document.getElementById('sideMenu');
-  const overlay = document.getElementById('menuOverlay');
-  const closeBtn = document.getElementById('closeMenuBtn');
-
-  function openMenu() { sideMenu.classList.add('open'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
-  function closeMenu() { sideMenu.classList.remove('open'); overlay.classList.remove('active'); document.body.style.overflow = ''; }
-
-  menuToggle.addEventListener('click', openMenu);
-  closeBtn.addEventListener('click', closeMenu);
-  overlay.addEventListener('click', closeMenu);
-  sideMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
-
-  // ===== LOAD APKs =====
-  const grid = document.getElementById('apkGrid');
-
-  db.collection('apks').orderBy('timestamp', 'desc').onSnapshot((snapshot) => {
-    if (snapshot.empty) {
-      grid.innerHTML = '<div class="no-apps">No apps uploaded yet.</div>';
-      return;
-    }
-    
-    grid.innerHTML = '';
-    snapshot.forEach((doc) => {
-      const data = doc.data();
-      const id = doc.id;
-      const div = document.createElement('div');
-      div.className = 'apk-card-page';
-      div.innerHTML = `
-        <img class="apk-logo" src="${data.logo || 'https://picsum.photos/seed/'+id+'/100/100'}" alt="${data.name}" />
-        <h4>${data.name}</h4>
-        <p class="apk-desc">${data.shortDesc || ''}</p>
-        <p class="apk-detail">${data.details || ''}</p>
-        <button class="download-btn" data-link="${data.link}" data-name="${data.name}">
-          <i class="fas fa-download"></i> Download
-        </button>
-        <span class="lock-icon"><i class="fas fa-lock"></i></span>
-      `;
-      grid.appendChild(div);
-      
-      const btn = div.querySelector('.download-btn');
-      btn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        const user = auth.currentUser;
-        if (user) {
-          window.open(this.dataset.link, '_blank');
-        } else {
-          alert('Please sign in to download Pro APKs.');
-          window.location.href = 'signin.html?redirect=pro-apks.html';
-        }
-      });
-    });
-  }, (error) => {
-    console.error('Error loading APKs:', error);
-    grid.innerHTML = '<div class="no-apps" style="color:#ff4444;">Error loading apps. Please refresh.</div>';
-  });
-</script>
-</body>
-</html>
+  const overlay = document.getElementById('menuOver
