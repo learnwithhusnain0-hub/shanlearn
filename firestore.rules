@@ -24,7 +24,7 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
     
-    // Default deny
+    // Default deny for other collections
     match /{document=**} {
       allow read, write: if false;
     }
