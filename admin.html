@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
+
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js">
     </script>
@@ -18,6 +18,9 @@
     </script>
 
     <style>
+        /* ============================================================
+           COMPLETE STYLES - ADMIN PAGE
+           ============================================================ */
         * {
             margin: 0;
             padding: 0;
@@ -32,7 +35,6 @@
             overflow-x: hidden;
             scroll-behavior: smooth;
             -webkit-font-smoothing: antialiased;
-            min-height: 100vh;
         }
 
         a {
@@ -410,7 +412,7 @@
         }
 
         .admin-page .admin-box {
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto;
             background: rgba(20, 20, 18, 0.9);
             border-radius: 30px;
@@ -460,7 +462,7 @@
 
         .admin-page .form-group textarea {
             resize: vertical;
-            min-height: 60px;
+            min-height: 80px;
         }
 
         .admin-page .btn-submit {
@@ -642,6 +644,79 @@
             display: flex !important;
         }
 
+        /* ============================================================
+           MANAGE PAGES SECTION
+           ============================================================ */
+        .manage-pages-section {
+            margin-top: 30px;
+            border-top: 2px solid rgba(255, 215, 0, 0.15);
+            padding-top: 24px;
+        }
+
+        .manage-pages-section h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            color: #FFD700;
+            font-size: 1.6rem;
+            margin-bottom: 16px;
+        }
+
+        .pages-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .pages-grid .page-card {
+            background: rgba(255, 215, 0, 0.04);
+            border: 1px solid rgba(255, 215, 0, 0.08);
+            border-radius: 12px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pages-grid .page-card .page-info h4 {
+            color: #fff;
+            font-size: 0.85rem;
+        }
+
+        .pages-grid .page-card .page-info p {
+            color: #888;
+            font-size: 0.7rem;
+        }
+
+        .pages-grid .page-card .page-actions button {
+            background: transparent;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .pages-grid .page-card .page-actions button:hover {
+            color: #FFD700;
+            background: rgba(255, 215, 0, 0.05);
+        }
+
+        .pages-grid .page-card .page-actions .delete-page-btn {
+            color: #ff4444;
+        }
+
+        .pages-grid .page-card .page-actions .delete-page-btn:hover {
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        .no-pages {
+            color: #666;
+            font-size: 0.85rem;
+            text-align: center;
+            padding: 20px 0;
+        }
+
         /* ---------- FLOATING BUTTONS ---------- */
         .float-wa {
             position: fixed;
@@ -742,6 +817,15 @@
             .admin-page .admin-box {
                 padding: 20px 16px;
             }
+            .pages-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (min-width: 601px) and (max-width: 768px) {
+            .pages-grid {
+                grid-template-columns: 1fr 1fr;
+            }
         }
     </style>
 </head>
@@ -780,16 +864,16 @@
         </div>
     </header>
 
-    <!-- SIDE MENU -->
+    <!-- SIDE MENU (REMOVED EXTRA TABS) -->
     <div class="menu-overlay" id="menuOverlay"></div>
     <nav class="side-menu" id="sideMenu">
         <button class="close-btn" id="closeMenuBtn"><i class="fas fa-times"></i></button>
         <a href="index.html"><i class="fas fa-home"></i> Home</a>
         <a href="pro-apks.html"><i class="fas fa-crown"></i> Pro APKs</a>
         <a href="admin.html" class="admin-menu-item" id="adminMenuItem"><i class="fas fa-user-shield"></i> Admin</a>
-        <a href="index.html#transaction"><i class="fas fa-credit-card"></i> Transaction</a>
-        <a href="index.html#social"><i class="fas fa-share-alt"></i> Social</a>
         <a href="#" class="menu-highlight"><i class="fas fa-phone"></i> 0317 3724356</a>
+        <!-- Dynamic pages will be added here by admin panel -->
+        <div id="dynamicMenuLinks"></div>
     </nav>
 
     <!-- ADMIN PAGE -->
@@ -825,6 +909,8 @@
                     <button class="logout-btn" id="adminLogoutBtn">Logout</button>
                 </div>
 
+                <!-- APK Upload -->
+                <h3 style="color:#aaa; font-size:0.9rem; margin-bottom:12px;">Upload New APK</h3>
                 <div class="form-group">
                     <label>App Name</label>
                     <input type="text" id="apkName" placeholder="Enter app name" />
@@ -850,6 +936,35 @@
                 <div class="admin-list" id="adminApkList">
                     <h4 style="color:#aaa; font-size:0.8rem; margin-bottom:10px;">Uploaded Apps</h4>
                     <p style="color:#666; font-size:0.8rem;">Loading...</p>
+                </div>
+
+                <!-- ============================================================
+                MANAGE PAGES - FEATURE
+                ============================================================ -->
+                <div class="manage-pages-section">
+                    <h2><i class="fas fa-file-alt"></i> Manage Pages</h2>
+                    <p style="color:#888; font-size:0.85rem; margin-bottom:12px;">Create new pages with custom content (videos, prompts, text, etc.)</p>
+
+                    <div class="form-group">
+                        <label>Page Name (shown in menu)</label>
+                        <input type="text" id="pageName" placeholder="e.g. YouTube Tutorials" />
+                    </div>
+                    <div class="form-group">
+                        <label>Page URL (unique identifier)</label>
+                        <input type="text" id="pageUrl" placeholder="e.g. youtube-tutorials" />
+                        <small style="color:#666; font-size:0.7rem;">Use lowercase letters, numbers, and hyphens only</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Content (HTML, video links, prompts, etc.)</label>
+                        <textarea id="pageContent" placeholder="Paste your HTML content here..."></textarea>
+                        <small style="color:#666; font-size:0.7rem;">You can add video embeds, text, images, or any HTML</small>
+                    </div>
+                    <button class="btn-submit" id="createPageBtn"><i class="fas fa-plus"></i> Create New Page</button>
+
+                    <div class="admin-list" id="pagesList">
+                        <h4 style="color:#aaa; font-size:0.8rem; margin-bottom:10px;">Existing Pages</h4>
+                        <div class="no-pages">No pages created yet.</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -894,6 +1009,7 @@
         const overlay = document.getElementById('menuOverlay');
         const closeBtn = document.getElementById('closeMenuBtn');
         const headerSignInBtn = document.getElementById('headerSignInBtn');
+        const dynamicMenuLinks = document.getElementById('dynamicMenuLinks');
 
         const loginSection = document.getElementById('loginSection');
         const uploadSection = document.getElementById('uploadSection');
@@ -926,6 +1042,22 @@
         sideMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
 
         // ============================================================
+        // LOAD DYNAMIC PAGES IN MENU
+        // ============================================================
+        function loadDynamicPages() {
+            db.collection('pages').orderBy('order', 'asc').onSnapshot((snapshot) => {
+                dynamicMenuLinks.innerHTML = '';
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const link = document.createElement('a');
+                    link.href = `page.html?id=${doc.id}`;
+                    link.innerHTML = `<i class="fas fa-file"></i> ${data.name}`;
+                    dynamicMenuLinks.appendChild(link);
+                });
+            });
+        }
+
+        // ============================================================
         // ADMIN LOGIC
         // ============================================================
         async function loadAdminEmails() {
@@ -953,50 +1085,43 @@
         }
 
         function updateUI(isAdmin, isLoggedIn, userEmail) {
-            // Hide all first
             loginSection.classList.add('hidden');
             uploadSection.classList.remove('active');
             accessDenied.style.display = 'none';
 
             if (!isLoggedIn) {
-                // Not logged in
                 loginSection.classList.remove('hidden');
                 loginStatus.textContent = 'Please sign in to continue.';
                 googleLoginBtn.disabled = false;
                 googleLoginBtn.innerHTML = '<i class="fab fa-google"></i> Sign in with Google';
             } else if (isLoggedIn && isAdmin) {
-                // Logged in as admin
                 uploadSection.classList.add('active');
                 adminEmailDisplay.textContent = userEmail;
                 loginStatus.textContent = '✅ Admin access granted!';
+                loadAdminAPKs();
+                loadPagesList();
             } else if (isLoggedIn && !isAdmin) {
-                // Logged in but not admin
                 accessDenied.style.display = 'block';
                 loginStatus.textContent = '❌ You are not authorized as admin.';
             }
         }
 
         // ============================================================
-        // GOOGLE SIGN IN - FIXED
+        // GOOGLE SIGN IN
         // ============================================================
         googleLoginBtn.addEventListener('click', function() {
             console.log('Google Sign In clicked');
-            
-            // Check if Firebase is loaded
             if (typeof firebase === 'undefined') {
                 alert('Firebase is not loaded. Please refresh the page.');
                 return;
             }
 
-            // Disable button
             this.disabled = true;
             this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
             loginStatus.textContent = 'Signing in...';
 
             const provider = new firebase.auth.GoogleAuthProvider();
-            provider.setCustomParameters({
-                prompt: 'select_account'
-            });
+            provider.setCustomParameters({ prompt: 'select_account' });
 
             auth.signInWithPopup(provider)
                 .then(async (result) => {
@@ -1004,14 +1129,12 @@
                     const isAdmin = await isUserAdmin(result.user);
                     if (isAdmin) {
                         updateUI(true, true, result.user.email);
-                        loadAdminAPKs();
-                        // Update header
-                        headerSignInBtn.innerHTML = `<i class="fas fa-user"></i> ${result.user.displayName || result.user.email.split('@')[0]}`;
+                        headerSignInBtn.innerHTML =
+                            `<i class="fas fa-user"></i> ${result.user.displayName || result.user.email.split('@')[0]}`;
                     } else {
                         alert('You are not authorized as admin.');
                         auth.signOut();
                         updateUI(false, false, null);
-                        // Reset button
                         googleLoginBtn.disabled = false;
                         googleLoginBtn.innerHTML = '<i class="fab fa-google"></i> Sign in with Google';
                     }
@@ -1033,6 +1156,7 @@
                 updateUI(isAdmin, true, user.email);
                 if (isAdmin) {
                     loadAdminAPKs();
+                    loadPagesList();
                 }
                 headerSignInBtn.innerHTML = `<i class="fas fa-user"></i> ${user.displayName || user.email.split('@')[0]}`;
             } else {
@@ -1041,6 +1165,7 @@
                 googleLoginBtn.disabled = false;
                 googleLoginBtn.innerHTML = '<i class="fab fa-google"></i> Sign in with Google';
             }
+            loadDynamicPages();
         });
 
         // ============================================================
@@ -1053,7 +1178,6 @@
                     auth.signOut();
                 }
             } else {
-                // Scroll to login section
                 loginSection.scrollIntoView({ behavior: 'smooth' });
             }
         });
@@ -1081,7 +1205,6 @@
                 return;
             }
 
-            // Check if user is still admin
             const user = auth.currentUser;
             if (!user) {
                 alert('You must be signed in as admin to upload.');
@@ -1146,11 +1269,95 @@
         }
 
         // ============================================================
+        // MANAGE PAGES - CREATE NEW PAGE
+        // ============================================================
+        document.getElementById('createPageBtn').addEventListener('click', function() {
+            const name = document.getElementById('pageName').value.trim();
+            const url = document.getElementById('pageUrl').value.trim();
+            const content = document.getElementById('pageContent').value.trim();
+
+            if (!name || !url || !content) {
+                alert('Please fill all fields: Page Name, Page URL, and Content.');
+                return;
+            }
+
+            // Validate URL (only lowercase, numbers, hyphens)
+            if (!/^[a-z0-9-]+$/.test(url)) {
+                alert('Page URL can only contain lowercase letters, numbers, and hyphens.');
+                return;
+            }
+
+            db.collection('pages').add({
+                name: name,
+                url: url,
+                content: content,
+                order: Date.now(),
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                alert('Page created successfully!');
+                document.getElementById('pageName').value = '';
+                document.getElementById('pageUrl').value = '';
+                document.getElementById('pageContent').value = '';
+                loadPagesList();
+                loadDynamicPages();
+            }).catch((error) => {
+                alert('Error creating page: ' + error.message);
+            });
+        });
+
+        // ============================================================
+        // LOAD PAGES LIST IN ADMIN
+        // ============================================================
+        function loadPagesList() {
+            const list = document.getElementById('pagesList');
+            db.collection('pages').orderBy('order', 'asc').onSnapshot((snapshot) => {
+                if (snapshot.empty) {
+                    list.innerHTML = `
+                            <h4 style="color:#aaa; font-size:0.8rem; margin-bottom:10px;">Existing Pages</h4>
+                            <div class="no-pages">No pages created yet.</div>
+                        `;
+                    return;
+                }
+
+                let html = '<h4 style="color:#aaa; font-size:0.8rem; margin-bottom:10px;">Existing Pages</h4>';
+                html += '<div class="pages-grid">';
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    html += `
+                            <div class="page-card">
+                                <div class="page-info">
+                                    <h4>${data.name}</h4>
+                                    <p>/${data.url}</p>
+                                </div>
+                                <div class="page-actions">
+                                    <button class="delete-page-btn" data-id="${doc.id}" title="Delete Page"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                        `;
+                });
+                html += '</div>';
+                list.innerHTML = html;
+
+                list.querySelectorAll('.delete-page-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        if (confirm('Delete this page?')) {
+                            db.collection('pages').doc(this.dataset.id).delete()
+                                .then(() => {
+                                    loadPagesList();
+                                    loadDynamicPages();
+                                })
+                                .catch((err) => alert('Error: ' + err.message));
+                        }
+                    });
+                });
+            });
+        }
+
+        // ============================================================
         // INITIAL LOAD
         // ============================================================
         loadAdminEmails();
 
-        // Check if user is already signed in
         setTimeout(() => {
             const user = auth.currentUser;
             if (user) {
