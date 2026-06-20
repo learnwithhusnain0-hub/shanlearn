@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes, viewport-fit=cover">
+  <title>Learn with Shan · Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <!-- Social Bad Ad -->
+  <script src="https://pl29808067.effectivecpmnetwork.com/b3/bc/24/b3bc24bf994afb5d0e6b8d43a1481edf.js"></script>
+  
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Additional styles for admin visibility */
+    .admin-menu-item { display: none; }
+    .admin-menu-item.visible { display: flex; }
+    /* Custom popup overlay */
+    .custom-popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(14px);
+      z-index: 99999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .custom-popup-overlay.active { display: flex; }
+    .custom-popup {
+      max-width: 460px;
+      width: 100%;
+      background: rgba(20,20,18,0.95);
+      border-radius: 30px;
+      padding: 36px 32px;
+      border: 2px solid #FFD700;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    }
+    .custom-popup .gold-border-top {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 3px;
+      background: linear-gradient(90deg, transparent, #FFD700, #FFA500, #FFD700, transparent);
+      background-size: 300% 100%;
+      animation: goldSlide 4s ease-in-out infinite;
+      border-radius: 30px 30px 0 0;
+    }
+    @keyframes goldSlide {
+      0% { background-position: -300% 0; }
+      50% { background-position: 300% 0; }
+      100% { background-position: -300% 0; }
+    }
+    .custom-popup .popup-close {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      font-size: 1.4rem;
+      color: #555;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .custom-popup .popup-close:hover { color: #FFD700; transform: rotate(90deg); }
+    .custom-popup .popup-icon { font-size: 3.5rem; margin-bottom: 12px; }
+    .custom-popup .popup-icon.success { color: #4CAF50; }
+    .custom-popup .popup-icon.error { color: #ff4444; }
+    .custom-popup .popup-icon.warning { color: #FFD700; }
+    .custom-popup .popup-icon.info { color: #4285F4; }
+    .custom-popup .popup-icon.question { color: #FFD700; }
+    .custom-popup h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      color: #FFD700;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+    .custom-popup p { color: #bbb; font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; }
+    .custom-popup .popup-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .custom-popup .popup-actions button {
+      padding: 10px 32px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: 0.3s;
+      border: none;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .custom-popup .popup-actions .btn-primary {
+      background: linear-gradient(135deg, #FFD700, #e6b800);
+      color: #0a0a0a;
+    }
+    .custom-popup .popup-actions .btn-primary:hover { transform: scale(1.04); box-shadow: 0 8px 30px rgba(255,215,0,0.3); }
+    .custom-popup .popup-actions .btn-secondary {
+      background: transparent;
+      color: #888;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .custom-popup .popup-actions .btn-secondary:hover { background: rgba(255,255,255,0.05); color: #fff; }
+    .custom-popup .popup-actions .btn-danger {
+      background: linear-gradient(135deg, #ff4444, #cc0000);
+      color: #fff;
+    }
+    .custom-popup .popup-actions .btn-danger:hover { transform: scale(1.04); box-shadow: 0 8px 30px rgba(255,68,68,0.3); }
+    .custom-popup .popup-actions .btn-success {
+      background: linear-gradient(135deg, #4CAF50, #388E3C);
+      color: #fff;
+    }
+    .custom-popup .popup-actions .btn-success:hover { transform: scale(1.04); box-shadow: 0 8px 30px rgba(76,175,80,0.3); }
+  </style>
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div id="loadingScreen">
+  <div class="loader-particles">
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
+  </div>
+  <div class="loader-glow g1"></div>
+  <div class="loader-glow g2"></div>
+  <div class="loader-spinner">
+    <div class="ring-1"></div>
+    <div class="ring-2"></div>
+    <div class="ring-3"></div>
+    <div class="center-icon">
+      <i class="fas fa-graduation-cap"></i>
+    </div>
+  </div>
+  <div class="loader-brand">LEARN WITH SHAN</div>
+  <div class="loader-progress">
+    <div class="bar"></div>
+  </div>
+  <div class="loader-percent">LOADING</div>
+  <div class="loader-dots">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+</div>
+
+<!-- CUSTOM POPUP -->
+<div class="custom-popup-overlay" id="customPopup">
+  <div class="custom-popup">
+    <div class="gold-border-top"></div>
+    <button class="popup-close" id="popupCloseBtn"><i class="fas fa-times"></i></button>
+    <div class="popup-icon" id="popupIcon">✅</div>
+    <h3 id="popupTitle">Success</h3>
+    <p id="popupMessage">Your action was completed successfully.</p>
+    <div class="popup-actions" id="popupActions">
+      <button class="btn-primary" id="popupConfirmBtn">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- ANIMATED BACKGROUND -->
+<div class="bg-animation">
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div>
+</div>
+<div class="bg-orbs">
+  <div class="orb"></div><div class="orb"></div><div class="orb"></div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="logo-area">
+    <img class="logo-icon" src="https://i.ibb.co/ds4SFQsf/IMG-20260615-WA0025-1.webp" alt="Logo" />
+    <span class="logo-text">LEARN WITH SHAN</span>
+  </div>
+  <div style="display:flex; align-items:center; gap:10px;">
+    <button class="signin-btn" id="headerSignInBtn"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+      <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </button>
+  </div>
+</header>
+
+<!-- SIDE MENU (Updated - Removed Extra Tabs) -->
+<div class="menu-overlay" id="menuOverlay"></div>
+<nav class="side-menu" id="sideMenu">
+  <button class="close-btn" id="closeMenuBtn"><i class="fas fa-times"></i></button>
+  <a href="index.html"><i class="fas fa-home"></i> Home</a>
+  <a href="pro-apks.html"><i class="fas fa-crown"></i> Pro APKs</a>
+  <a href="admin.html" class="admin-menu-item" id="adminMenuItem"><i class="fas fa-user-shield"></i> Admin</a>
+  <a href="#" class="menu-highlight" id="phoneLink"><i class="fas fa-phone"></i> 0317 3724356</a>
+  <!-- Dynamic pages will be added here by admin panel -->
+  <div id="dynamicMenuLinks"></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="typing-wrapper" id="typingText">
+      <span class="highlight">Learn & Earn</span> with Digital Skills
+      <span class="cursor-blink"></span>
+    </div>
+    <p class="hero-sub">Masterclass 2026 · Multiple Income Streams</p>
+    <div class="hero-badge"><i class="fas fa-fire"></i> Digital Skills</div>
+  </div>
+</section>
+
+<!-- TUTOR -->
+<section class="tutor-section container" id="tutor">
+  <div class="tutor-grid">
+    <div class="tutor-img">
+      <img src="https://i.ibb.co/dsCK5njX/WA-1781702904687.webp" alt="Muhammad Shan" />
+    </div>
+    <div class="tutor-info">
+      <h3>Muhammad Shan</h3>
+      <p>Passionate digital educator helping students build sustainable online income. With years of practical experience, I've developed proven systems to master TikTok, YouTube automation, AI tools, and video editing — all designed for beginners to start earning quickly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSACTION SECTION (Removed from menu but content kept) -->
+<section class="transaction-section container" id="transaction">
+  <div class="trans-box reveal">
+    <h3><i class="fas fa-user-check"></i> User Information</h3>
+    <p class="sub-head">Please fill all fields below</p>
+    <div class="form-grid">
+      <div class="form-group">
+        <label><i class="fas fa-user"></i> Full Name <span class="required">*</span></label>
+        <input type="text" id="userName" placeholder="Enter your full name" required />
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-city"></i> City <span class="required">*</span></label>
+        <input type="text" id="userCity" placeholder="Enter your city" required />
+      </div>
+      <div class="form-group full-width">
+        <label><i class="fas fa-envelope"></i> Email Address <span class="required">*</span></label>
+        <input type="email" id="userEmail" placeholder="your@email.com" required />
+      </div>
+      <div class="form-group full-width">
+        <label><i class="fas fa-pen"></i> Your Statement <span class="required">*</span></label>
+        <textarea id="userStatement" placeholder="Write your statement or message here..." required></textarea>
+      </div>
+      <div class="submit-row">
+        <button id="submitTransBtn"><i class="fab fa-whatsapp"></i> Submit & Redirect</button>
+      </div>
+    </div>
+    <p style="text-align:center; font-size:0.7rem; color:#555; margin-top:16px;">You'll be redirected to WhatsApp with all your information</p>
+  </div>
+</section>
+
+<!-- SOCIAL FOOTER -->
+<footer class="container" id="social">
+  <div class="social-footer">
+    <a href="#" class="social-icon" data-social="facebook"><i class="fab fa-facebook-f"></i></a>
+    <a href="#" class="social-icon" data-social="youtube"><i class="fab fa-youtube"></i></a>
+    <a href="#" class="social-icon" data-social="tiktok"><i class="fab fa-tiktok"></i></a>
+    <a href="#" class="social-icon" data-social="instagram"><i class="fab fa-instagram"></i></a>
+  </div>
+  <div class="footer-copy">© 2026 Learn with Shan · All rights reserved · 0317 3724356</div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/923173724356?text=Hi%20Shan!%20I%20want%20to%20join%20the%20course" target="_blank" class="float-wa" aria-label="WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- WHATSAPP CHANNEL -->
+<a href="https://whatsapp.com/channel/0029VbCdtdI3LdQWe2Zxdh3t" target="_blank" class="float-channel" aria-label="WhatsApp Channel">
+  <i class="fab fa-whatsapp"></i>
+  <span>Follow Channel</span>
+</a>
+
+<script src="js/firebase-config.js"></script>
+<script>
+  // ============================================================
+  // FIREBASE INIT
+  // ============================================================
+  const firebaseConfig = {
+    apiKey: "AIzaSyDr8cOagJ0dXLiil62JvH4q02mIcmxX9pc",
+    authDomain: "learnwithshan-4be25.firebaseapp.com",
+    projectId: "learnwithshan-4be25",
+    storageBucket: "learnwithshan-4be25.firebasestorage.app",
+    messagingSenderId: "632640212736",
+    appId: "1:632640212736:web:554cba768fb7c0d1e46de5",
+    measurementId: "G-SV6PX5N75Q"
+  };
+  
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  // ============================================================
+  // DOM ELEMENTS
+  // ============================================================
+  const menuToggle = document.getElementById('menuToggle');
+  const sideMenu = document.getElementById('sideMenu');
+  const overlay = document.getElementById('menuOverlay');
+  const closeBtn = document.getElementById('closeMenuBtn');
+  const headerSignInBtn = document.getElementById('headerSignInBtn');
+  const adminMenuItem = document.getElementById('adminMenuItem');
+  const dynamicMenuLinks = document.getElementById('dynamicMenuLinks');
+
+  let loginPopupShown = false;
+
+  // ============================================================
+  // LOADING SCREEN
+  // ============================================================
+  setTimeout(function() {
+    document.getElementById('loadingScreen').classList.add('hidden');
+  }, 2500);
+
+  // ============================================================
+  // TYPING EFFECT
+  // ============================================================
+  const phrases = [
+    '<span class="highlight">Learn & Earn</span> with Digital Skills',
+    '<span class="highlight">Digital</span> Monetization Mastery',
+    '<span class="highlight">AI</span> Tools & Workflow',
+  ];
+  let idx = 0, charIdx = 0, isDeleting = false;
+  const typingEl = document.getElementById('typingText');
+  let currentPhrase = phrases[0];
+
+  function typeEffect() {
+    const full = currentPhrase;
+    if (!isDeleting) {
+      typingEl.innerHTML = full.substring(0, charIdx + 1) + '<span class="cursor-blink"></span>';
+      charIdx++;
+      if (charIdx === full.length) {
+        isDeleting = true;
+        setTimeout(typeEffect, 1800);
+        return;
+      }
+      setTimeout(typeEffect, 65);
+    } else {
+      typingEl.innerHTML = full.substring(0, charIdx) + '<span class="cursor-blink"></span>';
+      charIdx--;
+      if (charIdx < 0) {
+        isDeleting = false;
+        idx = (idx + 1) % phrases.length;
+        currentPhrase = phrases[idx];
+        charIdx = 0;
+        setTimeout(typeEffect, 300);
+        return;
+      }
+      setTimeout(typeEffect, 35);
+    }
+  }
+  setTimeout(typeEffect, 500);
+
+  // ============================================================
+  // MENU FUNCTIONS
+  // ============================================================
+  function openMenu() { sideMenu.classList.add('open'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+  function closeMenu() { sideMenu.classList.remove('open'); overlay.classList.remove('active'); document.body.style.overflow = ''; }
+
+  menuToggle.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', closeMenu);
+  sideMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+
+  // ============================================================
+  // ADMIN MENU CHECK
+  // ============================================================
+  async function checkAdminMenu() {
+    const user = auth.currentUser;
+    if (!user) {
+      adminMenuItem.classList.remove('visible');
+      return;
+    }
+    try {
+      const doc = await db.collection('settings').doc('admin').get();
+      let adminEmails = [];
+      if (doc.exists) {
+        const data = doc.data();
+        if (data.emails && Array.isArray(data.emails)) {
+          adminEmails = data.emails;
+        } else if (data.email) {
+          adminEmails = [data.email];
+        }
+      }
+      if (adminEmails.includes(user.email)) {
+        adminMenuItem.classList.add('visible');
+      } else {
+        adminMenuItem.classList.remove('visible');
+      }
+    } catch (error) {
+      adminMenuItem.classList.remove('visible');
+    }
+  }
+
+  // ============================================================
+  // LOAD DYNAMIC PAGES FROM FIRESTORE
+  // ============================================================
+  function loadDynamicPages() {
+    db.collection('pages').orderBy('order', 'asc').onSnapshot((snapshot) => {
+      dynamicMenuLinks.innerHTML = '';
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        const link = document.createElement('a');
+        link.href = `page.html?id=${doc.id}`;
+        link.innerHTML = `<i class="fas fa-file"></i> ${data.name}`;
+        dynamicMenuLinks.appendChild(link);
+      });
+    });
+  }
+
+  // ============================================================
+  // CUSTOM POPUP FUNCTIONS
+  // ============================================================
+  function showCustomPopup(type, title, message, buttonText, callback) {
+    const popup = document.getElementById('customPopup');
+    const icon = document.getElementById('popupIcon');
+    const titleEl = document.getElementById('popupTitle');
+    const msgEl = document.getElementById('popupMessage');
+    const confirmBtn = document.getElementById('popupConfirmBtn');
+    const closeBtn = document.getElementById('popupCloseBtn');
+
+    const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️', question: '❓' };
+    icon.textContent = icons[type] || 'ℹ️';
+    icon.className = 'popup-icon ' + type;
+    titleEl.textContent = title;
+    msgEl.textContent = message;
+    confirmBtn.textContent = buttonText || 'OK';
+
+    popup.classList.add('active');
+
+    const handleConfirm = function() {
+      popup.classList.remove('active');
+      confirmBtn.removeEventListener('click', handleConfirm);
+      closeBtn.removeEventListener('click', handleClose);
+      if (callback) callback();
+    };
+    const handleClose = function() {
+      popup.classList.remove('active');
+      confirmBtn.removeEventListener('click', handleConfirm);
+      closeBtn.removeEventListener('click', handleClose);
+      if (callback) callback();
+    };
+
+    confirmBtn.addEventListener('click', handleConfirm);
+    closeBtn.addEventListener('click', handleClose);
+    popup.addEventListener('click', function(e) {
+      if (e.target === this) {
+        popup.classList.remove('active');
+        confirmBtn.removeEventListener('click', handleConfirm);
+        closeBtn.removeEventListener('click', handleClose);
+        if (callback) callback();
+      }
+    });
+  }
+
+  function showConfirmPopup(title, message, onConfirm, onCancel) {
+    const popup = document.getElementById('customPopup');
+    const icon = document.getElementById('popupIcon');
+    const titleEl = document.getElementById('popupTitle');
+    const msgEl = document.getElementById('popupMessage');
+    const actions = document.getElementById('popupActions');
+    const closeBtn = document.getElementById('popupCloseBtn');
+
+    icon.textContent = '❓';
+    icon.className = 'popup-icon question';
+    titleEl.textContent = title;
+    msgEl.textContent = message;
+    actions.innerHTML = `
+      <button class="btn-secondary" id="popupCancelBtn">Cancel</button>
+      <button class="btn-primary" id="popupConfirmBtn">Yes</button>
+    `;
+
+    popup.classList.add('active');
+
+    const newConfirmBtn = document.getElementById('popupConfirmBtn');
+    const cancelBtn = document.getElementById('popupCancelBtn');
+
+    const handleConfirm = function() {
+      popup.classList.remove('active');
+      actions.innerHTML = `<button class="btn-primary" id="popupConfirmBtn">OK</button>`;
+      if (onConfirm) onConfirm();
+    };
+    const handleCancel = function() {
+      popup.classList.remove('active');
+      actions.innerHTML = `<button class="btn-primary" id="popupConfirmBtn">OK</button>`;
+      if (onCancel) onCancel();
+    };
+
+    newConfirmBtn.addEventListener('click', handleConfirm);
+    cancelBtn.addEventListener('click', handleCancel);
+    closeBtn.addEventListener('click', handleCancel);
+    popup.addEventListener('click', function(e) {
+      if (e.target === this) {
+        popup.classList.remove('active');
+        actions.innerHTML = `<button class="btn-primary" id="popupConfirmBtn">OK</button>`;
+        if (onCancel) onCancel();
+      }
+    });
+  }
+
+  // ============================================================
+  // LOGIN POPUP
+  // ============================================================
+  function showLoginPopup() {
+    if (loginPopupShown) return;
+    loginPopupShown = true;
+
+    const existing = document.querySelector('.login-overlay');
+    if (existing) existing.remove();
+
+    const overlayDiv = document.createElement('div');
+    overlayDiv.className = 'login-overlay';
+    overlayDiv.id = 'loginOverlay';
+    overlayDiv.innerHTML = `
+      <div class="login-box">
+        <div class="gold-border-top"></div>
+        <button class="close-popup" id="closeLoginPopupBtn" aria-label="Close">
+          <i class="fas fa-times"></i>
+        </button>
+        <img class="logo-img" src="https://i.ibb.co/ds4SFQsf/IMG-20260615-WA0025-1.webp" alt="Logo" />
+        <h2>🔐 Sign In</h2>
+        <p class="sub-text">Sign in to access all features</p>
+        <div class="login-tabs">
+          <button class="active" data-tab="signin">Sign In</button>
+          <button data-tab="signup">Create Account</button>
+        </div>
+        <div class="tab-content active" id="tab-signin">
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="loginEmail" placeholder="your@email.com" />
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="loginPassword" placeholder="Enter your password" />
+          </div>
+          <div class="forgot-password-link">
+            <a href="#" id="forgotPasswordLink">Forgot Password?</a>
+          </div>
+          <button class="email-btn" id="emailSignInBtn">
+            <i class="fas fa-sign-in-alt"></i> Sign In
+          </button>
+          <div class="divider">or</div>
+          <button class="google-btn" id="googleSignInBtn">
+            <i class="fab fa-google"></i> Sign in with Google
+          </button>
+          <div class="error-msg" id="loginError">Invalid credentials. Please try again.</div>
+        </div>
+        <div class="tab-content" id="tab-signup">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="signupName" placeholder="Your full name" />
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="signupEmail" placeholder="your@email.com" />
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="signupPassword" placeholder="Min 6 characters" />
+          </div>
+          <button class="email-btn" id="emailSignUpBtn">
+            <i class="fas fa-user-plus"></i> Create Account
+          </button>
+          <div class="divider">or</div>
+          <button class="google-btn" id="googleSignUpBtn">
+            <i class="fab fa-google"></i> Sign up with Google
+          </button>
+          <div class="error-msg" id="signupError">Error creating account. Please try again.</div>
+          <div class="success-msg" id="signupSuccess">Account created! Please check your email for verification.</div>
+        </div>
+        <br>
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+      </div>
+    `;
+    document.body.appendChild(overlayDiv);
+
+    // Close button
+    document.getElementById('closeLoginPopupBtn').addEventListener('click', function() {
+      closeLoginPopup();
+    });
+    overlayDiv.addEventListener('click', function(e) {
+      if (e.target === this) closeLoginPopup();
+    });
+
+    // Tab switching
+    const tabs = overlayDiv.querySelectorAll('.login-tabs button');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function() {
+        tabs.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        const tabName = this.dataset.tab;
+        overlayDiv.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+        const targetTab = overlayDiv.querySelector(`#tab-${tabName}`);
+        if (targetTab) targetTab.classList.add('active');
+        overlayDiv.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
+        overlayDiv.querySelectorAll('.success-msg').forEach(el => el.style.display = 'none');
+      });
+    });
+
+    // Forgot Password
+    document.getElementById('forgotPasswordLink').addEventListener('click', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim();
+      if (!email) {
+        showCustomPopup('warning', 'Email Required', 'Please enter your email address first.', 'OK');
+        return;
+      }
+      auth.sendPasswordResetEmail(email)
+        .then(() => {
+          showCustomPopup('success', 'Password Reset Email Sent',
+            `✅ Password reset email sent to ${email}\nPlease check your inbox.`, 'OK');
+        })
+        .catch((error) => {
+          showCustomPopup('error', 'Error', `❌ ${error.message}`, 'OK');
+        });
+    });
+
+    // Sign In with Email
+    document.getElementById('emailSignInBtn').addEventListener('click', function() {
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+      const errorEl = document.getElementById('loginError');
+
+      if (!email || !password) {
+        errorEl.textContent = 'Please enter both email and password.';
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      this.disabled = true;
+      this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
+      errorEl.style.display = 'none';
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then((result) => {
+          if (!result.user.emailVerified) {
+            auth.signOut();
+            errorEl.textContent = '⚠️ Please verify your email first.';
+            errorEl.style.display = 'block';
+            this.disabled = false;
+            this.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+            showCustomPopup('warning', 'Email Not Verified',
+              'Please verify your email first.\nCheck your inbox for the verification link.', 'OK');
+            return;
+          }
+          console.log('Email sign in successful:', result.user.email);
+          closeLoginPopup();
+        })
+        .catch((error) => {
+          errorEl.textContent = error.message;
+          errorEl.style.display = 'block';
+          this.disabled = false;
+          this.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+          showCustomPopup('error', 'Sign In Failed', `❌ ${error.message}`, 'OK');
+        });
+    });
+
+    // Sign Up with Email
+    document.getElementById('emailSignUpBtn').addEventListener('click', function() {
+      const name = document.getElementById('signupName').value.trim();
+      const email = document.getElementById('signupEmail').value.trim();
+      const password = document.getElementById('signupPassword').value.trim();
+      const errorEl = document.getElementById('signupError');
+      const successEl = document.getElementById('signupSuccess');
+
+      if (!name || !email || !password) {
+        errorEl.textContent = 'Please fill all fields.';
+        errorEl.style.display = 'block';
+        return;
+      }
+      if (password.length < 6) {
+        errorEl.textContent = 'Password must be at least 6 characters.';
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      this.disabled = true;
+      this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account...';
+      errorEl.style.display = 'none';
+      successEl.style.display = 'none';
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then((result) => {
+          return result.user.updateProfile({ displayName: name })
+            .then(() => result.user.sendEmailVerification())
+            .then(() => result.user);
+        })
+        .then((user) => {
+          successEl.textContent = '✅ Verification email sent to ' + email;
+          successEl.style.display = 'block';
+          console.log('Account created:', user.email);
+          auth.signOut();
+          this.disabled = false;
+          this.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
+          showCustomPopup('success', 'Account Created!',
+            `✅ Verification email sent to ${email}\nPlease check your email to verify.`,
+            'OK', function() { closeLoginPopup(); });
+        })
+        .catch((error) => {
+          errorEl.textContent = error.message;
+          errorEl.style.display = 'block';
+          this.disabled = false;
+          this.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
+          showCustomPopup('error', 'Account Creation Failed', `❌ ${error.message}`, 'OK');
+        });
+    });
+
+    // Google Sign In
+    function handleGoogleSignIn() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: 'select_account' });
+      auth.signInWithPopup(provider)
+        .then((result) => {
+          console.log('Google sign in successful:', result.user.email);
+          closeLoginPopup();
+        })
+        .catch((error) => {
+          showCustomPopup('error', 'Google Sign In Failed', `❌ ${error.message}`, 'OK');
+        });
+    }
+
+    document.getElementById('googleSignInBtn').addEventListener('click', handleGoogleSignIn);
+    document.getElementById('googleSignUpBtn').addEventListener('click', handleGoogleSignIn);
+
+    // Enter key support
+    document.querySelectorAll('.login-box input').forEach(input => {
+      input.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          const activeTab = document.querySelector('.tab-content.active');
+          const btn = activeTab.querySelector('.email-btn');
+          if (btn) btn.click();
+        }
+      });
+    });
+  }
+
+  function closeLoginPopup() {
+    const overlayEl = document.getElementById('loginOverlay');
+    if (overlayEl) overlayEl.remove();
+    loginPopupShown = false;
+  }
+
+  // ============================================================
+  // HEADER SIGN IN BUTTON
+  // ============================================================
+  headerSignInBtn.addEventListener('click', function() {
+    const user = auth.currentUser;
+    if (user) {
+      showConfirmPopup('Sign Out', `Signed in as ${user.email}\nDo you want to sign out?`,
+        function() {
+          auth.signOut();
+          showCustomPopup('success', 'Signed Out', 'You have been signed out successfully.', 'OK');
+        });
+    } else {
+      showLoginPopup();
+    }
+  });
+
+  // ============================================================
+  // SCROLL REVEAL
+  // ============================================================
+  const revealElements = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -30px 0px' });
+  revealElements.forEach(el => revealObserver.observe(el));
+
+  // ============================================================
+  // TRANSACTION
+  // ============================================================
+  const submitBtn = document.getElementById('submitTransBtn');
+  const nameInput = document.getElementById('userName');
+  const cityInput = document.getElementById('userCity');
+  const emailInput = document.getElementById('userEmail');
+  const statementInput = document.getElementById('userStatement');
+
+  function validateField(input) {
+    if (input.value.trim() === '') {
+      input.classList.add('error');
+      return false;
+    }
+    input.classList.remove('error');
+    return true;
+  }
+
+  submitBtn.addEventListener('click', function() {
+    const isNameValid = validateField(nameInput);
+    const isCityValid = validateField(cityInput);
+    const isEmailValid = validateField(emailInput);
+    const isStatementValid = validateField(statementInput);
+
+    if (!isNameValid || !isCityValid || !isEmailValid || !isStatementValid) {
+      showCustomPopup('warning', 'Incomplete Form', 'Please fill all required fields (marked with *).', 'OK');
+      return;
+    }
+
+    const name = nameInput.value.trim();
+    const city = cityInput.value.trim();
+    const email = emailInput.value.trim();
+    const statement = statementInput.value.trim();
+
+    const msg = `Name: ${name}%0ACity: ${city}%0AEmail: ${email}%0A%0AStatement:%0A${statement}%0A%0A---%0AFrom Learn with Shan Website`;
+    window.open(`https://wa.me/923173724356?text=${msg}`, '_blank');
+  });
+
+  document.querySelectorAll('.form-group input, .form-group textarea').forEach(input => {
+    input.addEventListener('input', function() {
+      if (this.value.trim() !== '') {
+        this.classList.remove('error');
+      }
+    });
+  });
+
+  // ============================================================
+  // SOCIAL ICONS
+  // ============================================================
+  const socialMap = {
+    facebook: 'https://www.facebook.com/share/1RdLkzJF4P/',
+    youtube: 'https://youtube.com/@learnwithshan5?si=dfu2Mp79obCnx5cU',
+    tiktok: 'https://www.tiktok.com/@learnwithshan5?_r=1&_t=ZS-97HsCMoLQGK',
+    instagram: 'https://www.instagram.com/learnwithshan5?igsh=MXZ2Z3A1ZW8wNHM4Ng=='
+  };
+  document.querySelectorAll('.social-icon').forEach(icon => {
+    icon.addEventListener('click', function(e) {
+      e.preventDefault();
+      const key = this.dataset.social;
+      const url = socialMap[key];
+      if (url) window.open(url, '_blank');
+    });
+  });
+
+  // ============================================================
+  // AUTH STATE OBSERVER - NO AUTO POPUP
+  // ============================================================
+  auth.onAuthStateChanged((user) => {
+    checkAdminMenu();
+    loadDynamicPages();
+
+    if (user) {
+      headerSignInBtn.innerHTML = `<i class="fas fa-user"></i> ${user.displayName || user.email.split('@')[0]}`;
+      const existing = document.querySelector('.login-overlay');
+      if (existing) {
+        existing.remove();
+        loginPopupShown = false;
+      }
+    } else {
+      headerSignInBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+      // NO AUTO POPUP ON INDEX PAGE
+    }
+  });
+
+  // ============================================================
+  // INITIAL CHECK
+  // ============================================================
+  if (typeof firebase === 'undefined') {
+    showCustomPopup('error', 'Firebase Error', 'Firebase is not loaded. Please refresh the page.',
+      'Refresh', function() { location.reload(); });
+  } else {
+    console.log('Firebase loaded successfully');
+  }
+
+  console.log('Index page loaded successfully!');
+</script>
+</body>
+</html>
