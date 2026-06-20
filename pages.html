@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes, viewport-fit=cover">
+  <title>Learn with Shan · Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .page-content-wrapper {
+      padding: 120px 24px 60px;
+      min-height: 100vh;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .page-content-wrapper .page-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      color: #FFD700;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+    .page-content-wrapper .content {
+      color: #ddd;
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+    .page-content-wrapper .content iframe,
+    .page-content-wrapper .content video {
+      max-width: 100%;
+      border-radius: 12px;
+      margin: 16px 0;
+    }
+    .page-content-wrapper .content img {
+      max-width: 100%;
+      border-radius: 12px;
+      margin: 16px 0;
+    }
+    .page-content-wrapper .content a {
+      color: #FFD700;
+      text-decoration: underline;
+    }
+    .page-content-wrapper .content a:hover { color: #FFA500; }
+    .page-content-wrapper .content h2 { color: #fff; margin: 20px 0 10px; }
+    .page-content-wrapper .content h3 { color: #ddd; margin: 16px 0 8px; }
+    .page-content-wrapper .content ul, 
+    .page-content-wrapper .content ol { padding-left: 24px; margin: 10px 0; }
+    .page-content-wrapper .content li { margin: 6px 0; }
+    .not-found {
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .not-found h2 { color: #FFD700; font-size: 2rem; margin-bottom: 12px; }
+    .not-found p { color: #888; }
+    .not-found a { color: #FFD700; text-decoration: underline; }
+    .admin-menu-item { display: none !important; }
+    .admin-menu-item.visible { display: flex !important; }
+    .loading-content {
+      text-align: center;
+      color: #888;
+      padding: 40px 0;
+    }
+    .loading-content i { font-size: 2rem; margin-bottom: 12px; display: block; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="logo-area">
+    <img class="logo-icon" src="https://i.ibb.co/ds4SFQsf/IMG-20260615-WA0025-1.webp" alt="Logo" />
+    <span class="logo-text">LEARN WITH SHAN</span>
+  </div>
+  <div style="display:flex; align-items:center; gap:10px;">
+    <button class="signin-btn" id="headerSignInBtn"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+      <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </button>
+  </div>
+</header>
+
+<!-- SIDE MENU -->
+<div class="menu-overlay" id="menuOverlay"></div>
+<nav class="side-menu" id="sideMenu">
+  <button class="close-btn" id="closeMenuBtn"><i class="fas fa-times"></i></button>
+  <a href="index.html"><i class="fas fa-home"></i> Home</a>
+  <a href="pro-apks.html"><i class="fas fa-crown"></i> Pro APKs</a>
+  <a href="admin.html" class="admin-menu-item" id="adminMenuItem"><i class="fas fa-user-shield"></i> Admin</a>
+  <a href="#" class="menu-highlight"><i class="fas fa-phone"></i> 0317 3724356</a>
+  <div id="dynamicMenuLinks"></div>
+</nav>
+
+<!-- PAGE CONTENT -->
+<section class="page-content-wrapper" id="pageContent">
+  <div class="loading-content">
+    <i class="fas fa-spinner fa-spin"></i>
+    Loading page...
+  </div>
+</section>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/923173724356?text=Hi%20Shan!%20I%20want%20to%20join%20the%20course" target="_blank" class="float-wa" aria-label="WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- WHATSAPP CHANNEL -->
+<a href="https://whatsapp.com/channel/0029VbCdtdI3LdQWe2Zxdh3t" target="_blank" class="float-channel" aria-label="WhatsApp Channel">
+  <i class="fab fa-whatsapp"></i>
+  <span>Follow Channel</span>
+</a>
+
+<script src="js/firebase-config.js"></script>
+<script>
+  // ============================================================
+  // FIREBASE CONFIG
+  // ============================================================
+  const firebaseConfig = {
+    apiKey: "AIzaSyDr8cOagJ0dXLiil62JvH4q02mIcmxX9pc",
+    authDomain: "learnwithshan-4be25.firebaseapp.com",
+    projectId: "learnwithshan-4be25",
+    storageBucket: "learnwithshan-4be25.firebasestorage.app",
+    messagingSenderId: "632640212736",
+    appId: "1:632640212736:web:554cba768fb7c0d1e46de5",
+    measurementId: "G-SV6PX5N75Q"
+  };
+  
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  // ============================================================
+  // DOM ELEMENTS
+  // ============================================================
+  const menuToggle = document.getElementById('menuToggle');
+  const sideMenu = document.getElementById('sideMenu');
+  const overlay = document.getElementById('menuOverlay');
+  const closeBtn = document.getElementById('closeMenuBtn');
+  const headerSignInBtn = document.getElementById('headerSignInBtn');
+  const adminMenuItem = document.getElementById('adminMenuItem');
+  const dynamicMenuLinks = document.getElementById('dynamicMenuLinks');
+  const pageContent = document.getElementById('pageContent');
+
+  // ============================================================
+  // MENU FUNCTIONS
+  // ============================================================
+  function openMenu() { sideMenu.classList.add('open'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+  function closeMenu() { sideMenu.classList.remove('open'); overlay.classList.remove('active'); document.body.style.overflow = ''; }
+
+  menuToggle.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', closeMenu);
+  sideMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+
+  // ============================================================
+  // ADMIN MENU CHECK
+  // ============================================================
+  async function checkAdminMenu() {
+    const user = auth.currentUser;
+    if (!user) {
+      adminMenuItem.classList.remove('visible');
+      return;
+    }
+    try {
+      const doc = await db.collection('settings').doc('admin').get();
+      let adminEmails = [];
+      if (doc.exists) {
+        const data = doc.data();
+        if (data.emails && Array.isArray(data.emails)) {
+          adminEmails = data.emails;
+        } else if (data.email) {
+          adminEmails = [data.email];
+        }
+      }
+      if (adminEmails.includes(user.email)) {
+        adminMenuItem.classList.add('visible');
+      } else {
+        adminMenuItem.classList.remove('visible');
+      }
+    } catch (error) {
+      adminMenuItem.classList.remove('visible');
+    }
+  }
+
+  // ============================================================
+  // LOAD DYNAMIC PAGES IN MENU
+  // ============================================================
+  function loadDynamicPages() {
+    db.collection('pages').orderBy('order', 'asc').onSnapshot((snapshot) => {
+      dynamicMenuLinks.innerHTML = '';
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        const link = document.createElement('a');
+        link.href = `page.html?id=${doc.id}`;
+        link.innerHTML = `<i class="fas fa-file"></i> ${data.name}`;
+        dynamicMenuLinks.appendChild(link);
+      });
+    });
+  }
+
+  // ============================================================
+  // LOAD PAGE CONTENT
+  // ============================================================
+  function loadPageContent() {
+    // Get page ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const pageId = urlParams.get('id');
+
+    if (!pageId) {
+      pageContent.innerHTML = `
+        <div class="not-found">
+          <h2>📄 No Page Selected</h2>
+          <p>Please select a page from the menu.</p>
+          <a href="index.html">← Back to Home</a>
+        </div>
+      `;
+      return;
+    }
+
+    // Show loading
+    pageContent.innerHTML = `
+      <div class="loading-content">
+        <i class="fas fa-spinner fa-spin"></i>
+        Loading page...
+      </div>
+    `;
+
+    // Fetch page from Firestore
+    db.collection('pages').doc(pageId).get()
+      .then((doc) => {
+        if (!doc.exists) {
+          pageContent.innerHTML = `
+            <div class="not-found">
+              <h2>❌ Page Not Found</h2>
+              <p>The page you are looking for does not exist.</p>
+              <a href="index.html">← Back to Home</a>
+            </div>
+          `;
+          return;
+        }
+
+        const data = doc.data();
+        pageContent.innerHTML = `
+          <h1 class="page-title">${data.name}</h1>
+          <div class="content">${data.content}</div>
+        `;
+      })
+      .catch((error) => {
+        console.error('Error loading page:', error);
+        pageContent.innerHTML = `
+          <div class="not-found">
+            <h2>❌ Error Loading Page</h2>
+            <p>${error.message}</p>
+            <a href="index.html">← Back to Home</a>
+          </div>
+        `;
+      });
+  }
+
+  // ============================================================
+  // AUTH STATE OBSERVER
+  // ============================================================
+  auth.onAuthStateChanged((user) => {
+    checkAdminMenu();
+    loadDynamicPages();
+
+    if (user) {
+      headerSignInBtn.innerHTML = `<i class="fas fa-user"></i> ${user.displayName || user.email.split('@')[0]}`;
+    } else {
+      headerSignInBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+    }
+  });
+
+  // ============================================================
+  // HEADER SIGN IN BUTTON
+  // ============================================================
+  headerSignInBtn.addEventListener('click', function() {
+    const user = auth.currentUser;
+    if (user) {
+      if (confirm(`Signed in as ${user.email}\nDo you want to sign out?`)) {
+        auth.signOut();
+      }
+    } else {
+      window.location.href = 'signin.html';
+    }
+  });
+
+  // ============================================================
+  // INITIAL LOAD
+  // ============================================================
+  // Load page content when page loads
+  loadPageContent();
+
+  // Also reload when URL changes (for navigation)
+  window.addEventListener('popstate', function() {
+    loadPageContent();
+  });
+
+  console.log('Page loaded successfully!');
+</script>
+</body>
+</html>
