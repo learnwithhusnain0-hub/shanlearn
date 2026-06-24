@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes, viewport-fit=cover">
+    <title>Learn with Shan · Image Prompts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js">
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: #0b0b0b;
+            color: #f0f0f0;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .bg-animation .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 215, 0, 0.12);
+            border-radius: 50%;
+            animation: floatParticle 20s infinite linear;
+        }
+
+        .bg-animation .particle:nth-child(1) {
+            left: 10%;
+            animation-duration: 18s;
+            animation-delay: 0s;
+            width: 8px;
+            height: 8px;
+        }
+        .bg-animation .particle:nth-child(2) {
+            left: 25%;
+            animation-duration: 22s;
+            animation-delay: 2s;
+            width: 5px;
+            height: 5px;
+        }
+        .bg-animation .particle:nth-child(3) {
+            left: 40%;
+            animation-duration: 16s;
+            animation-delay: 4s;
+            width: 10px;
+            height: 10px;
+            opacity: 0.3;
+        }
+        .bg-animation .particle:nth-child(4) {
+            left: 55%;
+            animation-duration: 24s;
+            animation-delay: 1s;
+            width: 4px;
+            height: 4px;
+        }
+        .bg-animation .particle:nth-child(5) {
+            left: 70%;
+            animation-duration: 19s;
+            animation-delay: 3s;
+            width: 7px;
+            height: 7px;
+        }
+        .bg-animation .particle:nth-child(6) {
+            left: 85%;
+            animation-duration: 21s;
+            animation-delay: 5s;
+            width: 9px;
+            height: 9px;
+            opacity: 0.25;
+        }
+        .bg-animation .particle:nth-child(7) {
+            left: 15%;
+            animation-duration: 17s;
+            animation-delay: 6s;
+            width: 5px;
+            height: 5px;
+        }
+        .bg-animation .particle:nth-child(8) {
+            left: 50%;
+            animation-duration: 23s;
+            animation-delay: 2s;
+            width: 6px;
+            height: 6px;
+        }
+        .bg-animation .particle:nth-child(9) {
+            left: 65%;
+            animation-duration: 20s;
+            animation-delay: 4s;
+            width: 8px;
+            height: 8px;
+            opacity: 0.2;
+        }
+        .bg-animation .particle:nth-child(10) {
+            left: 35%;
+            animation-duration: 25s;
+            animation-delay: 7s;
+            width: 4px;
+            height: 4px;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(720deg) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        .bg-orbs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-orbs .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.06;
+            animation: orbFloat 15s ease-in-out infinite;
+        }
+
+        .bg-orbs .orb:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            background: #FFD700;
+            top: -10%;
+            left: -10%;
+            animation-delay: 0s;
+        }
+        .bg-orbs .orb:nth-child(2) {
+            width: 350px;
+            height: 350px;
+            background: #FFA500;
+            bottom: -10%;
+            right: -10%;
+            animation-delay: -5s;
+        }
+        .bg-orbs .orb:nth-child(3) {
+            width: 300px;
+            height: 300px;
+            background: #FFD700;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -10s;
+            opacity: 0.04;
+        }
+
+        @keyframes orbFloat {
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(60px, -40px) scale(1.1);
+            }
+            50% {
+                transform: translate(-30px, 50px) scale(0.9);
+            }
+            75% {
+                transform: translate(-50px, -30px) scale(1.05);
+            }
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.18);
+            padding: 10px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: 0.3s;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.4));
+            border-radius: 8px;
+            background: #1a1a1a;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            color: #FFD700;
+            line-height: 1;
+        }
+
+        .menu-toggle {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            padding: 6px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .menu-toggle:hover {
+            background: rgba(255, 215, 0, 0.08);
+        }
+
+        .menu-toggle .bar {
+            display: block;
+            width: 26px;
+            height: 3px;
+            background: #FFD700;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .menu-toggle .bar:nth-child(2) {
+            width: 20px;
+        }
+        .menu-toggle .bar:nth-child(3) {
+            width: 24px;
+        }
+
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -380px;
+            width: 310px;
+            max-width: 82vw;
+            height: 100vh;
+            background: rgba(12, 12, 10, 0.97);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border-left: 1px solid rgba(255, 215, 0, 0.2);
+            padding: 80px 28px 40px;
+            z-index: 1100;
+            transition: right 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: -12px 0 50px rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            overflow-y: auto;
+        }
+
+        .side-menu.open {
+            right: 0;
+        }
+
+        .side-menu .close-btn {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            font-size: 1.8rem;
+            color: #FFD700;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .side-menu .close-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        .side-menu a {
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 12px 16px;
+            border-radius: 14px;
+            color: #ccc;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.03);
+        }
+
+        .side-menu a i {
+            width: 22px;
+            color: #FFD700;
+            font-size: 1.1rem;
+        }
+
+        .side-menu a:hover {
+            background: rgba(255, 215, 0, 0.06);
+            color: #FFD700;
+            padding-left: 22px;
+        }
+
+        .side-menu .menu-highlight {
+            color: #FFD700;
+            font-weight: 700;
+            border-bottom: none;
+            margin-top: 16px;
+        }
+
+        .menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1050;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.4s;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .prompts-page {
+            padding: 100px 0 60px;
+            min-height: 100vh;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            color: #FFD700;
+            letter-spacing: 2px;
+        }
+
+        .page-header p {
+            color: #aaa;
+            font-size: 1rem;
+            margin-top: 8px;
+        }
+
+        .search-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 30px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-section input {
+            flex: 1;
+            min-width: 200px;
+            max-width: 400px;
+            padding: 14px 20px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            background: rgba(0, 0, 0, 0.4);
+            color: #fff;
+            font-size: 0.95rem;
+            font-family: 'Montserrat', sans-serif;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .search-section input:focus {
+            border-color: #FFD700;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.05);
+        }
+
+        .search-section input::placeholder {
+            color: #555;
+        }
+
+        .search-section .filter-btns {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .search-section .filter-btns button {
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            background: transparent;
+            color: #888;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+        }
+
+        .search-section .filter-btns button:hover {
+            border-color: #FFD700;
+            color: #fff;
+        }
+
+        .search-section .filter-btns button.active {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: #FFD700;
+            color: #FFD700;
+        }
+
+        .prompts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .prompt-card {
+            background: rgba(20, 20, 18, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 215, 0, 0.08);
+            border-radius: 20px;
+            padding: 18px;
+            transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+        }
+
+        .prompt-card:hover {
+            transform: translateY(-4px);
+            border-color: #FFD700;
+            box-shadow: 0 12px 40px rgba(255, 215, 0, 0.06);
+        }
+
+        .prompt-card .prompt-image {
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 215, 0, 0.08);
+            margin-bottom: 6px;
+            background: #1a1a1a;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .prompt-card .prompt-image:hover {
+            opacity: 0.85;
+            transform: scale(1.01);
+        }
+
+        .prompt-card .image-hint {
+            display: block;
+            font-size: 0.6rem;
+            color: #555;
+            text-align: center;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .prompt-card .image-hint:hover {
+            color: #888;
+        }
+
+        .prompt-card .image-hint i {
+            color: #FFD700;
+            font-size: 0.5rem;
+            margin-right: 4px;
+        }
+
+        .lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 99999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            animation: fadeIn 0.3s ease;
+            cursor: pointer;
+        }
+
+        .lightbox-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .lightbox-overlay .lightbox-content {
+            max-width: 90%;
+            max-height: 85vh;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 215, 0, 0.15);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+            animation: scaleIn 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            object-fit: contain;
+            background: #1a1a1a;
+        }
+
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .lightbox-overlay .close-lightbox {
+            position: absolute;
+            top: 24px;
+            right: 32px;
+            font-size: 2.5rem;
+            color: rgba(255, 255, 255, 0.5);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 100000;
+        }
+
+        .lightbox-overlay .close-lightbox:hover {
+            color: #FFD700;
+            transform: rotate(90deg);
+        }
+
+        .lightbox-overlay .lightbox-caption {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 8px 20px;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .prompt-card .prompt-category {
+            display: inline-block;
+            font-size: 0.6rem;
+            background: rgba(255, 215, 0, 0.08);
+            color: #FFD700;
+            padding: 3px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            margin-bottom: 6px;
+        }
+
+        .prompt-card .prompt-text-wrapper {
+            position: relative;
+        }
+
+        .prompt-card .prompt-text {
+            color: #ddd;
+            font-size: 0.82rem;
+            line-height: 1.6;
+            margin-bottom: 4px;
+            word-wrap: break-word;
+        }
+
+        .prompt-card .prompt-text .short-text {
+            display: inline;
+        }
+
+        .prompt-card .prompt-text .full-text {
+            display: none;
+        }
+
+        .prompt-card .prompt-text.show-full .short-text {
+            display: none;
+        }
+
+        .prompt-card .prompt-text.show-full .full-text {
+            display: inline;
+        }
+
+        .prompt-card .show-more-btn {
+            background: transparent;
+            border: none;
+            color: #FFD700;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 2px 0;
+            transition: 0.3s;
+            font-family: 'Montserrat', sans-serif;
+            opacity: 0.8;
+        }
+
+        .prompt-card .show-more-btn:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        .prompt-card .prompt-description {
+            color: #888;
+            font-size: 0.75rem;
+            margin-bottom: 6px;
+        }
+
+        .prompt-card .prompt-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 215, 0, 0.05);
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .prompt-card .prompt-actions .left-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .prompt-card .prompt-actions button {
+            padding: 5px 14px;
+            border-radius: 20px;
+            border: none;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .prompt-card .prompt-actions .copy-btn {
+            background: linear-gradient(135deg, #FFD700, #e6b800);
+            color: #0a0a0a;
+        }
+
+        .prompt-card .prompt-actions .copy-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .prompt-card .prompt-actions .copy-count {
+            color: #666;
+            font-size: 0.65rem;
+        }
+
+        .prompt-card .prompt-actions .copy-count i {
+            color: #FFD700;
+            margin-right: 3px;
+        }
+
+        .prompt-card .prompt-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 0.65rem;
+            margin-top: 6px;
+        }
+
+        .no-prompts {
+            text-align: center;
+            color: #666;
+            padding: 60px 20px;
+            grid-column: 1 / -1;
+        }
+
+        .no-prompts i {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 16px;
+            color: #333;
+        }
+
+        .float-wa {
+            position: fixed;
+            bottom: 28px;
+            right: 22px;
+            z-index: 900;
+            background: #25D366;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.4);
+            transition: 0.3s;
+            border: 2px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .float-wa:hover {
+            transform: scale(1.06) rotate(-4deg);
+        }
+
+        .float-wa i {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .float-channel {
+            position: fixed;
+            bottom: 28px;
+            left: 22px;
+            z-index: 900;
+            background: rgba(37, 211, 102, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 10px 16px;
+            border-radius: 50px;
+            border: 1px solid rgba(37, 211, 102, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #25D366;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: 0.3s;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .float-channel:hover {
+            background: rgba(37, 211, 102, 0.25);
+            transform: scale(1.04);
+            border-color: #25D366;
+        }
+
+        .float-channel i {
+            font-size: 1.2rem;
+        }
+        .float-channel span {
+            color: #fff;
+        }
+
+        @media (max-width: 600px) {
+            .prompts-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            .prompt-card {
+                padding: 12px;
+                border-radius: 16px;
+            }
+            .prompt-card .prompt-image {
+                max-height: 140px;
+                border-radius: 10px;
+            }
+            .prompt-card .prompt-text {
+                font-size: 0.72rem;
+                line-height: 1.5;
+            }
+            .prompt-card .prompt-category {
+                font-size: 0.5rem;
+                padding: 2px 10px;
+            }
+            .prompt-card .prompt-description {
+                font-size: 0.65rem;
+            }
+            .prompt-card .prompt-actions button {
+                padding: 4px 10px;
+                font-size: 0.6rem;
+            }
+            .prompt-card .prompt-actions .copy-count {
+                font-size: 0.55rem;
+            }
+            .prompt-card .show-more-btn {
+                font-size: 0.6rem;
+            }
+            .prompt-card .prompt-meta {
+                font-size: 0.55rem;
+            }
+            .prompt-card .image-hint {
+                font-size: 0.5rem;
+            }
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            .page-header p {
+                font-size: 0.8rem;
+            }
+            .search-section input {
+                font-size: 0.8rem;
+                padding: 10px 16px;
+            }
+            .search-section .filter-btns button {
+                font-size: 0.65rem;
+                padding: 6px 12px;
+            }
+            .lightbox-overlay .close-lightbox {
+                top: 12px;
+                right: 16px;
+                font-size: 1.5rem;
+            }
+            .lightbox-overlay .lightbox-content {
+                max-width: 95%;
+                max-height: 75vh;
+            }
+            .lightbox-overlay .lightbox-caption {
+                bottom: 16px;
+                font-size: 0.6rem;
+                padding: 4px 12px;
+            }
+            .site-header {
+                padding: 8px 12px;
+            }
+            .logo-text {
+                font-size: 1rem;
+            }
+            .logo-icon {
+                width: 28px;
+                height: 28px;
+            }
+            .side-menu {
+                width: 250px;
+                padding: 70px 16px 30px;
+            }
+            .float-wa {
+                width: 44px;
+                height: 44px;
+                bottom: 14px;
+                right: 12px;
+            }
+            .float-wa i {
+                font-size: 1.4rem;
+            }
+            .float-channel {
+                padding: 6px 12px;
+                font-size: 0.6rem;
+                bottom: 14px;
+                left: 12px;
+            }
+            .float-channel i {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .prompts-grid {
+                gap: 10px;
+            }
+            .prompt-card {
+                padding: 10px;
+            }
+            .prompt-card .prompt-image {
+                max-height: 110px;
+            }
+            .prompt-card .prompt-text {
+                font-size: 0.65rem;
+            }
+            .prompt-card .prompt-category {
+                font-size: 0.45rem;
+                padding: 2px 8px;
+            }
+            .prompt-card .image-hint {
+                font-size: 0.45rem;
+            }
+        }
+
+        @media (min-width: 601px) and (max-width: 768px) {
+            .prompts-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            .prompt-card .prompt-image {
+                max-height: 180px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .prompts-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .admin-menu-item {
+            display: none !important;
+        }
+        .admin-menu-item.visible {
+            display: flex !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- IMAGE LIGHTBOX OVERLAY -->
+    <div class="lightbox-overlay" id="lightboxOverlay" onclick="closeLightbox()">
+        <button class="close-lightbox" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+        <img class="lightbox-content" id="lightboxImage" src="" alt="Full image" />
+        <div class="lightbox-caption" id="lightboxCaption">Click anywhere to close</div>
+    </div>
+
+    <!-- ANIMATED BACKGROUND -->
+    <div class="bg-animation">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    <div class="bg-orbs">
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="logo-area">
+            <img class="logo-icon" src="https://i.ibb.co/ds4SFQsf/IMG-20260615-WA0025-1.webp" alt="Logo" />
+            <span class="logo-text">LEARN WITH SHAN</span>
+        </div>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+            <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        </button>
+    </header>
+
+    <!-- SIDE MENU -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <nav class="side-menu" id="sideMenu">
+        <button class="close-btn" id="closeMenuBtn"><i class="fas fa-times"></i></button>
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="pro-apks.html"><i class="fas fa-crown"></i> Pro APKs</a>
+        <a href="admin.html" class="admin-menu-item" id="adminMenuItem"><i class="fas fa-user-shield"></i> Admin</a>
+        <a href="image-prompts.html"><i class="fas fa-image"></i> Image Prompts</a>
+        <a href="#" class="menu-highlight"><i class="fas fa-phone"></i> 0317 3724356</a>
+    </nav>
+
+    <!-- PROMPTS PAGE -->
+    <section class="prompts-page container" id="promptsPage">
+        <div class="page-header">
+            <h1><i class="fas fa-image"></i> Image Prompt Ideas</h1>
+            <p>AI image generation prompts for your creative projects</p>
+        </div>
+
+        <!-- Search & Filter -->
+        <div class="search-section">
+            <input type="text" id="searchInput" placeholder="🔍 Search prompts..." />
+            <div class="filter-btns" id="filterBtns">
+                <button class="active" data-filter="all">All</button>
+                <button data-filter="Hero Banner">Hero Banner</button>
+                <button data-filter="TikTok">TikTok</button>
+                <button data-filter="YouTube">YouTube</button>
+                <button data-filter="AI Tools">AI Tools</button>
+                <button data-filter="Video Editing">Video Editing</button>
+                <button data-filter="Logo">Logo</button>
+                <button data-filter="Social Media">Social Media</button>
+            </div>
+        </div>
+
+        <!-- Prompts Grid -->
+        <div class="prompts-grid" id="promptsGrid">
+            <div class="no-prompts">
+                <i class="fas fa-image"></i>
+                <p>No prompts available yet.</p>
+                <p style="color:#444; font-size:0.85rem;">Check back later for new prompts.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FLOATING WHATSAPP -->
+    <a href="https://wa.me/923173724356?text=Hi%20Shan!%20I%20want%20to%20join%20the%20course" target="_blank" class="float-wa" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- WHATSAPP CHANNEL -->
+    <a href="https://whatsapp.com/channel/0029VbCdtdI3LdQWe2Zxdh3t" target="_blank" class="float-channel" aria-label="WhatsApp Channel">
+        <i class="fab fa-whatsapp"></i>
+        <span>Follow Channel</span>
+    </a>
+
+    <script>
+        // ============================================================
+        // FIREBASE CONFIG
+        // ============================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyDr8cOagJ0dXLiil62JvH4q02mIcmxX9pc",
+            authDomain: "learnwithshan-4be25.firebaseapp.com",
+            projectId: "learnwithshan-4be25",
+            storageBucket: "learnwithshan-4be25.firebasestorage.app",
+            messagingSenderId: "632640212736",
+            appId: "1:632640212736:web:554cba768fb7c0d1e46de5",
+            measurementId: "G-SV6PX5N75Q"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        console.log('Firebase initialized successfully!');
+
+        // ============================================================
+        // DOM ELEMENTS
+        // ============================================================
+        const menuToggle = document.getElementById('menuToggle');
+        const sideMenu = document.getElementById('sideMenu');
+        const overlay = document.getElementById('menuOverlay');
+        const closeBtn = document.getElementById('closeMenuBtn');
+
+        const promptsGrid = document.getElementById('promptsGrid');
+        const searchInput = document.getElementById('searchInput');
+        const filterBtns = document.getElementById('filterBtns');
+
+        const lightboxOverlay = document.getElementById('lightboxOverlay');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+
+        let currentFilter = 'all';
+        let localCopyCounts = {};
+
+        // ============================================================
+        // MENU FUNCTIONS
+        // ============================================================
+        function openMenu() {
+            sideMenu.classList.add('open');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenu() {
+            sideMenu.classList.remove('open');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        menuToggle.addEventListener('click', openMenu);
+        closeBtn.addEventListener('click', closeMenu);
+        overlay.addEventListener('click', closeMenu);
+        sideMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+
+        // ============================================================
+        // LIGHTBOX FUNCTIONS
+        // ============================================================
+        function openLightbox(imgSrc, caption) {
+            lightboxImage.src = imgSrc;
+            lightboxImage.alt = caption || 'Full image';
+            lightboxCaption.textContent = caption || 'Click anywhere to close';
+            lightboxOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightboxOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        window.openLightbox = openLightbox;
+        window.closeLightbox = closeLightbox;
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+
+        // ============================================================
+        // LOAD PROMPTS - WITH FIXED COUNTER
+        // ============================================================
+        function loadPrompts() {
+            db.collection('prompts').orderBy('createdAt', 'desc').onSnapshot((snapshot) => {
+                if (snapshot.empty) {
+                    promptsGrid.innerHTML = `
+                        <div class="no-prompts">
+                            <i class="fas fa-image"></i>
+                            <p>No prompts available yet.</p>
+                            <p style="color:#444; font-size:0.85rem;">Check back later for new prompts.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                let html = '';
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const id = doc.id;
+                    const text = data.text || '';
+                    const shortText = text.length > 150 ? text.substring(0, 150) + '...' : text;
+                    const isLong = text.length > 150;
+
+                    const imgSrc = data.image || 'https://picsum.photos/seed/' + id + '/600/300';
+                    
+                    // Use local copy count if available, otherwise use Firebase data
+                    const copies = localCopyCounts[id] !== undefined ? localCopyCounts[id] : (data.copies || 0);
+
+                    html += `
+                        <div class="prompt-card" data-id="${id}" data-category="${data.category || 'Other'}" data-text="${text}" data-description="${data.description || ''}">
+                            <img class="prompt-image" src="${imgSrc}" alt="Prompt sample image" loading="lazy" onclick="openLightbox('${imgSrc}', '${data.category || 'Prompt'} - ${data.description || ''}')" />
+                            <span class="image-hint" onclick="openLightbox('${imgSrc}', '${data.category || 'Prompt'} - ${data.description || ''}')"><i class="fas fa-expand"></i> Click to view full image</span>
+                            <div class="prompt-category">${data.category || 'Other'}</div>
+                            ${data.description ? `<div class="prompt-description">📝 ${data.description}</div>` : ''}
+                            <div class="prompt-text-wrapper">
+                                <div class="prompt-text ${isLong ? 'has-more' : ''}" id="promptText_${id}">
+                                    <span class="short-text">${shortText}</span>
+                                    ${isLong ? `<span class="full-text">${text}</span>` : ''}
+                                </div>
+                                ${isLong ? `<button class="show-more-btn" onclick="togglePrompt('${id}')" id="showMoreBtn_${id}">Show More</button>` : ''}
+                            </div>
+                            <div class="prompt-actions">
+                                <div class="left-actions">
+                                    <button class="copy-btn" data-id="${id}" data-text="${text.replace(/"/g, '&quot;')}">
+                                        <i class="fas fa-copy"></i> Copy
+                                    </button>
+                                </div>
+                                <span class="copy-count"><i class="fas fa-copy"></i> <span class="copy-number" data-id="${id}">${copies}</span> copies</span>
+                            </div>
+                            <div class="prompt-meta">
+                                <span>${data.category || 'Other'}</span>
+                                <span>${data.createdAt ? new Date(data.createdAt.seconds * 1000).toLocaleDateString() : ''}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                promptsGrid.innerHTML = html;
+
+                // ============================================================
+                // COPY BUTTON HANDLERS - WITH COUNTER INCREMENT (FIXED)
+                // ============================================================
+                document.querySelectorAll('.copy-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const text = this.dataset.text;
+                        const id = this.dataset.id;
+                        const copyNumberSpan = document.querySelector(`.copy-number[data-id="${id}"]`);
+
+                        // Copy to clipboard
+                        navigator.clipboard.writeText(text).then(() => {
+                            // ✅ Increment local counter first (instant update)
+                            if (copyNumberSpan) {
+                                const currentCount = parseInt(copyNumberSpan.textContent) || 0;
+                                const newCount = currentCount + 1;
+                                copyNumberSpan.textContent = newCount;
+                                // Store in local cache
+                                localCopyCounts[id] = newCount;
+                            }
+
+                            // ✅ Then update Firebase (background)
+                            db.collection('prompts').doc(id).update({
+                                copies: firebase.firestore.FieldValue.increment(1)
+                            }).catch(err => console.error('Error updating count:', err));
+
+                            // Show feedback
+                            const originalText = this.innerHTML;
+                            this.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                            setTimeout(() => {
+                                this.innerHTML = originalText;
+                            }, 2000);
+                        }).catch(() => {
+                            // Fallback copy method
+                            const textarea = document.createElement('textarea');
+                            textarea.value = text;
+                            document.body.appendChild(textarea);
+                            textarea.select();
+                            document.execCommand('copy');
+                            document.body.removeChild(textarea);
+
+                            // ✅ Increment local counter
+                            if (copyNumberSpan) {
+                                const currentCount = parseInt(copyNumberSpan.textContent) || 0;
+                                const newCount = currentCount + 1;
+                                copyNumberSpan.textContent = newCount;
+                                localCopyCounts[id] = newCount;
+                            }
+
+                            // ✅ Update Firebase
+                            db.collection('prompts').doc(id).update({
+                                copies: firebase.firestore.FieldValue.increment(1)
+                            }).catch(err => console.error('Error updating count:', err));
+
+                            const originalText = this.innerHTML;
+                            this.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                            setTimeout(() => {
+                                this.innerHTML = originalText;
+                            }, 2000);
+                        });
+                    });
+                });
+
+                applyFilters();
+
+            }, (error) => {
+                console.error('Error loading prompts:', error);
+                promptsGrid.innerHTML = `
+                    <div class="no-prompts">
+                        <i class="fas fa-exclamation-triangle" style="color:#ff4444;"></i>
+                        <p style="color:#ff4444;">Error loading prompts. Please refresh.</p>
+                    </div>
+                `;
+            });
+        }
+
+        // ============================================================
+        // TOGGLE PROMPT (Show More/Less)
+        // ============================================================
+        function togglePrompt(id) {
+            const textEl = document.getElementById('promptText_' + id);
+            const btn = document.getElementById('showMoreBtn_' + id);
+            if (!textEl || !btn) return;
+
+            textEl.classList.toggle('show-full');
+
+            if (textEl.classList.contains('show-full')) {
+                btn.textContent = 'Show Less';
+            } else {
+                btn.textContent = 'Show More';
+            }
+        }
+
+        window.togglePrompt = togglePrompt;
+
+        // ============================================================
+        // FILTER & SEARCH
+        // ============================================================
+        function applyFilters() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.prompt-card');
+
+            let visibleCount = 0;
+            cards.forEach(card => {
+                const category = card.dataset.category.toLowerCase();
+                const text = card.dataset.text.toLowerCase();
+                const description = card.dataset.description.toLowerCase();
+
+                const matchesCategory = currentFilter === 'all' || category === currentFilter.toLowerCase();
+                const matchesSearch = text.includes(searchTerm) || description.includes(searchTerm) || category.includes(searchTerm);
+
+                if (matchesCategory && matchesSearch) {
+                    card.style.display = '';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            const noResults = document.querySelector('.no-results');
+            if (visibleCount === 0 && cards.length > 0) {
+                if (!noResults) {
+                    const div = document.createElement('div');
+                    div.className = 'no-prompts no-results';
+                    div.innerHTML = `
+                        <i class="fas fa-search"></i>
+                        <p>No prompts found matching your search.</p>
+                        <p style="color:#444; font-size:0.85rem;">Try a different keyword.</p>
+                    `;
+                    promptsGrid.appendChild(div);
+                }
+            } else {
+                const existing = document.querySelector('.no-results');
+                if (existing) existing.remove();
+            }
+        }
+
+        // ============================================================
+        // SEARCH INPUT
+        // ============================================================
+        searchInput.addEventListener('input', applyFilters);
+
+        // ============================================================
+        // FILTER BUTTONS
+        // ============================================================
+        filterBtns.addEventListener('click', function(e) {
+            if (e.target.tagName === 'BUTTON') {
+                filterBtns.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+                currentFilter = e.target.dataset.filter;
+                applyFilters();
+            }
+        });
+
+        // ============================================================
+        // INITIAL LOAD
+        // ============================================================
+        if (typeof firebase === 'undefined') {
+            alert('Firebase is not loaded. Please refresh the page.');
+        } else {
+            console.log('Firebase loaded successfully');
+        }
+
+        loadPrompts();
+        console.log('Image Prompts page loaded successfully!');
+    </script>
+</body>
+</html>
