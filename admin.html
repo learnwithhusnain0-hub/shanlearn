@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes, viewport-fit=cover">
+    <title>Learn with Shan · Admin Panel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js">
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent !important;
+        }
+
+        *:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        body {
+            background: #0b0b0b;
+            color: #f0f0f0;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .bg-animation .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 215, 0, 0.12);
+            border-radius: 50%;
+            animation: floatParticle 20s infinite linear;
+        }
+
+        .bg-animation .particle:nth-child(1) { left: 10%; animation-duration: 18s; animation-delay: 0s; width: 8px; height: 8px; }
+        .bg-animation .particle:nth-child(2) { left: 25%; animation-duration: 22s; animation-delay: 2s; width: 5px; height: 5px; }
+        .bg-animation .particle:nth-child(3) { left: 40%; animation-duration: 16s; animation-delay: 4s; width: 10px; height: 10px; opacity: 0.3; }
+        .bg-animation .particle:nth-child(4) { left: 55%; animation-duration: 24s; animation-delay: 1s; width: 4px; height: 4px; }
+        .bg-animation .particle:nth-child(5) { left: 70%; animation-duration: 19s; animation-delay: 3s; width: 7px; height: 7px; }
+        .bg-animation .particle:nth-child(6) { left: 85%; animation-duration: 21s; animation-delay: 5s; width: 9px; height: 9px; opacity: 0.25; }
+        .bg-animation .particle:nth-child(7) { left: 15%; animation-duration: 17s; animation-delay: 6s; width: 5px; height: 5px; }
+        .bg-animation .particle:nth-child(8) { left: 50%; animation-duration: 23s; animation-delay: 2s; width: 6px; height: 6px; }
+        .bg-animation .particle:nth-child(9) { left: 65%; animation-duration: 20s; animation-delay: 4s; width: 8px; height: 8px; opacity: 0.2; }
+        .bg-animation .particle:nth-child(10) { left: 35%; animation-duration: 25s; animation-delay: 7s; width: 4px; height: 4px; }
+
+        @keyframes floatParticle {
+            0% { transform: translateY(100vh) rotate(0deg) scale(1); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(720deg) scale(0.5); opacity: 0; }
+        }
+
+        .bg-orbs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-orbs .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.06;
+            animation: orbFloat 15s ease-in-out infinite;
+        }
+
+        .bg-orbs .orb:nth-child(1) { width: 400px; height: 400px; background: #FFD700; top: -10%; left: -10%; animation-delay: 0s; }
+        .bg-orbs .orb:nth-child(2) { width: 350px; height: 350px; background: #FFA500; bottom: -10%; right: -10%; animation-delay: -5s; }
+        .bg-orbs .orb:nth-child(3) { width: 300px; height: 300px; background: #FFD700; top: 50%; left: 50%; transform: translate(-50%, -50%); animation-delay: -10s; opacity: 0.04; }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(60px, -40px) scale(1.1); }
+            50% { transform: translate(-30px, 50px) scale(0.9); }
+            75% { transform: translate(-50px, -30px) scale(1.05); }
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.18);
+            padding: 10px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: 0.3s;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.4));
+            border-radius: 8px;
+            background: #1a1a1a;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            color: #FFD700;
+            line-height: 1;
+        }
+
+        .signin-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            color: #FFD700;
+            padding: 6px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: 0.3s;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .signin-btn:hover {
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .menu-toggle {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            padding: 6px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .menu-toggle:hover {
+            background: rgba(255, 215, 0, 0.08);
+        }
+
+        .menu-toggle .bar {
+            display: block;
+            width: 26px;
+            height: 3px;
+            background: #FFD700;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+        .menu-toggle .bar:nth-child(2) { width: 20px; }
+        .menu-toggle .bar:nth-child(3) { width: 24px; }
+
+        /* Side Menu */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -380px;
+            width: 310px;
+            max-width: 82vw;
+            height: 100vh;
+            background: rgba(12, 12, 10, 0.97);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border-left: 1px solid rgba(255, 215, 0, 0.2);
+            padding: 80px 28px 40px;
+            z-index: 1100;
+            transition: right 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: -12px 0 50px rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            overflow-y: auto;
+        }
+
+        .side-menu.open { right: 0; }
+        .side-menu .close-btn {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            font-size: 1.8rem;
+            color: #FFD700;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .side-menu .close-btn:hover { transform: rotate(90deg); }
+        .side-menu a {
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 12px 16px;
+            border-radius: 14px;
+            color: #ccc;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.03);
+        }
+        .side-menu a i { width: 22px; color: #FFD700; font-size: 1.1rem; }
+        .side-menu a:hover { background: rgba(255, 215, 0, 0.06); color: #FFD700; padding-left: 22px; }
+        .side-menu .menu-highlight { color: #FFD700; font-weight: 700; border-bottom: none; margin-top: 16px; }
+
+        .menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1050;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.4s;
+        }
+        .menu-overlay.active { opacity: 1; pointer-events: auto; }
+
+        /* Admin Page */
+        .admin-page {
+            padding: 100px 0 60px;
+            min-height: 100vh;
+        }
+
+        .admin-page .admin-box {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(20, 20, 18, 0.9);
+            border-radius: 30px;
+            padding: 30px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .admin-page .admin-box h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            color: #FFD700;
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .admin-page .form-group {
+            margin-bottom: 14px;
+        }
+
+        .admin-page .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .admin-page .form-group input,
+        .admin-page .form-group textarea,
+        .admin-page .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            background: rgba(0, 0, 0, 0.4);
+            color: #fff;
+            font-size: 0.95rem;
+            font-family: 'Montserrat', sans-serif;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .admin-page .form-group input:focus,
+        .admin-page .form-group textarea:focus,
+        .admin-page .form-group select:focus {
+            border-color: #FFD700;
+        }
+
+        .admin-page .form-group select option {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        .admin-page .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .admin-page .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .admin-page .btn-submit {
+            background: linear-gradient(135deg, #FFD700, #e6b800);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 700;
+            color: #0a0a0a;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        .admin-page .btn-submit:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.25);
+        }
+
+        .admin-page .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .admin-page .admin-list {
+            margin-top: 20px;
+            border-top: 1px solid rgba(255, 215, 0, 0.1);
+            padding-top: 16px;
+        }
+
+        .admin-page .admin-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.05);
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .admin-page .admin-item .info {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .admin-page .admin-item .info h4 {
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        .admin-page .admin-item .info p {
+            color: #888;
+            font-size: 0.75rem;
+        }
+
+        .admin-page .admin-item .info .category-badge {
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.1);
+            color: #FFD700;
+            padding: 2px 12px;
+            border-radius: 12px;
+            font-size: 0.65rem;
+        }
+
+        .admin-page .admin-item .info .status-badge {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 12px;
+            font-size: 0.65rem;
+            margin-left: 4px;
+        }
+
+        .admin-page .admin-item .info .status-badge.active {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+        }
+
+        .admin-page .admin-item .info .status-badge.inactive {
+            background: rgba(255, 0, 0, 0.15);
+            color: #ff4444;
+        }
+
+        .admin-page .admin-item .actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .admin-page .admin-item .actions button {
+            padding: 4px 14px;
+            border-radius: 20px;
+            border: none;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            transition: 0.3s;
+        }
+
+        .admin-page .admin-item .actions .edit-btn {
+            background: rgba(255, 215, 0, 0.1);
+            color: #FFD700;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .admin-page .admin-item .actions .edit-btn:hover {
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        .admin-page .admin-item .actions .delete-btn {
+            background: rgba(255, 0, 0, 0.15);
+            color: #ff4444;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .admin-page .admin-item .actions .delete-btn:hover {
+            background: rgba(255, 0, 0, 0.25);
+        }
+
+        .admin-page .admin-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding: 10px 16px;
+            background: rgba(255, 215, 0, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .admin-page .admin-status .status-text {
+            color: #FFD700;
+            font-weight: 600;
+        }
+
+        .admin-page .admin-status .logout-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            color: #ff4444;
+            padding: 4px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .admin-page .admin-status .logout-btn:hover {
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        .upload-section {
+            display: none;
+        }
+
+        .upload-section.active {
+            display: block;
+        }
+
+        .login-section {
+            display: block;
+        }
+
+        .login-section.hidden {
+            display: none;
+        }
+
+        .access-denied {
+            text-align: center;
+            padding: 40px 20px;
+            color: #ff4444;
+        }
+
+        .access-denied i {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .access-denied h2 {
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .access-denied p {
+            color: #888;
+        }
+
+        .access-denied .back-link {
+            display: inline-block;
+            margin-top: 16px;
+            color: #FFD700;
+            text-decoration: underline;
+        }
+
+        .admin-page .login-section .google-btn {
+            background: linear-gradient(135deg, #FFD700, #e6b800);
+            color: #0a0a0a;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .admin-page .login-section .google-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 40px rgba(255, 215, 0, 0.35);
+        }
+
+        .admin-page .login-section .google-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .admin-page .login-section p {
+            color: #666;
+            margin-top: 12px;
+            font-size: 0.8rem;
+        }
+
+        .admin-menu-item {
+            display: none !important;
+        }
+        .admin-menu-item.visible {
+            display: flex !important;
+        }
+
+        /* Floating Buttons */
+        .float-wa {
+            position: fixed;
+            bottom: 28px;
+            right: 22px;
+            z-index: 900;
+            background: #25D366;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.4);
+            transition: 0.3s;
+            border: 2px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .float-wa:hover {
+            transform: scale(1.06) rotate(-4deg);
+        }
+
+        .float-wa i {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .float-channel {
+            position: fixed;
+            bottom: 28px;
+            left: 22px;
+            z-index: 900;
+            background: rgba(37, 211, 102, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 10px 16px;
+            border-radius: 50px;
+            border: 1px solid rgba(37, 211, 102, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #25D366;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: 0.3s;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .float-channel:hover {
+            background: rgba(37, 211, 102, 0.25);
+            transform: scale(1.04);
+            border-color: #25D366;
+        }
+
+        .float-channel i {
+            font-size: 1.2rem;
+        }
+        .float-channel span {
+            color: #fff;
+        }
+
+        /* Edit Form Popup */
+        .edit-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(16px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .edit-popup-box {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(20, 20, 18, 0.95);
+            border-radius: 30px;
+            padding: 30px;
+            border: 2px solid #FFD700;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: scaleIn 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .edit-popup-box .popup-close {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            font-size: 1.6rem;
+            color: #666;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .edit-popup-box .popup-close:hover {
+            color: #FFD700;
+            transform: rotate(90deg);
+        }
+
+        .edit-popup-box h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            color: #FFD700;
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .site-header { padding: 8px 14px; }
+            .logo-text { font-size: 1.1rem; }
+            .logo-icon { width: 32px; height: 32px; }
+            .side-menu { width: 270px; padding: 70px 18px 30px; }
+            .float-wa { width: 50px; height: 50px; bottom: 18px; right: 14px; }
+            .float-wa i { font-size: 1.6rem; }
+            .float-channel { padding: 8px 14px; font-size: 0.65rem; bottom: 18px; left: 14px; }
+            .float-channel i { font-size: 1rem; }
+            .admin-page .admin-box { padding: 20px 16px; }
+            .admin-page .form-row { grid-template-columns: 1fr; }
+            .admin-page .admin-item { flex-direction: column; align-items: stretch; }
+            .admin-page .admin-item .actions { justify-content: flex-end; }
+            .edit-popup-box { padding: 20px 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BACKGROUND -->
+    <div class="bg-animation">
+        <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+        <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+        <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    <div class="bg-orbs">
+        <div class="orb"></div><div class="orb"></div><div class="orb"></div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="logo-area">
+            <img class="logo-icon" src="https://i.ibb.co/ds4SFQsf/IMG-20260615-WA0025-1.webp" alt="Logo" />
+            <span class="logo-text">LEARN WITH SHAN</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+            <button class="signin-btn" id="headerSignInBtn"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <nav class="side-menu" id="sideMenu">
+        <button class="close-btn" id="closeMenuBtn"><i class="fas fa-times"></i></button>
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="pro-apks.html"><i class="fas fa-crown"></i> Pro APKs</a>
+        <a href="admin.html" class="admin-menu-item" id="adminMenuItem"><i class="fas fa-user-shield"></i> Admin</a>
+        <a href="#" class="menu-highlight"><i class="fas fa-phone"></i> 0317 3724356</a>
+    </nav>
+
+    <!-- ADMIN PAGE -->
+    <section class="admin-page container">
+        <div class="admin-box">
+            <h1><i class="fas fa-user-shield"></i> Admin Panel</h1>
+
+            <!-- Access Denied -->
+            <div id="accessDenied" style="display:none;">
+                <div class="access-denied">
+                    <i class="fas fa-lock"></i>
+                    <h2>Access Denied</h2>
+                    <p>You do not have permission to access the admin panel.</p>
+                    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+                </div>
+            </div>
+
+            <!-- Login Section -->
+            <div class="login-section" id="loginSection">
+                <button class="google-btn" id="googleLoginBtn">
+                    <i class="fab fa-google"></i> Sign in with Google
+                </button>
+                <p>Only authorized admins can access</p>
+                <div style="margin-top:12px; color:#555; font-size:0.8rem;">
+                    <span id="loginStatus">Checking...</span>
+                </div>
+            </div>
+
+            <!-- Upload Section -->
+            <div class="upload-section" id="uploadSection">
+                <div class="admin-status">
+                    <span class="status-text"><i class="fas fa-check-circle"></i> Logged in as <span id="adminEmailDisplay">Admin</span></span>
+                    <button class="logout-btn" id="adminLogoutBtn">Logout</button>
+                </div>
+
+                <!-- APK Upload Form -->
+                <h3 style="color:#aaa; font-size:0.9rem; margin-bottom:12px;">Upload New APK</h3>
+                <div class="form-group">
+                    <label>App Name *</label>
+                    <input type="text" id="apkName" placeholder="Enter app name" />
+                </div>
+                <div class="form-group">
+                    <label>Short Description</label>
+                    <input type="text" id="apkShortDesc" placeholder="Short description" />
+                </div>
+                <div class="form-group">
+                    <label>App Details (3-4 sentences)</label>
+                    <textarea id="apkDetails" placeholder="Detailed information about the app"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Drive Download Link *</label>
+                    <input type="url" id="apkLink" placeholder="https://drive.google.com/..." />
+                </div>
+                <div class="form-group">
+                    <label>App Logo URL</label>
+                    <input type="url" id="apkLogo" placeholder="https://example.com/logo.png" />
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="apkCategory">
+                            <option value="AI Apps">🤖 AI Apps</option>
+                            <option value="Social Apps">📱 Social Apps</option>
+                            <option value="Entertaining Apps">🎮 Entertaining Apps</option>
+                            <option value="Modded Apps">🔧 Modded Apps</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="apkStatus">
+                            <option value="active">✅ Active</option>
+                            <option value="inactive">❌ Inactive</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="btn-submit" id="uploadApkBtn"><i class="fas fa-upload"></i> Upload APK</button>
+
+                <!-- APK List -->
+                <div class="admin-list" id="adminApkList">
+                    <h4 style="color:#aaa; font-size:0.8rem; margin-bottom:10px;">Uploaded Apps</h4>
+                    <p style="color:#666; font-size:0.8rem;">Loading...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FLOATING BUTTONS -->
+    <a href="https://wa.me/923173724356?text=Hi%20Shan!%20I%20want%20to%20join%20the%20course" target="_blank" class="float-wa" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <a href="https://whatsapp.com/channel/0029VbCdtdI3LdQWe2Zxdh3t" target="_blank" class="float-channel" aria-label="WhatsApp Channel">
+        <i class="fab fa-whatsapp"></i>
+        <span>Follow Channel</span>
+    </a>
+
+    <script>
+        // ============================================================
+        // FIREBASE CONFIG
+        // ============================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyDr8cOagJ0dXLiil62JvH4q02mIcmxX9pc",
+            authDomain: "learnwithshan-4be25.firebaseapp.com",
+            projectId: "learnwithshan-4be25",
+            storageBucket: "learnwithshan-4be25.firebasestorage.app",
+            messagingSenderId: "632640212736",
+            appId: "1:632640212736:web:554cba768fb7c0d1e46de5",
+            measurementId: "G-SV6PX5N75Q"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        console.log('Firebase initialized successfully!');
+
+        // ============================================================
+        // DOM ELEMENTS
+        // ============================================================
+        const menuToggle = document.getElementById('menuToggle');
+        const sideMenu = document.getElementById('sideMenu');
+        const overlay = document.getElementById('menuOverlay');
+        const closeBtn = document.getElementById('closeMenuBtn');
+        const headerSignInBtn = document.getElementById('headerSignInBtn');
+        const adminMenuItem = document.getElementById('adminMenuItem');
+
+        const loginSection = document.getElementById('loginSection');
+        const uploadSection = document.getElementById('uploadSection');
+        const accessDenied = document.getElementById('accessDenied');
+        const googleLoginBtn = document.getElementById('googleLoginBtn');
+        const adminLogoutBtn = document.getElementById('adminLogoutBtn');
+        const adminEmailDisplay = document.getElementById('adminEmailDisplay');
+        const loginStatus = document.getElementById('loginStatus');
+
+        const apkName = document.getElementById('apkName');
+        const apkShortDesc = document.getElementById('apkShortDesc');
+        const apkDetails = document.getElementById('apkDetails');
+        const apkLink = document.getElementById('apkLink');
+        const apkLogo = document.getElementById('apkLogo');
+        const apkCategory = document.getElementById('apkCategory');
+        const apkStatus = document.getElementById('apkStatus');
+        const uploadApkBtn = document.getElementById('uploadApkBtn');
+        const adminApkList = document.getElementById('adminApkList');
+
+        let adminEmails = [];
+        let editingId = null;
+
+        // ============================================================
+        // MENU FUNCTIONS
+        // ============================================================
+        function openMenu() {
+            sideMenu.classList.add('open');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenu() {
+            sideMenu.classList.remove('open');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        menuToggle.addEventListener('click', openMenu);
+        closeBtn.addEventListener('click', closeMenu);
+        overlay.addEventListener('click', closeMenu);
+        sideMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+
+        // ============================================================
+        // ADMIN LOGIC
+        // ============================================================
+        async function loadAdminEmails() {
+            try {
+                const doc = await db.collection('settings').doc('admin').get();
+                if (doc.exists) {
+                    const data = doc.data();
+                    if (data.emails && Array.isArray(data.emails)) {
+                        adminEmails = data.emails;
+                    } else if (data.email) {
+                        adminEmails = [data.email];
+                    }
+                }
+                return adminEmails;
+            } catch (error) {
+                console.error('Error loading admin emails:', error);
+                return [];
+            }
+        }
+
+        async function isUserAdmin(user) {
+            if (!user) return false;
+            await loadAdminEmails();
+            return adminEmails.includes(user.email);
+        }
+
+        function updateUI(isAdmin, isLoggedIn, userEmail) {
+            loginSection.classList.add('hidden');
+            uploadSection.classList.remove('active');
+            accessDenied.style.display = 'none';
+
+            if (!isLoggedIn) {
+                loginSection.classList.remove('hidden');
+                loginStatus.textContent = 'Please sign in to continue.';
+                googleLoginBtn.disabled = false;
+                googleLoginBtn.innerHTML = '<i class="fab fa-google"></i> Sign in with Google';
+            } else if (isLoggedIn && isAdmin) {
+                uploadSection.classList.add('active');
+                adminEmailDisplay.textContent = userEmail;
+                loginStatus.textContent = '✅ Admin access granted!';
+                loadAdminAPKs();
+            } else if (isLoggedIn && !isAdmin) {
+                accessDenied.style.display = 'block';
+                loginStatus.textContent = '❌ You are not authorized as admin.';
+            }
+        }
+
+        // ============================================================
+        // GOOGLE SIGN IN
+        // ============================================================
+        googleLoginBtn.addEventListener('click', function() {
+            this.disabled = true;
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
+            loginStatus.textContent = 'Signing in...';
+
+            const provider = new firebase.auth.GoogleAuthProvider();
+            provider.setCustomParameters({ prompt: 'select_account' });
+
+            auth.signInWithPopup(provider)
+                .then(async (result) => {
+                    const isAdmin = await isUserAdmin(result.user);
+                    if (isAdmin) {
+                        updateUI(true, true, result.user.email);
+                        headerSignInBtn.innerHTML =
+                            `<i class="fas fa-user"></i> ${result.user.displayName || result.user.email.split('@')[0]}`;
+                    } else {
+                        alert('You are not authorized as admin.');
+                        auth.signOut();
+                        updateUI(false, false, null);
+                        googleLoginBtn.disabled = false;
+                        googleLoginBtn.innerHTML = '<i class="fab fa-google"></i> Sign in with Google';
+                    }
+                })
+                .catch((error) => {
+                    loginStatus.textContent = '❌ ' + error.message;
+                    googleLoginBtn.disabled = false;
+                    googleLoginBtn.innerHTML = '<i class="fab fa-google"></i> Sign in with Google';
+                });
+        });
+
+        // ============================================================
+        // AUTH STATE OBSERVER
+        // ============================================================
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                const isAdmin = await isUserAdmin(user);
+                updateUI(isAdmin, true, user.email);
+                if (isAdmin) {
+                    loadAdminAPKs();
+                }
+                headerSignInBtn.innerHTML = `<i class="fas fa-user"></i> ${user.displayName || user.email.split('@')[0]}`;
+                adminMenuItem.classList.add('visible');
+            } else {
+                updateUI(false, false, null);
+                headerSignInBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+                googleLoginBtn.disabled = false;
+                googleLoginBtn.innerHTML = '<i class="fab fa-google"></i> Sign in with Google';
+                adminMenuItem.classList.remove('visible');
+            }
+        });
+
+        // ============================================================
+        // HEADER SIGN IN BUTTON
+        // ============================================================
+        headerSignInBtn.addEventListener('click', function() {
+            const user = auth.currentUser;
+            if (user) {
+                if (confirm(`Signed in as ${user.email}\nDo you want to sign out?`)) {
+                    auth.signOut();
+                }
+            } else {
+                loginSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        // ============================================================
+        // ADMIN LOGOUT
+        // ============================================================
+        adminLogoutBtn.addEventListener('click', function() {
+            auth.signOut();
+            updateUI(false, false, null);
+        });
+
+        // ============================================================
+        // UPLOAD/UPDATE APK
+        // ============================================================
+        uploadApkBtn.addEventListener('click', function() {
+            const name = apkName.value.trim();
+            const shortDesc = apkShortDesc.value.trim();
+            const details = apkDetails.value.trim();
+            const link = apkLink.value.trim();
+            const logo = apkLogo.value.trim();
+            const category = apkCategory.value;
+            const status = apkStatus.value;
+
+            if (!name || !link) {
+                alert('App Name and Drive Link are required.');
+                return;
+            }
+
+            const user = auth.currentUser;
+            if (!user) {
+                alert('You must be signed in as admin.');
+                return;
+            }
+
+            this.disabled = true;
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+            const data = {
+                name: name,
+                shortDesc: shortDesc || '',
+                details: details || '',
+                link: link,
+                logo: logo || '',
+                category: category,
+                status: status,
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
+
+            let promise;
+            if (editingId) {
+                promise = db.collection('apks').doc(editingId).update(data);
+            } else {
+                data.timestamp = firebase.firestore.FieldValue.serverTimestamp();
+                promise = db.collection('apks').add(data);
+            }
+
+            promise.then(() => {
+                alert(editingId ? '✅ APK updated successfully!' : '✅ APK uploaded successfully!');
+                resetForm();
+                loadAdminAPKs();
+                this.disabled = false;
+                this.innerHTML = '<i class="fas fa-upload"></i> Upload APK';
+            }).catch((error) => {
+                alert('Error: ' + error.message);
+                this.disabled = false;
+                this.innerHTML = '<i class="fas fa-upload"></i> Upload APK';
+            });
+        });
+
+        function resetForm() {
+            apkName.value = '';
+            apkShortDesc.value = '';
+            apkDetails.value = '';
+            apkLink.value = '';
+            apkLogo.value = '';
+            apkCategory.value = 'AI Apps';
+            apkStatus.value = 'active';
+            editingId = null;
+            uploadApkBtn.innerHTML = '<i class="fas fa-upload"></i> Upload APK';
+        }
+
+        // ============================================================
+        // LOAD APKS IN ADMIN
+        // ============================================================
+        function loadAdminAPKs() {
+            db.collection('apks').orderBy('timestamp', 'desc').onSnapshot((snapshot) => {
+                if (snapshot.empty) {
+                    adminApkList.innerHTML = `
+                        <h4 style="color:#aaa; font-size:0.8rem; margin-bottom:10px;">Uploaded Apps</h4>
+                        <p style="color:#666; font-size:0.8rem;">No apps uploaded yet.</p>
+                    `;
+                    return;
+                }
+
+                let html = '<h4 style="color:#aaa; font-size:0.8rem; margin-bottom:10px;">Uploaded Apps</h4>';
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const id = doc.id;
+                    const statusClass = data.status === 'active' ? 'active' : 'inactive';
+                    const statusText = data.status === 'active' ? '✅ Active' : '❌ Inactive';
+
+                    html += `
+                        <div class="admin-item">
+                            <div class="info">
+                                <h4>${data.name}</h4>
+                                <p>${data.shortDesc || ''}</p>
+                                <div style="margin-top:4px;">
+                                    <span class="category-badge"><i class="fas fa-tag"></i> ${data.category || 'Uncategorized'}</span>
+                                    <span class="status-badge ${statusClass}">${statusText}</span>
+                                </div>
+                            </div>
+                            <div class="actions">
+                                <button class="edit-btn" data-id="${id}"><i class="fas fa-edit"></i> Edit</button>
+                                <button class="delete-btn" data-id="${id}"><i class="fas fa-trash"></i> Delete</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                adminApkList.innerHTML = html;
+
+                // Edit buttons
+                adminApkList.querySelectorAll('.edit-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const id = this.dataset.id;
+                        editApp(id);
+                    });
+                });
+
+                // Delete buttons
+                adminApkList.querySelectorAll('.delete-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        if (confirm('Delete this app?')) {
+                            db.collection('apks').doc(this.dataset.id).delete()
+                                .then(() => {
+                                    alert('✅ App deleted!');
+                                    loadAdminAPKs();
+                                })
+                                .catch((err) => alert('Error: ' + err.message));
+                        }
+                    });
+                });
+            });
+        }
+
+        // ============================================================
+        // EDIT APP FUNCTION
+        // ============================================================
+        function editApp(id) {
+            db.collection('apks').doc(id).get()
+                .then((doc) => {
+                    if (!doc.exists) return;
+                    const data = doc.data();
+
+                    apkName.value = data.name || '';
+                    apkShortDesc.value = data.shortDesc || '';
+                    apkDetails.value = data.details || '';
+                    apkLink.value = data.link || '';
+                    apkLogo.value = data.logo || '';
+                    apkCategory.value = data.category || 'AI Apps';
+                    apkStatus.value = data.status || 'active';
+
+                    editingId = id;
+                    uploadApkBtn.innerHTML = '<i class="fas fa-save"></i> Update APK';
+                    uploadApkBtn.scrollIntoView({ behavior: 'smooth' });
+                })
+                .catch((err) => alert('Error loading app: ' + err.message));
+        }
+
+        // ============================================================
+        // INITIAL LOAD
+        // ============================================================
+        loadAdminEmails();
+
+        setTimeout(() => {
+            const user = auth.currentUser;
+            if (user) {
+                loginStatus.textContent = 'Checking admin status...';
+            } else {
+                loginStatus.textContent = 'Please sign in to continue.';
+            }
+        }, 500);
+
+        console.log('Admin page loaded successfully!');
+    </script>
+</body>
+</html>
