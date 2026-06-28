@@ -1,0 +1,2437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes, viewport-fit=cover">
+    <title>Husnain · Developer</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="icon" type="image/png" href="https://i.ibb.co/hJD9bGbV/IMG-20260615-WA0025-1.png">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/hJD9bGbV/IMG-20260615-WA0025-1.png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent !important;
+        }
+
+        *:focus,
+        *:focus-visible,
+        *:active {
+            outline: none !important;
+            box-shadow: none !important;
+            -webkit-tap-highlight-color: transparent !important;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #0a0a0a;
+            color: #f0f0f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .bg-3d-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .bg-3d-lines svg {
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+        }
+
+        .bg-3d-lines .line {
+            stroke: rgba(139, 92, 246, 0.15);
+            stroke-width: 1.5;
+            fill: none;
+            animation: lineMove 20s linear infinite;
+        }
+
+        .bg-3d-lines .line:nth-child(1) { animation-duration: 25s; animation-delay: 0s; }
+        .bg-3d-lines .line:nth-child(2) { animation-duration: 30s; animation-delay: -5s; }
+        .bg-3d-lines .line:nth-child(3) { animation-duration: 22s; animation-delay: -10s; }
+        .bg-3d-lines .line:nth-child(4) { animation-duration: 28s; animation-delay: -3s; }
+        .bg-3d-lines .line:nth-child(5) { animation-duration: 35s; animation-delay: -8s; }
+
+        @keyframes lineMove {
+            0% { stroke-dashoffset: 1000; opacity: 0.1; }
+            50% { opacity: 0.4; }
+            100% { stroke-dashoffset: 0; opacity: 0.1; }
+        }
+
+        .bg-3d-lines .joint {
+            fill: rgba(139, 92, 246, 0.25);
+            animation: jointPulse 4s ease-in-out infinite;
+        }
+
+        .bg-3d-lines .joint:nth-child(odd) { animation-delay: 0s; }
+        .bg-3d-lines .joint:nth-child(even) { animation-delay: -2s; }
+
+        @keyframes jointPulse {
+            0%, 100% { r: 3; opacity: 0.2; }
+            50% { r: 6; opacity: 0.6; }
+        }
+
+        .bg-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .bg-particles span {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(139, 92, 246, 0.15);
+            border-radius: 50%;
+            animation: floatParticle 30s infinite linear;
+        }
+
+        .bg-particles span:nth-child(1) { left: 10%; animation-duration: 18s; animation-delay: 0s; width: 5px; height: 5px; }
+        .bg-particles span:nth-child(2) { left: 25%; animation-duration: 22s; animation-delay: 2s; }
+        .bg-particles span:nth-child(3) { left: 40%; animation-duration: 16s; animation-delay: 4s; width: 6px; height: 6px; opacity: 0.3; }
+        .bg-particles span:nth-child(4) { left: 55%; animation-duration: 24s; animation-delay: 1s; }
+        .bg-particles span:nth-child(5) { left: 70%; animation-duration: 19s; animation-delay: 3s; width: 4px; height: 4px; }
+        .bg-particles span:nth-child(6) { left: 85%; animation-duration: 21s; animation-delay: 5s; width: 6px; height: 6px; opacity: 0.25; }
+        .bg-particles span:nth-child(7) { left: 15%; animation-duration: 17s; animation-delay: 6s; }
+        .bg-particles span:nth-child(8) { left: 50%; animation-duration: 23s; animation-delay: 2s; width: 5px; height: 5px; }
+        .bg-particles span:nth-child(9) { left: 65%; animation-duration: 20s; animation-delay: 4s; width: 6px; height: 6px; opacity: 0.2; }
+        .bg-particles span:nth-child(10) { left: 35%; animation-duration: 25s; animation-delay: 7s; }
+
+        @keyframes floatParticle {
+            0% { transform: translateY(100vh) rotate(0deg) scale(1); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(720deg) scale(0.5); opacity: 0; }
+        }
+
+        .bg-glow {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+            pointer-events: none;
+            animation: glowPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
+            50% { transform: translate(-50%, -50%) scale(1.4); opacity: 0.8; }
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            margin: 30px 20px;
+            padding: 45px 40px;
+            position: relative;
+            z-index: 1;
+            background: rgba(10, 10, 10, 0.45);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-radius: 48px;
+            border: 1px solid rgba(139, 92, 246, 0.08);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(50px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px) scale(0.96);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px) scale(0.96);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px) scale(0.96);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+        }
+
+        .reveal-rotate {
+            opacity: 0;
+            transform: rotate(-5deg) scale(0.95);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal-rotate.visible {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+        .reveal-delay-5 { transition-delay: 0.5s; }
+
+        .profile-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 45px;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 35px;
+        }
+
+        .profile-info {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .profile-info .greeting {
+            font-size: 0.8rem;
+            color: #8B5CF6;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        .profile-info h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.8rem, 6vw, 4.2rem);
+            line-height: 1.05;
+            background: linear-gradient(135deg, #8B5CF6, #6366F1, #EC4899);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmerGradient 5s ease-in-out infinite;
+        }
+
+        @keyframes shimmerGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .profile-info .title-role {
+            font-size: 1rem;
+            color: #aaa;
+            margin-top: 2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .profile-info .title-role .badge {
+            background: rgba(139, 92, 246, 0.12);
+            color: #8B5CF6;
+            padding: 2px 14px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            border: 1px solid rgba(139, 92, 246, 0.12);
+        }
+
+        .typewriter-wrapper {
+            margin-top: 12px;
+            min-height: 2.8rem;
+        }
+
+        .typewriter-wrapper .typewriter-text {
+            font-size: 0.95rem;
+            color: #bbb;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        .typewriter-wrapper .typewriter-text .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.1em;
+            background: #8B5CF6;
+            margin-left: 2px;
+            vertical-align: text-bottom;
+            animation: cursorBlink 0.8s step-end infinite;
+        }
+
+        @keyframes cursorBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .typewriter-wrapper .typewriter-text .highlight-text {
+            color: #8B5CF6;
+            font-weight: 500;
+        }
+
+        .contact-row {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .contact-row a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 26px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            text-decoration: none;
+        }
+
+        .contact-row .btn-wa {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: #fff;
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.2);
+        }
+
+        .contact-row .btn-wa:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 12px 40px rgba(37, 211, 102, 0.35);
+        }
+
+        /* FIXED CARD STYLES - Removed spinning border & avatar animation */
+        .card-wrapper {
+            flex: 0 0 340px;
+            width: 340px;
+            height: 460px;
+            position: relative;
+            border-radius: 30px;
+            overflow: visible;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent !important;
+            background: transparent;
+            perspective: 1200px;
+            animation: none !important;
+        }
+
+        /* Removed the spinning conic gradient border */
+        .card-wrapper::before {
+            display: none;
+        }
+
+        .card-wrapper::after {
+            display: none;
+        }
+
+        .card-inner {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            border-radius: 24px;
+            transform-style: preserve-3d;
+            transition: 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            -webkit-tap-highlight-color: transparent !important;
+            width: 100%;
+            height: 100%;
+        }
+
+        .card-wrapper.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front,
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 24px;
+            overflow: hidden;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(145deg, rgba(18, 18, 24, .96), rgba(7, 7, 10, .98));
+            box-shadow: 0 30px 80px rgba(0, 0, 0, .6);
+            padding: 25px;
+            border: 1px solid rgba(139, 92, 246, 0.06);
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Fixed avatar - removed spinning animation */
+        .avatar-container {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(135deg, #8B5CF6, #6366F1, #EC4899);
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.2);
+            flex-shrink: 0;
+            margin-bottom: 12px;
+            animation: none !important;
+        }
+
+        .avatar-container img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #0b0b0b;
+            display: block;
+            background: #0b0b0b;
+        }
+
+        .card-front h2 {
+            font-family: 'Bebas Neue';
+            font-size: 42px;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, #8B5CF6, #EC4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-top: 0;
+        }
+
+        .card-front .title {
+            color: #aaa;
+            margin-top: 5px;
+            font-size: 0.85rem;
+        }
+
+        .badges {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .badge {
+            padding: 7px 15px;
+            background: rgba(139, 92, 246, .1);
+            border: 1px solid rgba(139, 92, 246, .2);
+            border-radius: 30px;
+            color: #8B5CF6;
+            font-size: 12px;
+        }
+
+        .flip-hint {
+            position: absolute;
+            bottom: 30px;
+            color: #666;
+            font-size: 12px;
+        }
+
+        .flip-hint i {
+            color: #8B5CF6;
+            margin-right: 4px;
+        }
+
+        .about {
+            font-family: 'Bebas Neue';
+            font-size: 36px;
+            color: #fff;
+        }
+
+        .about span {
+            color: #8B5CF6;
+        }
+
+        .bio {
+            color: #aaa;
+            text-align: center;
+            line-height: 1.7;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .skill {
+            padding: 7px 15px;
+            border-radius: 20px;
+            background: rgba(139, 92, 246, .08);
+            border: 1px solid rgba(139, 92, 246, .2);
+            color: #ccc;
+            font-size: 12px;
+        }
+
+        .bars-container {
+            width: 100%;
+            max-width: 280px;
+            margin-top: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 6px;
+            height: 60px;
+        }
+
+        .bar-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .bar-item .bar {
+            width: 100%;
+            height: 0%;
+            border-radius: 10px;
+            background: linear-gradient(180deg, #8B5CF6, #6366F1);
+            transition: height 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: 0 0 20px rgba(139, 92, 246, .2);
+            min-height: 4px;
+        }
+
+        .bar-item .bar.html { height: 85%; }
+        .bar-item .bar.css { height: 80%; }
+        .bar-item .bar.js { height: 75%; }
+        .bar-item .bar.firebase { height: 70%; }
+        .bar-item .bar.firestore { height: 65%; }
+
+        .bar-item .bar-label {
+            color: #666;
+            font-size: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .bar-item:hover .bar {
+            filter: brightness(1.2);
+            box-shadow: 0 0 30px rgba(139, 92, 246, .4);
+        }
+
+        .bar-item:hover .bar-label {
+            color: #8B5CF6;
+        }
+
+        .socials {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .socials a {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 1px solid rgba(139, 92, 246, .2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #aaa;
+            text-decoration: none;
+            transition: .3s;
+        }
+
+        .socials a:hover {
+            color: #8B5CF6;
+            border-color: #8B5CF6;
+            transform: translateY(-5px);
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 14px;
+            margin: 35px 0 35px;
+            padding: 18px 0;
+            border-top: 1px solid rgba(139, 92, 246, 0.06);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.06);
+        }
+
+        .stat-item {
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .stat-item .number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: #8B5CF6;
+            letter-spacing: 2px;
+            display: block;
+        }
+
+        .stat-item .number .counter {
+            display: inline-block;
+        }
+
+        .stat-item .label {
+            font-size: 0.65rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2px;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: #fff;
+            letter-spacing: 2px;
+            margin-bottom: 18px;
+        }
+
+        .section-title .highlight {
+            color: #8B5CF6;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+        }
+
+        .achieve-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(139, 92, 246, 0.06);
+            border-radius: 20px;
+            padding: 18px 20px;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .achieve-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #8B5CF6, transparent);
+            opacity: 0;
+            transition: 0.4s;
+        }
+
+        .achieve-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(139, 92, 246, 0.12);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .achieve-card:hover::before {
+            opacity: 1;
+        }
+
+        .achieve-card .icon {
+            font-size: 1.5rem;
+            color: #8B5CF6;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .achieve-card h4 {
+            color: #fff;
+            font-size: 0.95rem;
+            margin-bottom: 3px;
+        }
+
+        .achieve-card .word-wrapper {
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .achieve-card .word-wrapper .word {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(15px) scale(0.9);
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .achieve-card.visible .word-wrapper .word {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .achieve-card p {
+            color: #999;
+            font-size: 0.78rem;
+            line-height: 1.5;
+        }
+
+        .achieve-card .tag {
+            display: inline-block;
+            margin-top: 6px;
+            font-size: 0.55rem;
+            background: rgba(139, 92, 246, 0.06);
+            color: #8B5CF6;
+            padding: 2px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(139, 92, 246, 0.06);
+        }
+
+        .graph-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(139, 92, 246, 0.06);
+        }
+
+        .graph-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 20px auto;
+            aspect-ratio: 1/1;
+            position: relative;
+            cursor: grab;
+            touch-action: none;
+        }
+
+        .graph-container:active {
+            cursor: grabbing;
+        }
+
+        .graph-container canvas {
+            width: 100% !important;
+            height: 100% !important;
+            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.06);
+        }
+
+        .graph-label {
+            text-align: center;
+            color: #888;
+            font-size: 0.75rem;
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+
+        .graph-label i {
+            color: #8B5CF6;
+            margin-right: 6px;
+        }
+
+        .globe-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(139, 92, 246, 0.06);
+        }
+
+        .globe-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 10px;
+            position: relative;
+        }
+
+        .globe-heading {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .globe-heading h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            letter-spacing: 3px;
+            background: linear-gradient(135deg, #8B5CF6, #6366F1, #EC4899);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmerGradient 4s ease-in-out infinite;
+        }
+
+        .globe-heading .sub-head {
+            color: #555;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        .globe-heading .sub-head i {
+            color: #8B5CF6;
+            margin: 0 4px;
+        }
+
+        #globe-container {
+            width: 100%;
+            max-width: 500px;
+            height: 100vh;
+            max-height: 420px;
+            cursor: grab;
+            position: relative;
+            border-radius: 30px;
+            overflow: hidden;
+            border: 1px solid rgba(139, 92, 246, 0.06);
+            background: rgba(10, 10, 10, 0.3);
+        }
+
+        #globe-container:active {
+            cursor: grabbing;
+        }
+
+        .globe-instructions {
+            position: absolute;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.25);
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 6px 18px;
+            border-radius: 30px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            user-select: none;
+            font-family: 'Montserrat', sans-serif;
+            white-space: nowrap;
+            z-index: 5;
+            pointer-events: none;
+            animation: pulseInstruction 3s ease-in-out infinite;
+        }
+
+        @keyframes pulseInstruction {
+            0%, 100% { opacity: 0.3; transform: translateX(-50%) scale(1); }
+            50% { opacity: 0.8; transform: translateX(-50%) scale(1.02); }
+        }
+
+        .globe-instructions i {
+            color: #8B5CF6;
+            margin-right: 6px;
+            opacity: 0.6;
+        }
+
+        .zoom-controls {
+            position: absolute;
+            bottom: 70px;
+            right: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            z-index: 10;
+        }
+
+        .zoom-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(20, 20, 25, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(139, 92, 246, 0.12);
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+
+        .zoom-btn:hover {
+            background: rgba(139, 92, 246, 0.15);
+            border-color: #8B5CF6;
+            transform: scale(1.05);
+        }
+
+        .zoom-btn:active {
+            transform: scale(0.9);
+        }
+
+        .zoom-btn i {
+            color: #8B5CF6;
+        }
+
+        .zoom-level {
+            position: absolute;
+            bottom: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 9px;
+            letter-spacing: 1px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 3px 12px;
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            user-select: none;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .project-tooltip {
+            position: fixed;
+            background: rgba(20, 20, 25, 0.92);
+            backdrop-filter: blur(16px);
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 100;
+            font-family: 'Montserrat', sans-serif;
+            white-space: nowrap;
+        }
+
+        .project-tooltip.visible {
+            opacity: 1;
+        }
+
+        .project-tooltip .project-icon {
+            color: #8B5CF6;
+            margin-right: 6px;
+        }
+
+        .form-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(139, 92, 246, 0.06);
+        }
+
+        .form-section .form-sub {
+            color: #888;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #aaa;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .form-group label i {
+            color: #8B5CF6;
+            margin-right: 6px;
+            width: 16px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 14px 18px;
+            border-radius: 16px;
+            border: 1px solid rgba(139, 92, 246, 0.08);
+            background: rgba(0, 0, 0, 0.35);
+            color: #fff;
+            font-weight: 500;
+            outline: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-family: 'Montserrat', sans-serif;
+            width: 100%;
+            backdrop-filter: blur(4px);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #8B5CF6;
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.05);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #555;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 90px;
+            max-height: 150px;
+        }
+
+        .submit-row {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: center;
+            margin-top: 8px;
+        }
+
+        .submit-row button {
+            background: linear-gradient(135deg, #8B5CF6, #6366F1);
+            border: none;
+            padding: 16px 50px;
+            border-radius: 60px;
+            font-weight: 700;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            font-size: 1rem;
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.2);
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-row button:hover {
+            transform: scale(1.04) translateY(-2px);
+            box-shadow: 0 12px 40px rgba(139, 92, 246, 0.35);
+        }
+
+        .submit-row button:active {
+            transform: scale(0.96);
+        }
+
+        .footer-note {
+            margin-top: 35px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(139, 92, 246, 0.04);
+            text-align: center;
+            color: #444;
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+        }
+
+        .footer-note span {
+            color: #8B5CF6;
+        }
+
+        .footer-note i {
+            color: #EC4899;
+            font-size: 0.5rem;
+        }
+
+        .float-wa {
+            position: fixed;
+            bottom: 28px;
+            right: 22px;
+            z-index: 900;
+            background: #25D366;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.4);
+            transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            text-decoration: none;
+        }
+
+        .float-wa:hover {
+            transform: scale(1.08) rotate(-6deg);
+            box-shadow: 0 12px 45px rgba(37, 211, 102, 0.5);
+        }
+
+        .float-wa i {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        @media (max-width: 1024px) {
+            .profile-section {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .profile-info {
+                text-align: center;
+            }
+
+            .profile-info .title-role {
+                justify-content: center;
+            }
+
+            .contact-row {
+                justify-content: center;
+            }
+
+            .card-wrapper {
+                flex: 0 0 340px;
+                width: 340px;
+                max-width: 340px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 28px 18px;
+                margin: 20px 12px;
+                border-radius: 32px;
+            }
+
+            .card-wrapper {
+                flex: 0 0 290px;
+                width: 290px;
+                max-width: calc(100vw - 80px);
+                height: 400px;
+            }
+            }
+
+            .avatar-container {
+                width: 100px;
+                height: 100px;
+            }
+
+            .card-front h2 {
+                font-size: 34px;
+            }
+
+            .about {
+                font-size: 28px;
+            }
+
+            .bio {
+                font-size: 12px;
+            }
+
+            .bars-container {
+                height: 50px;
+                max-width: 230px;
+            }
+
+            .bar-item .bar-label {
+                font-size: 7px;
+            }
+
+            .typewriter-wrapper .typewriter-text {
+                font-size: 0.85rem;
+            }
+
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                text-align: center;
+            }
+
+            .achievements-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .graph-container {
+                max-width: 100%;
+            }
+
+            #globe-container {
+                max-width: 350px;
+                max-height: 320px;
+            }
+
+            .globe-heading h1 {
+                font-size: 1.8rem;
+            }
+
+            .globe-heading .sub-head {
+                font-size: 0.6rem;
+            }
+
+            .globe-instructions {
+                font-size: 9px;
+                padding: 4px 14px;
+                bottom: 12px;
+            }
+
+            .zoom-btn {
+                width: 34px;
+                height: 34px;
+                font-size: 14px;
+            }
+
+            .zoom-controls {
+                bottom: 56px;
+                right: 12px;
+                gap: 5px;
+            }
+
+            .zoom-level {
+                font-size: 8px;
+                padding: 2px 10px;
+                bottom: 56px;
+            }
+
+            .project-tooltip {
+                font-size: 11px;
+                padding: 6px 14px;
+            }
+
+            .float-wa {
+                width: 50px;
+                height: 50px;
+                bottom: 18px;
+                right: 14px;
+            }
+
+            .float-wa i {
+                font-size: 1.5rem;
+            }
+
+            .socials a {
+                width: 38px;
+                height: 38px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card-wrapper {
+                flex: 0 0 260px;
+                width: 260px;
+                max-width: calc(100vw - 60px);
+                height: 370px;
+            }
+
+            .avatar-container {
+                width: 80px;
+                height: 80px;
+            }
+
+            .card-front h2 {
+                font-size: 28px;
+            }
+
+            .card-front .title {
+                font-size: 0.7rem;
+            }
+
+            .badge {
+                font-size: 10px;
+                padding: 4px 10px;
+            }
+
+            .about {
+                font-size: 24px;
+            }
+
+            .bio {
+                font-size: 11px;
+            }
+
+            .skill {
+                font-size: 10px;
+                padding: 4px 10px;
+            }
+
+            .bars-container {
+                height: 40px;
+                max-width: 180px;
+                gap: 4px;
+            }
+
+            .bar-item .bar-label {
+                font-size: 6px;
+            }
+
+            .flip-hint {
+                font-size: 10px;
+                bottom: 20px;
+            }
+
+            .profile-info h1 {
+                font-size: 2.4rem;
+            }
+
+            .stat-item .number {
+                font-size: 1.6rem;
+            }
+
+            .contact-row a {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .submit-row button {
+                width: 100%;
+                justify-content: center;
+                padding: 14px 20px;
+            }
+
+            #globe-container {
+                max-width: 280px;
+                max-height: 260px;
+            }
+
+            .globe-heading h1 {
+                font-size: 1.4rem;
+            }
+
+            .globe-instructions {
+                font-size: 7px;
+                padding: 3px 10px;
+                bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <svg class="bg-3d-lines" viewBox="0 0 1000 800" preserveAspectRatio="xMidYMid slice">
+        <polyline class="line" points="0,400 200,200 400,500 600,150 800,450 1000,300" />
+        <polyline class="line" points="0,600 250,350 450,650 650,200 850,550 1000,400" />
+        <polyline class="line" points="0,200 300,100 500,400 700,100 900,300 1000,100" />
+        <polyline class="line" points="0,500 150,700 350,450 550,700 750,450 1000,600" />
+        <polyline class="line" points="0,100 200,300 400,100 600,350 800,150 1000,250" />
+        <circle class="joint" cx="200" cy="200" r="4" />
+        <circle class="joint" cx="400" cy="500" r="4" />
+        <circle class="joint" cx="600" cy="150" r="4" />
+        <circle class="joint" cx="800" cy="450" r="4" />
+        <circle class="joint" cx="250" cy="350" r="4" />
+        <circle class="joint" cx="450" cy="650" r="4" />
+        <circle class="joint" cx="650" cy="200" r="4" />
+        <circle class="joint" cx="300" cy="100" r="4" />
+        <circle class="joint" cx="500" cy="400" r="4" />
+        <circle class="joint" cx="700" cy="100" r="4" />
+        <circle class="joint" cx="150" cy="700" r="4" />
+        <circle class="joint" cx="350" cy="450" r="4" />
+        <circle class="joint" cx="550" cy="700" r="4" />
+        <circle class="joint" cx="750" cy="450" r="4" />
+        <circle class="joint" cx="200" cy="300" r="4" />
+        <circle class="joint" cx="400" cy="100" r="4" />
+        <circle class="joint" cx="600" cy="350" r="4" />
+    </svg>
+
+    <div class="bg-particles">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span>
+    </div>
+
+    <div class="bg-glow"></div>
+
+    <div class="container">
+
+        <!-- PROFILE SECTION -->
+        <div class="profile-section">
+
+            <div class="card-wrapper" id="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="avatar-container">
+                            <img src="https://i.ibb.co/RTBP1MgZ/1777440730234.webp" alt="Husnain Avatar">
+                        </div>
+                        <h2>HUSNAIN</h2>
+                        <div class="title">Full Stack Developer</div>
+                        <div class="badges">
+                            <div class="badge">2+ Years</div>
+                            <div class="badge">10+ Projects</div>
+                        </div>
+                        <div class="flip-hint">
+                            <i class="fas fa-arrows-rotate"></i>
+                            Tap To Flip
+                        </div>
+                    </div>
+
+                    <div class="card-back">
+                        <div class="about">About <span>Me</span></div>
+                        <p class="bio">
+                            Passionate developer crafting modern web solutions with clean code and beautiful user experiences.
+                        </p>
+                        <div class="skills">
+                            <div class="skill">HTML</div>
+                            <div class="skill">CSS</div>
+                            <div class="skill">JavaScript</div>
+                            <div class="skill">Firebase</div>
+                            <div class="skill">Firestore</div>
+                        </div>
+
+                        <div class="bars-container">
+                            <div class="bar-item">
+                                <div class="bar html"></div>
+                                <span class="bar-label">HTML</span>
+                            </div>
+                            <div class="bar-item">
+                                <div class="bar css"></div>
+                                <span class="bar-label">CSS</span>
+                            </div>
+                            <div class="bar-item">
+                                <div class="bar js"></div>
+                                <span class="bar-label">JS</span>
+                            </div>
+                            <div class="bar-item">
+                                <div class="bar firebase"></div>
+                                <span class="bar-label">Firebase</span>
+                            </div>
+                            <div class="bar-item">
+                                <div class="bar firestore"></div>
+                                <span class="bar-label">Firestore</span>
+                            </div>
+                        </div>
+
+                        <div class="socials">
+                            <a href="https://wa.me/923038776223" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                            <a href="https://github.com" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="mailto:husnain@example.com" title="Email"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-info">
+                <div class="greeting reveal-left">👋 Hello, I'm</div>
+                <h1 class="reveal-left reveal-delay-1">Husnain</h1>
+                <div class="title-role reveal-left reveal-delay-2">
+                    <span><i class="fas fa-code" style="color:#8B5CF6; margin-right:4px;"></i> Full Stack Developer</span>
+                    <span class="badge"><i class="fas fa-calendar-alt"></i> 2+ Years</span>
+                    <span class="badge"><i class="fas fa-rocket"></i> 10+ Projects</span>
+                </div>
+
+                <div class="typewriter-wrapper reveal-left reveal-delay-3">
+                    <div class="typewriter-text" id="typewriterText">
+                        <span class="highlight-text">Crafting</span> modern web solutions with clean code & exceptional UX.
+                        <span class="cursor"></span>
+                    </div>
+                </div>
+
+                <div class="contact-row reveal-left reveal-delay-4">
+                    <a href="https://wa.me/923038776223?text=Hi%20Husnain!%20I%20want%20to%20discuss%20a%20project" target="_blank" class="btn-wa">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- STATS -->
+        <div class="stats-row">
+            <div class="stat-item reveal-rotate reveal-delay-1">
+                <span class="number"><span class="counter" data-target="10">0</span>+</span>
+                <span class="label">Projects</span>
+            </div>
+            <div class="stat-item reveal-rotate reveal-delay-2">
+                <span class="number"><span class="counter" data-target="2">0</span>+</span>
+                <span class="label">Years Experience</span>
+            </div>
+            <div class="stat-item reveal-rotate reveal-delay-3">
+                <span class="number"><span class="counter" data-target="5">0</span></span>
+                <span class="label">Live Platforms</span>
+            </div>
+            <div class="stat-item reveal-rotate reveal-delay-4">
+                <span class="number"><span class="counter" data-target="100">0</span>%</span>
+                <span class="label">Satisfaction</span>
+            </div>
+        </div>
+
+        <!-- ACHIEVEMENTS -->
+        <h2 class="section-title reveal-left"><i class="fas fa-trophy" style="color:#8B5CF6; margin-right:10px;"></i> Key <span class="highlight">Achievements</span></h2>
+        <div class="achievements-grid">
+            
+            <div class="achieve-card reveal-scale reveal-delay-1">
+                <span class="icon"><i class="fas fa-crown"></i></span>
+                <h4><span class="word-wrapper"><span class="word">Learn</span> <span class="word">with</span> <span class="word">Shan</span> <span class="word">Platform</span></span></h4>
+                <p>Complete educational platform with APK management, user auth, and real-time Firebase integration.</p>
+                <span class="tag">🔥 Firebase + HTML/CSS/JS</span>
+            </div>
+
+            <div class="achieve-card reveal-scale reveal-delay-2">
+                <span class="icon"><i class="fas fa-database"></i></span>
+                <h4><span class="word-wrapper"><span class="word">SIM</span> <span class="word">Database</span> <span class="word">System</span></span></h4>
+                <p>Premium SIM lookup system with live API, search history, and downloadable result export.</p>
+                <span class="tag">📡 API Integration</span>
+            </div>
+
+            <div class="achieve-card reveal-scale reveal-delay-3">
+                <span class="icon"><i class="fas fa-image"></i></span>
+                <h4><span class="word-wrapper"><span class="word">AI</span> <span class="word">Prompt</span> <span class="word">Manager</span></span></h4>
+                <p>Image prompt management with admin panel, copy counter, and interactive lightbox gallery.</p>
+                <span class="tag">🎨 UI/UX Design</span>
+            </div>
+
+            <div class="achieve-card reveal-scale reveal-delay-4">
+                <span class="icon"><i class="fas fa-mobile-alt"></i></span>
+                <h4><span class="word-wrapper"><span class="word">Responsive</span> <span class="word">Web</span> <span class="word">Apps</span></span></h4>
+                <p>Modern glassmorphism UI with seamless mobile experience across all devices.</p>
+                <span class="tag">📱 Responsive</span>
+            </div>
+
+            <div class="achieve-card reveal-scale reveal-delay-5">
+                <span class="icon"><i class="fas fa-shield-alt"></i></span>
+                <h4><span class="word-wrapper"><span class="word">Admin</span> <span class="word">Panel</span> <span class="word">Systems</span></span></h4>
+                <p>Secure admin dashboards for content, user data management, and real-time analytics.</p>
+                <span class="tag">🔐 Auth + Firestore</span>
+            </div>
+
+            <div class="achieve-card reveal-scale reveal-delay-1" style="transition-delay:0.6s;">
+                <span class="icon"><i class="fas fa-code-branch"></i></span>
+                <h4><span class="word-wrapper"><span class="word">Version</span> <span class="word">Control</span> <span class="word">&</span> <span class="word">Deployment</span></span></h4>
+                <p>Full GitHub workflow, automated deployments, and live hosting configurations.</p>
+                <span class="tag">🚀 DevOps</span>
+            </div>
+
+        </div>
+
+        <!-- 3D SKILLS GRAPH -->
+        <div class="graph-section">
+            <h2 class="section-title reveal-right"><i class="fas fa-chart-pie" style="color:#8B5CF6; margin-right:10px;"></i> Skills <span class="highlight">Overview</span></h2>
+            <div class="graph-container reveal-scale" id="graphContainer">
+                <canvas id="skillsGraph"></canvas>
+            </div>
+            <p class="graph-label"><i class="fas fa-hand-pointer"></i> Drag to rotate graph</p>
+        </div>
+
+        <!-- GLOBE SECTION -->
+        <div class="globe-section">
+            <div class="globe-wrapper">
+                <div class="globe-heading">
+                    <h1>✦ Projects by Husnain</h1>
+                    <div class="sub-head">
+                        <i class="fas fa-code"></i> Full Stack Developer <i class="fas fa-circle" style="font-size:4px; vertical-align:middle;"></i> 20+ Projects
+                    </div>
+                </div>
+
+                <div id="globe-container">
+                    <div class="globe-instructions">
+                        <i class="fas fa-hand-pointer"></i> Hover / Tap a dot to see project
+                    </div>
+                    <div class="zoom-level" id="zoomLevel">100%</div>
+                    <div class="zoom-controls">
+                        <button class="zoom-btn" id="zoomInBtn" title="Zoom In">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <button class="zoom-btn" id="zoomOutBtn" title="Zoom Out">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button class="zoom-btn" id="resetZoomBtn" title="Reset Zoom">
+                            <i class="fas fa-home"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INQUIRY FORM -->
+        <div class="form-section">
+            <h2 class="section-title reveal-left" style="margin-bottom:4px;"><i class="fas fa-paper-plane" style="color:#8B5CF6; margin-right:10px;"></i> Start Your <span class="highlight">Project</span></h2>
+            <p class="form-sub reveal-left reveal-delay-1">Tell me about your idea, and I'll help bring it to life.</p>
+
+            <form id="inquiryForm" onsubmit="handleFormSubmit(event)">
+                <div class="form-grid">
+                    <div class="form-group reveal-rotate reveal-delay-1">
+                        <label><i class="fas fa-user"></i> Full Name</label>
+                        <input type="text" id="formName" placeholder="Your full name" required />
+                    </div>
+                    <div class="form-group reveal-rotate reveal-delay-2">
+                        <label><i class="fas fa-city"></i> City</label>
+                        <input type="text" id="formCity" placeholder="Your city" required />
+                    </div>
+                    <div class="form-group full-width reveal-rotate reveal-delay-3">
+                        <label><i class="fas fa-coins"></i> Project Budget</label>
+                        <input type="text" id="formBudget" placeholder="e.g. PKR 50,000 or $500" required />
+                    </div>
+                    <div class="form-group full-width reveal-rotate reveal-delay-4">
+                        <label><i class="fas fa-bullseye"></i> Your Goal</label>
+                        <textarea id="formGoal" placeholder="Describe what you want to achieve with your website..." required></textarea>
+                    </div>
+                    <div class="submit-row reveal-scale reveal-delay-5">
+                        <button type="submit"><i class="fab fa-whatsapp"></i> Send Inquiry</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="footer-note reveal-left">
+            © 2026 <span>Husnain</span> — Built with <i class="fas fa-heart"></i>
+        </div>
+
+    </div>
+
+    <!-- FLOATING WHATSAPP -->
+    <a href="https://wa.me/923038776223?text=Hi%20Husnain!%20I%20want%20to%20discuss%20a%20project" target="_blank" class="float-wa" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- TOOLTIP -->
+    <div class="project-tooltip" id="projectTooltip">
+        <span class="project-icon"><i class="fas fa-code"></i></span>
+        <span id="projectName">Loading...</span>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
+    </script>
+    <script>
+        // ============================================================
+        // 3D SKILLS GRAPH
+        // ============================================================
+        const container = document.getElementById('graphContainer');
+        const canvas = document.getElementById('skillsGraph');
+
+        const skills = [
+            { name: 'HTML/CSS', value: 95, color: '#8B5CF6' },
+            { name: 'JavaScript', value: 90, color: '#6366F1' },
+            { name: 'Firebase', value: 85, color: '#EC4899' },
+            { name: 'UI/UX', value: 80, color: '#F59E0B' },
+            { name: 'APIs', value: 75, color: '#10B981' },
+            { name: 'Git/GitHub', value: 80, color: '#3B82F6' }
+        ];
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+        camera.position.set(0, 2, 8);
+
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setClearColor(0x000000, 0);
+
+        const ambientLight = new THREE.AmbientLight(0x404060);
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(5, 10, 7);
+        scene.add(directionalLight);
+
+        const pointLight = new THREE.PointLight(0x8B5CF6, 0.5);
+        pointLight.position.set(-3, 2, 4);
+        scene.add(pointLight);
+
+        const graphGroup = new THREE.Group();
+        scene.add(graphGroup);
+
+        const barWidth = 0.4;
+        const maxHeight = 2.5;
+        const spacing = 1.0;
+        const totalWidth = (skills.length - 1) * spacing;
+
+        skills.forEach((skill, index) => {
+            const height = (skill.value / 100) * maxHeight;
+            const x = (index / (skills.length - 1)) * totalWidth - totalWidth / 2;
+
+            const geometry = new THREE.BoxGeometry(barWidth, height, barWidth);
+            const material = new THREE.MeshPhysicalMaterial({
+                color: skill.color,
+                emissive: skill.color,
+                emissiveIntensity: 0.15,
+                metalness: 0.3,
+                roughness: 0.4,
+                transparent: true,
+                opacity: 0.9
+            });
+            const bar = new THREE.Mesh(geometry, material);
+            bar.position.set(x, height / 2, 0);
+            graphGroup.add(bar);
+
+            const ringGeo = new THREE.RingGeometry(0.2, 0.3, 32);
+            const ringMat = new THREE.MeshBasicMaterial({
+                color: skill.color,
+                transparent: true,
+                opacity: 0.3,
+                side: THREE.DoubleSide
+            });
+            const ring = new THREE.Mesh(ringGeo, ringMat);
+            ring.position.set(x, height + 0.05, 0);
+            ring.rotation.x = -Math.PI / 2;
+            graphGroup.add(ring);
+
+            const labelCanvas = document.createElement('canvas');
+            const ctx = labelCanvas.getContext('2d');
+            labelCanvas.width = 256;
+            labelCanvas.height = 64;
+            ctx.fillStyle = 'rgba(0,0,0,0)';
+            ctx.fillRect(0, 0, 256, 64);
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = 'bold 28px Montserrat, sans-serif';
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText(skill.name, 128, 32);
+            ctx.font = 'bold 22px Montserrat, sans-serif';
+            ctx.fillStyle = skill.color;
+            ctx.fillText(skill.value + '%', 128, 58);
+
+            const texture = new THREE.CanvasTexture(labelCanvas);
+            texture.needsUpdate = true;
+            const spriteMat = new THREE.SpriteMaterial({
+                map: texture,
+                transparent: true,
+                depthTest: false
+            });
+            const sprite = new THREE.Sprite(spriteMat);
+            sprite.position.set(x, -0.4, 0);
+            sprite.scale.set(1.6, 0.4, 1);
+            graphGroup.add(sprite);
+        });
+
+        const gridHelper = new THREE.GridHelper(8, 10, 0x8B5CF6, 0x6366F1);
+        gridHelper.position.y = -0.1;
+        gridHelper.material.transparent = true;
+        gridHelper.material.opacity = 0.15;
+        graphGroup.add(gridHelper);
+
+        let isDragging = false;
+        let previousMousePosition = { x: 0, y: 0 };
+        let targetRotationX = 0;
+        let targetRotationY = 0;
+
+        container.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            previousMousePosition = { x: e.clientX, y: e.clientY };
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const deltaX = e.clientX - previousMousePosition.x;
+            const deltaY = e.clientY - previousMousePosition.y;
+            targetRotationY += deltaX * 0.008;
+            targetRotationX += deltaY * 0.008;
+            previousMousePosition = { x: e.clientX, y: e.clientY };
+        });
+
+        window.addEventListener('mouseup', () => { isDragging = false; });
+
+        let touchStartX = 0,
+            touchStartY = 0;
+        container.addEventListener('touchstart', (e) => {
+            const touch = e.touches[0];
+            touchStartX = touch.clientX;
+            touchStartY = touch.clientY;
+            isDragging = true;
+        }, { passive: true });
+
+        container.addEventListener('touchmove', (e) => {
+            if (!isDragging || !e.touches.length) return;
+            const touch = e.touches[0];
+            const deltaX = touch.clientX - touchStartX;
+            const deltaY = touch.clientY - touchStartY;
+            targetRotationY += deltaX * 0.008;
+            targetRotationX += deltaY * 0.008;
+            touchStartX = touch.clientX;
+            touchStartY = touch.clientY;
+        }, { passive: true });
+
+        container.addEventListener('touchend', () => { isDragging = false; }, { passive: true });
+
+        function animate() {
+            requestAnimationFrame(animate);
+            graphGroup.rotation.x += (targetRotationX - graphGroup.rotation.x) * 0.08;
+            graphGroup.rotation.y += (targetRotationY - graphGroup.rotation.y) * 0.08;
+            if (!isDragging) { targetRotationY += 0.002; }
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        function resizeGraph() {
+            const width = container.clientWidth;
+            const height = container.clientHeight || width;
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        }
+        window.addEventListener('resize', resizeGraph);
+        setTimeout(resizeGraph, 100);
+
+        // ============================================================
+        // TYPEWRITER EFFECT
+        // ============================================================
+        const phrases = [
+            'Crafting modern web solutions with clean code & exceptional UX.',
+            'Building full-stack applications with Firebase & JavaScript.',
+            'Creating responsive, interactive & user-friendly interfaces.',
+            'Passionate about turning ideas into functional digital products.'
+        ];
+
+        let phraseIndex = 0,
+            charIndex = 0,
+            isDeleting = false;
+        const typewriterEl = document.getElementById('typewriterText');
+
+        function typeWriter() {
+            const currentPhrase = phrases[phraseIndex];
+            if (!isDeleting) {
+                typewriterEl.innerHTML = currentPhrase.substring(0, charIndex + 1) + '<span class="cursor"></span>';
+                charIndex++;
+                if (charIndex === currentPhrase.length) {
+                    isDeleting = true;
+                    setTimeout(typeWriter, 2500);
+                    return;
+                }
+                setTimeout(typeWriter, 40 + Math.random() * 30);
+            } else {
+                typewriterEl.innerHTML = currentPhrase.substring(0, charIndex) + '<span class="cursor"></span>';
+                charIndex--;
+                if (charIndex < 0) {
+                    isDeleting = false;
+                    phraseIndex = (phraseIndex + 1) % phrases.length;
+                    setTimeout(typeWriter, 500);
+                    return;
+                }
+                setTimeout(typeWriter, 20 + Math.random() * 15);
+            }
+        }
+        setTimeout(typeWriter, 1500);
+
+        // ============================================================
+        // SCROLL REVEAL
+        // ============================================================
+        const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-rotate, .reveal-scale');
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                } else {
+                    entry.target.classList.remove('visible');
+                }
+            });
+        }, { threshold: 0.2, rootMargin: '0px 0px -30px 0px' });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ============================================================
+        // NUMBER COUNTING ANIMATION
+        // ============================================================
+        const counterElements = document.querySelectorAll('.counter');
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.dataset.target);
+                    animateCounter(entry.target, target);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counterElements.forEach(el => counterObserver.observe(el));
+
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = Math.ceil(target / 40);
+            const duration = 800;
+            const stepTime = Math.floor(duration / 40);
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = current;
+            }, stepTime);
+        }
+
+        // ============================================================
+        // WORD-BY-WORD FOR ACHIEVEMENT CARDS
+        // ============================================================
+        const cardObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    const words = entry.target.querySelectorAll('.word-wrapper .word');
+                    words.forEach((word, index) => {
+                        word.style.transitionDelay = (index * 0.08) + 's';
+                    });
+                } else {
+                    entry.target.classList.remove('visible');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.achieve-card').forEach(card => {
+            cardObserver.observe(card);
+        });
+
+        // ============================================================
+        // 3D CARD FLIP
+        // ============================================================
+        const card = document.getElementById("card");
+
+        card.addEventListener("click", () => {
+            card.classList.toggle("flipped");
+        });
+
+        // ============================================================
+        // BARS ANIMATION
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const bars = document.querySelectorAll('.bar');
+            
+            bars.forEach(bar => {
+                const heightClass = bar.className.split(' ')[1];
+                bar.style.height = '0%';
+                bar.dataset.target = heightClass;
+            });
+
+            setTimeout(() => {
+                bars.forEach(bar => {
+                    const targetClass = bar.className.split(' ')[1];
+                    const heights = {
+                        'html': '85%',
+                        'css': '80%',
+                        'js': '75%',
+                        'firebase': '70%',
+                        'firestore': '65%'
+                    };
+                    bar.style.height = heights[targetClass] || '60%';
+                });
+            }, 500);
+        });
+
+        // ============================================================
+        // FORM HANDLER
+        // ============================================================
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('formName').value.trim();
+            const city = document.getElementById('formCity').value.trim();
+            const budget = document.getElementById('formBudget').value.trim();
+            const goal = document.getElementById('formGoal').value.trim();
+
+            if (!name || !city || !budget || !goal) {
+                alert('Please fill all fields.');
+                return;
+            }
+
+            const msg =
+                `New Project Inquiry%0A%0AName: ${name}%0ACity: ${city}%0ABudget: ${budget}%0AGoal: ${goal}%0A%0AFrom Husnain\'s Developer Page`;
+            window.open(`https://wa.me/923038776223?text=${msg}`, '_blank');
+        }
+
+        // ============================================================
+        // PROJECTS GLOBE
+        // ============================================================
+        const globeContainer = document.getElementById('globe-container');
+        const tooltip = document.getElementById('projectTooltip');
+        const projectNameEl = document.getElementById('projectName');
+        const zoomLevelEl = document.getElementById('zoomLevel');
+
+        const projectsData = [
+            { name: 'Learn with Shan', icon: 'fa-graduation-cap', color: '#8B5CF6' },
+            { name: 'SIM Database', icon: 'fa-database', color: '#6366F1' },
+            { name: 'AI Prompt Manager', icon: 'fa-image', color: '#EC4899' },
+            { name: 'Pro APKs Hub', icon: 'fa-crown', color: '#F59E0B' },
+            { name: 'Admin Panel Pro', icon: 'fa-user-shield', color: '#10B981' },
+            { name: 'Responsive UI Kit', icon: 'fa-mobile-alt', color: '#3B82F6' },
+            { name: 'Firebase Auth System', icon: 'fa-fire', color: '#FF6B35' },
+            { name: '3D Portfolio', icon: 'fa-cube', color: '#8B5CF6' },
+            { name: 'Glassmorphism UI', icon: 'fa-glass-martini-alt', color: '#EC4899' },
+            { name: 'API Integration', icon: 'fa-plug', color: '#F59E0B' },
+            { name: 'Chat Application', icon: 'fa-comments', color: '#10B981' },
+            { name: 'E-commerce Platform', icon: 'fa-shopping-cart', color: '#6366F1' },
+            { name: 'Blog System', icon: 'fa-blog', color: '#FF6B35' },
+            { name: 'Dashboard Analytics', icon: 'fa-chart-pie', color: '#8B5CF6' },
+            { name: 'Video Streaming', icon: 'fa-video', color: '#EC4899' },
+            { name: 'Music Player App', icon: 'fa-music', color: '#F59E0B' },
+            { name: 'Weather App', icon: 'fa-cloud-sun', color: '#3B82F6' },
+            { name: 'Task Manager', icon: 'fa-tasks', color: '#10B981' },
+            { name: 'Social Media Dashboard', icon: 'fa-share-alt', color: '#6366F1' },
+            { name: 'File Upload System', icon: 'fa-upload', color: '#FF6B35' },
+        ];
+
+        function getRandomProject() {
+            return projectsData[Math.floor(Math.random() * projectsData.length)];
+        }
+
+        // ---------- SCENE ----------
+        const sceneGlobe = new THREE.Scene();
+        sceneGlobe.background = new THREE.Color(0x0a0a0a);
+
+        // ---------- CAMERA ----------
+        const cameraGlobe = new THREE.PerspectiveCamera(45, globeContainer.clientWidth / globeContainer.clientHeight, 0.1, 1000);
+        const defaultZ = 4.5;
+        cameraGlobe.position.set(0, 0.5, defaultZ);
+
+        // ---------- RENDERER ----------
+        const rendererGlobe = new THREE.WebGLRenderer({
+            antialias: true,
+            alpha: true
+        });
+        rendererGlobe.setSize(globeContainer.clientWidth, globeContainer.clientHeight);
+        rendererGlobe.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        rendererGlobe.shadowMap.enabled = true;
+        globeContainer.appendChild(rendererGlobe.domElement);
+
+        // ---------- ZOOM ----------
+        let currentZoom = 1;
+        const minZoom = 0.5;
+        const maxZoom = 2.5;
+
+        function updateZoom(zoomValue) {
+            currentZoom = Math.max(minZoom, Math.min(maxZoom, zoomValue));
+            const z = defaultZ / currentZoom;
+            cameraGlobe.position.z = z;
+            const percent = Math.round(currentZoom * 100);
+            zoomLevelEl.textContent = percent + '%';
+        }
+
+        document.getElementById('zoomInBtn').addEventListener('click', () => updateZoom(currentZoom + 0.15));
+        document.getElementById('zoomOutBtn').addEventListener('click', () => updateZoom(currentZoom - 0.15));
+        document.getElementById('resetZoomBtn').addEventListener('click', () => updateZoom(1));
+
+        globeContainer.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            updateZoom(currentZoom + (e.deltaY > 0 ? -0.1 : 0.1));
+        }, { passive: false });
+
+        // Pinch Zoom
+        let lastPinchDistance = 0;
+        globeContainer.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 2) {
+                const dx = e.touches[0].clientX - e.touches[1].clientX;
+                const dy = e.touches[0].clientY - e.touches[1].clientY;
+                lastPinchDistance = Math.sqrt(dx * dx + dy * dy);
+            }
+        }, { passive: true });
+
+        globeContainer.addEventListener('touchmove', (e) => {
+            if (e.touches.length === 2) {
+                const dx = e.touches[0].clientX - e.touches[1].clientX;
+                const dy = e.touches[0].clientY - e.touches[1].clientY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                updateZoom(currentZoom + (distance - lastPinchDistance) * 0.005);
+                lastPinchDistance = distance;
+            }
+        }, { passive: true });
+
+        // ---------- DRAG ----------
+        let isDraggingGlobe = false;
+        let previousMousePositionGlobe = { x: 0, y: 0 };
+        let targetRotationXGlobe = 0;
+        let targetRotationYGlobe = 0;
+        let autoRotateGlobe = true;
+        let hoveredDotGlobe = null;
+
+        globeContainer.addEventListener('mousedown', (e) => {
+            isDraggingGlobe = true;
+            autoRotateGlobe = false;
+            previousMousePositionGlobe = { x: e.clientX, y: e.clientY };
+            tooltip.classList.remove('visible');
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDraggingGlobe) return;
+            const deltaX = e.clientX - previousMousePositionGlobe.x;
+            const deltaY = e.clientY - previousMousePositionGlobe.y;
+            targetRotationYGlobe += deltaX * 0.005;
+            targetRotationXGlobe += deltaY * 0.005;
+            previousMousePositionGlobe = { x: e.clientX, y: e.clientY };
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDraggingGlobe = false;
+            setTimeout(() => { autoRotateGlobe = true; }, 2000);
+        });
+
+        let touchStartXGlobe = 0,
+            touchStartYGlobe = 0;
+        globeContainer.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                touchStartXGlobe = e.touches[0].clientX;
+                touchStartYGlobe = e.touches[0].clientY;
+                isDraggingGlobe = true;
+                autoRotateGlobe = false;
+                tooltip.classList.remove('visible');
+            }
+        }, { passive: true });
+
+        globeContainer.addEventListener('touchmove', (e) => {
+            if (!isDraggingGlobe || e.touches.length !== 1) return;
+            const touch = e.touches[0];
+            const deltaX = touch.clientX - touchStartXGlobe;
+            const deltaY = touch.clientY - touchStartYGlobe;
+            targetRotationYGlobe += deltaX * 0.005;
+            targetRotationXGlobe += deltaY * 0.005;
+            touchStartXGlobe = touch.clientX;
+            touchStartYGlobe = touch.clientY;
+        }, { passive: true });
+
+        globeContainer.addEventListener('touchend', () => {
+            isDraggingGlobe = false;
+            setTimeout(() => { autoRotateGlobe = true; }, 2000);
+        }, { passive: true });
+
+        // ---------- LIGHTS ----------
+        const ambientLightGlobe = new THREE.AmbientLight(0x404060, 0.5);
+        sceneGlobe.add(ambientLightGlobe);
+
+        const directionalLightGlobe = new THREE.DirectionalLight(0xffffff, 1.2);
+        directionalLightGlobe.position.set(5, 10, 7);
+        sceneGlobe.add(directionalLightGlobe);
+
+        const backLightGlobe = new THREE.DirectionalLight(0x8B5CF6, 0.3);
+        backLightGlobe.position.set(-5, -3, -5);
+        sceneGlobe.add(backLightGlobe);
+
+        const pointLightGlobe = new THREE.PointLight(0x8B5CF6, 0.4);
+        pointLightGlobe.position.set(0, 3, 4);
+        sceneGlobe.add(pointLightGlobe);
+
+        // ---------- GLOBE ----------
+        const globeGroupGlobe = new THREE.Group();
+        sceneGlobe.add(globeGroupGlobe);
+
+        const globeRadius = 1.4;
+        const globeGeometryGlobe = new THREE.SphereGeometry(globeRadius, 48, 48);
+        const globeMaterialGlobe = new THREE.MeshPhysicalMaterial({
+            color: 0x1a1a2e,
+            metalness: 0.1,
+            roughness: 0.4,
+            emissive: 0x0a0a1a,
+            emissiveIntensity: 0.1,
+            transparent: true,
+            opacity: 0.95,
+        });
+        const globeMesh = new THREE.Mesh(globeGeometryGlobe, globeMaterialGlobe);
+        globeGroupGlobe.add(globeMesh);
+
+        const glowGeometryGlobe = new THREE.SphereGeometry(globeRadius * 1.03, 32, 32);
+        const glowMaterialGlobe = new THREE.MeshBasicMaterial({
+            color: 0x8B5CF6,
+            transparent: true,
+            opacity: 0.06,
+            side: THREE.BackSide,
+        });
+        const glowMesh = new THREE.Mesh(glowGeometryGlobe, glowMaterialGlobe);
+        globeGroupGlobe.add(glowMesh);
+
+        // Grid
+        function createLatLongLinesGlobe() {
+            const material = new THREE.LineBasicMaterial({
+                color: 0x8B5CF6,
+                transparent: true,
+                opacity: 0.05,
+            });
+            const segments = 32;
+            for (let lat = -60; lat <= 60; lat += 30) {
+                const phi = (90 - lat) * Math.PI / 180;
+                const circlePoints = [];
+                for (let i = 0; i <= segments; i++) {
+                    const theta = (i / segments) * Math.PI * 2;
+                    circlePoints.push(new THREE.Vector3(
+                        globeRadius * Math.sin(phi) * Math.cos(theta),
+                        globeRadius * Math.cos(phi),
+                        globeRadius * Math.sin(phi) * Math.sin(theta)
+                    ));
+                }
+                const geometry = new THREE.BufferGeometry().setFromPoints(circlePoints);
+                globeGroupGlobe.add(new THREE.Line(geometry, material));
+            }
+            for (let lon = 0; lon < 360; lon += 45) {
+                const theta = lon * Math.PI / 180;
+                const meridianPoints = [];
+                for (let i = 0; i <= segments; i++) {
+                    const phi = (i / segments) * Math.PI;
+                    meridianPoints.push(new THREE.Vector3(
+                        globeRadius * Math.sin(phi) * Math.cos(theta),
+                        globeRadius * Math.cos(phi),
+                        globeRadius * Math.sin(phi) * Math.sin(theta)
+                    ));
+                }
+                const geometry = new THREE.BufferGeometry().setFromPoints(meridianPoints);
+                globeGroupGlobe.add(new THREE.Line(geometry, material));
+            }
+        }
+        createLatLongLinesGlobe();
+
+        // Cities
+        const cities = [
+            { lat: 40.7, lon: -74.0 }, { lat: 34.0, lon: -118.2 }, { lat: 51.5, lon: -0.1 },
+            { lat: 48.8, lon: 2.3 }, { lat: 52.5, lon: 13.4 }, { lat: 41.9, lon: 12.5 },
+            { lat: 40.4, lon: -3.7 }, { lat: 55.7, lon: 37.6 }, { lat: 39.9, lon: 116.4 },
+            { lat: 35.6, lon: 139.7 }, { lat: 28.6, lon: 77.2 }, { lat: 19.0, lon: 72.8 },
+            { lat: -33.8, lon: 151.2 }, { lat: -23.5, lon: -46.6 }, { lat: 25.2, lon: 55.2 },
+            { lat: 30.0, lon: 31.2 }, { lat: -26.2, lon: 28.0 }, { lat: 31.2, lon: 121.5 },
+            { lat: 37.5, lon: 127.0 }, { lat: 1.3, lon: 103.8 }, { lat: 33.8, lon: 35.5 },
+            { lat: 21.0, lon: 105.8 }, { lat: 13.7, lon: 100.5 }, { lat: 6.5, lon: 3.3 },
+            { lat: 34.0, lon: -6.8 },
+        ];
+
+        const cityProjects = cities.map(() => getRandomProject());
+
+        function latLonToPosition(lat, lon, radius) {
+            const phi = (90 - lat) * Math.PI / 180;
+            const theta = lon * Math.PI / 180;
+            return new THREE.Vector3(
+                radius * Math.sin(phi) * Math.cos(theta),
+                radius * Math.cos(phi),
+                radius * Math.sin(phi) * Math.sin(theta)
+            );
+        }
+
+        const dotMeshesGlobe = [];
+
+        cities.forEach((city, index) => {
+            const project = cityProjects[index];
+            const pos = latLonToPosition(city.lat, city.lon, globeRadius * 1.01);
+            const dotColor = new THREE.Color(project.color);
+
+            const dotGeometryGlobe = new THREE.SphereGeometry(0.04, 8, 8);
+            const dotMaterialGlobe = new THREE.MeshPhysicalMaterial({
+                color: dotColor,
+                emissive: dotColor,
+                emissiveIntensity: 0.6,
+                metalness: 0.3,
+                roughness: 0.2,
+            });
+            const dot = new THREE.Mesh(dotGeometryGlobe, dotMaterialGlobe);
+            dot.position.copy(pos);
+            dot.userData = { project: project, city: city, index: index };
+            globeGroupGlobe.add(dot);
+            dotMeshesGlobe.push(dot);
+
+            const ringGeoGlobe = new THREE.RingGeometry(0.045, 0.065, 12);
+            const ringMatGlobe = new THREE.MeshBasicMaterial({
+                color: dotColor,
+                transparent: true,
+                opacity: 0.15,
+                side: THREE.DoubleSide,
+            });
+            const ringGlobe = new THREE.Mesh(ringGeoGlobe, ringMatGlobe);
+            ringGlobe.position.copy(pos);
+            ringGlobe.lookAt(new THREE.Vector3(0, 0, 0));
+            globeGroupGlobe.add(ringGlobe);
+        });
+
+        // Raycaster
+        const raycasterGlobe = new THREE.Raycaster();
+        const mouseGlobe = new THREE.Vector2();
+
+        globeContainer.addEventListener('mousemove', (event) => {
+            const rect = globeContainer.getBoundingClientRect();
+            mouseGlobe.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+            mouseGlobe.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+            raycasterGlobe.setFromCamera(mouseGlobe, cameraGlobe);
+            const intersects = raycasterGlobe.intersectObjects(dotMeshesGlobe);
+
+            if (intersects.length > 0) {
+                const hit = intersects[0].object;
+                const project = hit.userData.project;
+                if (project) {
+                    tooltip.style.left = (event.clientX + 12) + 'px';
+                    tooltip.style.top = (event.clientY - 10) + 'px';
+                    projectNameEl.innerHTML =
+                        `<i class="fas ${project.icon}" style="color:${project.color}; margin-right:6px;"></i> ${project.name}`;
+                    tooltip.classList.add('visible');
+                    document.body.style.cursor = 'pointer';
+                    hoveredDotGlobe = hit;
+                    if (hit.material) hit.material.emissiveIntensity = 1.2;
+                }
+            } else {
+                tooltip.classList.remove('visible');
+                document.body.style.cursor = 'default';
+                if (hoveredDotGlobe && hoveredDotGlobe.material) {
+                    hoveredDotGlobe.material.emissiveIntensity = 0.6;
+                }
+                hoveredDotGlobe = null;
+            }
+        });
+
+        // Orbit Rings
+        const ringGeoGlobeMain = new THREE.TorusGeometry(globeRadius * 1.2, 0.004, 12, 80);
+        const ringMatGlobeMain = new THREE.MeshBasicMaterial({
+            color: 0x8B5CF6,
+            transparent: true,
+            opacity: 0.08,
+        });
+        const ringGlobeMain = new THREE.Mesh(ringGeoGlobeMain, ringMatGlobeMain);
+        ringGlobeMain.rotation.x = Math.PI / 3;
+        ringGlobeMain.rotation.y = 0.2;
+        globeGroupGlobe.add(ringGlobeMain);
+
+        const ring2GeoGlobe = new THREE.TorusGeometry(globeRadius * 1.3, 0.003, 12, 80);
+        const ring2MatGlobe = new THREE.MeshBasicMaterial({
+            color: 0x6366F1,
+            transparent: true,
+            opacity: 0.05,
+        });
+        const ring2Globe = new THREE.Mesh(ring2GeoGlobe, ring2MatGlobe);
+        ring2Globe.rotation.x = -Math.PI / 4;
+        ring2Globe.rotation.z = 0.5;
+        globeGroupGlobe.add(ring2Globe);
+
+        // Stars
+        function createStarsGlobe() {
+            const starsGeometryGlobe = new THREE.BufferGeometry();
+            const starCount = 1200;
+            const positions = new Float32Array(starCount * 3);
+            const colors = new Float32Array(starCount * 3);
+
+            for (let i = 0; i < starCount; i++) {
+                const radius = 25 + Math.random() * 35;
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.acos(2 * Math.random() - 1);
+                positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+                positions[i * 3 + 1] = radius * Math.cos(phi);
+                positions[i * 3 + 2] = radius * Math.sin(phi) * Math.sin(theta);
+                const brightness = 0.3 + Math.random() * 0.7;
+                colors[i * 3] = brightness;
+                colors[i * 3 + 1] = brightness;
+                colors[i * 3 + 2] = brightness;
+            }
+
+            starsGeometryGlobe.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            starsGeometryGlobe.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            const starsMaterialGlobe = new THREE.PointsMaterial({
+                size: 0.08,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending,
+            });
+            const starsGlobe = new THREE.Points(starsGeometryGlobe, starsMaterialGlobe);
+            sceneGlobe.add(starsGlobe);
+            return starsGlobe;
+        }
+        const starsGlobe = createStarsGlobe();
+
+        // ---------- ANIMATION ----------
+        function animateGlobe() {
+            requestAnimationFrame(animateGlobe);
+
+            if (autoRotateGlobe && !isDraggingGlobe) {
+                targetRotationYGlobe += 0.002;
+            }
+
+            globeGroupGlobe.rotation.x += (targetRotationXGlobe - globeGroupGlobe.rotation.x) * 0.05;
+            globeGroupGlobe.rotation.y += (targetRotationYGlobe - globeGroupGlobe.rotation.y) * 0.05;
+
+            ringGlobeMain.rotation.z += 0.0008;
+            ring2Globe.rotation.x += 0.0005;
+            starsGlobe.rotation.y += 0.0001;
+
+            rendererGlobe.render(sceneGlobe, cameraGlobe);
+        }
+        animateGlobe();
+
+        // ---------- RESIZE ----------
+        function resizeGlobe() {
+            const width = globeContainer.clientWidth;
+            const height = globeContainer.clientHeight;
+            rendererGlobe.setSize(width, height);
+            cameraGlobe.aspect = width / height;
+            cameraGlobe.updateProjectionMatrix();
+        }
+
+        window.addEventListener('resize', resizeGlobe);
+
+        // Click for mobile
+        globeContainer.addEventListener('click', (e) => {
+            const rect = globeContainer.getBoundingClientRect();
+            const clickX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+            const clickY = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+
+            const tempMouse = new THREE.Vector2(clickX, clickY);
+            raycasterGlobe.setFromCamera(tempMouse, cameraGlobe);
+            const intersects = raycasterGlobe.intersectObjects(dotMeshesGlobe);
+
+            if (intersects.length > 0) {
+                const hit = intersects[0].object;
+                const project = hit.userData.project;
+                if (project) {
+                    tooltip.style.left = (e.clientX + 12) + 'px';
+                    tooltip.style.top = (e.clientY - 10) + 'px';
+                    projectNameEl.innerHTML =
+                        `<i class="fas ${project.icon}" style="color:${project.color}; margin-right:6px;"></i> ${project.name}`;
+                    tooltip.classList.add('visible');
+                    setTimeout(() => { tooltip.classList.remove('visible'); }, 3000);
+                }
+            }
+        });
+
+        globeContainer.addEventListener('mousedown', () => { tooltip.classList.remove('visible'); });
+        globeContainer.addEventListener('touchstart', () => { tooltip.classList.remove('visible'); });
+
+        setTimeout(resizeGlobe, 100);
+        updateZoom(1);
+
+        console.log('✅ Developer Page loaded successfully!');
+        console.log('🌍 Projects Globe loaded!');
+        console.log('📍 Cities:', cities.length);
+        console.log('📦 Projects:', projectsData.length);
+    </script>
+
+</body>
+</html>
