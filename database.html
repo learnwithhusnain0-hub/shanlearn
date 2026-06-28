@@ -11,7 +11,6 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
 
-/* Remove yellow outline on click */
 * {
   margin: 0;
   padding: 0;
@@ -47,7 +46,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Background Animation */
 .bg-animation {
   position: fixed;
   top: 0;
@@ -115,7 +113,6 @@ body {
   75% { transform: translate(-50px, -30px) scale(1.05); }
 }
 
-/* Glassmorphism Cards */
 .data-card {
   background: var(--card-bg);
   border: 1px solid var(--glass-border);
@@ -168,7 +165,6 @@ body {
   text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
 }
 
-/* Navbar */
 .navbar {
   position: fixed;
   top: 0;
@@ -208,12 +204,6 @@ body {
   line-height: 1;
 }
 
-.nav-controls {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
 .menu-toggle {
   background: transparent;
   border: none;
@@ -245,7 +235,6 @@ body {
 .menu-toggle .bar:nth-child(2) { width: 20px; }
 .menu-toggle .bar:nth-child(3) { width: 24px; }
 
-/* Sidebar */
 .sidebar {
   position: fixed;
   top: 0;
@@ -332,7 +321,6 @@ body {
 }
 .menu-overlay.active { opacity: 1; pointer-events: auto; }
 
-/* Main Container */
 .container {
   max-width: 1100px;
   margin: 100px auto 40px;
@@ -377,7 +365,6 @@ body {
   margin-top: 8px;
 }
 
-/* Search Box */
 .search-box {
   background: var(--glass-bg);
   backdrop-filter: blur(25px);
@@ -435,7 +422,6 @@ body {
   text-align: center;
 }
 
-/* Result Cards */
 .results-container {
   display: none;
 }
@@ -483,7 +469,6 @@ body {
   word-break: break-word;
 }
 
-/* Copy Button */
 .copy-btn {
   background: transparent;
   border: 1px solid var(--glass-border);
@@ -507,7 +492,6 @@ body {
   color: #4CAF50;
 }
 
-/* Action Buttons */
 .action-buttons {
   display: flex;
   gap: 12px;
@@ -538,7 +522,6 @@ body {
   transform: scale(1.05);
 }
 
-/* Search History */
 .history-section {
   margin-top: 20px;
   padding: 15px 20px;
@@ -572,42 +555,6 @@ body {
   color: #FFD700;
 }
 
-/* Loading Skeleton */
-.skeleton-card {
-  background: var(--card-bg);
-  border-radius: 18px;
-  padding: 22px;
-  border: 1px solid var(--glass-border);
-  animation: pulse 1.5s ease-in-out infinite;
-}
-
-.skeleton-card .skeleton-line {
-  height: 12px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 6px;
-  margin: 8px 0;
-}
-
-.skeleton-card .skeleton-line.short { width: 40%; }
-.skeleton-card .skeleton-line.medium { width: 60%; }
-.skeleton-card .skeleton-line.long { width: 80%; }
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
-.api-info {
-  margin-top: 20px;
-  padding: 12px 18px;
-  background: rgba(255, 215, 0, 0.05);
-  border-radius: 12px;
-  text-align: center;
-  border-left: 3px solid var(--primary-color);
-}
-
-.api-credit { font-size: 13px; color: var(--text-secondary); }
-
 .loading {
   text-align: center;
   padding: 50px;
@@ -626,7 +573,17 @@ body {
   font-size: 18px;
 }
 
-/* Floating WhatsApp */
+.api-info {
+  margin-top: 20px;
+  padding: 12px 18px;
+  background: rgba(255, 215, 0, 0.05);
+  border-radius: 12px;
+  text-align: center;
+  border-left: 3px solid var(--primary-color);
+}
+
+.api-credit { font-size: 13px; color: var(--text-secondary); }
+
 .float-wa {
   position: fixed;
   bottom: 28px;
@@ -689,7 +646,6 @@ body {
   color: #fff;
 }
 
-/* Footer with Developer Info */
 footer {
   margin-top: 60px;
   padding: 30px 20px;
@@ -747,7 +703,6 @@ footer {
 
 <body>
 
-<!-- Background Animation -->
 <div class="bg-animation">
   <div class="particle"></div><div class="particle"></div><div class="particle"></div>
   <div class="particle"></div><div class="particle"></div><div class="particle"></div>
@@ -758,7 +713,6 @@ footer {
   <div class="orb"></div><div class="orb"></div><div class="orb"></div>
 </div>
 
-<!-- Header -->
 <nav class="navbar">
   <div class="logo-container">
     <img class="logo-img" src="https://i.ibb.co/ds4SFQsf/IMG-20260615-WA0025-1.webp" alt="Logo" />
@@ -771,21 +725,16 @@ footer {
   </div>
 </nav>
 
-<!-- Sidebar -->
 <div class="menu-overlay" id="menuOverlay"></div>
 <nav class="sidebar" id="sideMenu">
   <button class="sidebar-close" id="closeMenuBtn"><i class="fas fa-times"></i></button>
-  
   <a href="index.html"><i class="fas fa-home"></i> Home</a>
   <a href="pro-apks.html"><i class="fas fa-crown"></i> Pro APKs</a>
   <a href="image-prompts.html"><i class="fas fa-image"></i> Image Prompts</a>
-  
   <hr class="menu-divider">
-  
   <a href="#" class="menu-highlight"><i class="fas fa-phone"></i> 0317 3724356</a>
 </nav>
 
-<!-- Main Container -->
 <div class="container">
   <div class="title-section">
     <h1 class="main-title">SIM DATABASE</h1>
@@ -807,14 +756,12 @@ footer {
     <div id="resultsContent"></div>
   </div>
 
-  <!-- Search History -->
   <div class="history-section" id="historySection" style="display:none;">
     <h4><i class="fas fa-clock"></i> Recent Searches</h4>
     <div id="historyList"></div>
   </div>
 </div>
 
-<!-- Floating Buttons -->
 <a href="https://wa.me/923173724356?text=Hi%20Shan!%20I%20want%20to%20join%20the%20course" target="_blank" class="float-wa" aria-label="WhatsApp">
   <i class="fab fa-whatsapp"></i>
 </a>
@@ -823,7 +770,6 @@ footer {
   <span>Follow Channel</span>
 </a>
 
-<!-- Footer -->
 <footer>
   <div class="footer-center">
     <div class="credit-name">© LEARN WITH SHAN 2026</div>
@@ -837,8 +783,17 @@ footer {
 // ============================================================
 const AD_LINK = "https://www.effectivecpmnetwork.com/adn4vbfxd?key=2cacfcc9ad73d277be2f0380847ea510";
 
+// Check if ad has been shown before in this session
+let adShown = sessionStorage.getItem('adShown') === 'true';
+
 function redirectToAd() {
-  window.location.href = AD_LINK;
+  if (!adShown) {
+    adShown = true;
+    sessionStorage.setItem('adShown', 'true');
+    window.location.href = AD_LINK;
+    return true;
+  }
+  return false;
 }
 
 // ============================================================
@@ -911,11 +866,30 @@ function clearHistory() {
 }
 
 // ============================================================
-// COPY TO CLIPBOARD - REDIRECTS TO AD
+// COPY TO CLIPBOARD - No redirect, just copy
 // ============================================================
 function copyToClipboard(text, btn) {
-  // Redirect to ad first
-  redirectToAd();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.classList.add('copied');
+    btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = '<i class="fas fa-copy"></i> Copy';
+    }, 2000);
+  }).catch(() => {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    textarea.remove();
+    btn.classList.add('copied');
+    btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = '<i class="fas fa-copy"></i> Copy';
+    }, 2000);
+  });
 }
 
 // ============================================================
@@ -932,7 +906,7 @@ function cleanPhoneNumber(input) {
 }
 
 // ============================================================
-// API CALL - REDIRECTS TO AD FIRST
+// API CALL - Redirect to ad only on first click
 // ============================================================
 const API_URL = "https://famofc.site/api/database.php";
 let isSearching = false;
@@ -960,16 +934,20 @@ $('#searchForm').on('submit', function(e) {
 
   saveHistory(rawInput);
   
-  // === REDIRECT TO AD FIRST ===
-  redirectToAd();
+  // Redirect to ad only ONCE per session (first click)
+  if (!adShown) {
+    adShown = true;
+    sessionStorage.setItem('adShown', 'true');
+    window.location.href = AD_LINK;
+    return;
+  }
   
-  // The user will come back after ad, but we'll still store the search
-  // For a true implementation, we'd use sessionStorage to remember the search
-  // but since they get redirected, we'll store it and they can search again
+  // If ad already shown, perform search directly
+  performSearch(rawInput);
 });
 
 // ============================================================
-// PERFORM SEARCH (called after ad redirect if user comes back)
+// PERFORM SEARCH
 // ============================================================
 function performSearch(rawInput) {
   if (isSearching) return;
@@ -988,53 +966,44 @@ function performSearch(rawInput) {
   btn.disabled = true;
   btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Searching...';
 
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 20000);
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 20000);
 
-    fetch(`${API_URL}?q=${encodeURIComponent(rawInput)}`, {
-      method: 'GET',
-      signal: controller.signal,
-      headers: { 'Accept': 'application/json' }
-    })
-    .then(response => {
-      clearTimeout(timeoutId);
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      return response.json();
-    })
-    .then(data => {
-      console.log("API Response:", data);
-      
-      if (data.success === true && data.data) {
-        const record = data.data.records && data.data.records.length > 0 ? data.data.records[0] : null;
-        if (record && (record.full_name || record.phone || record.cnic)) {
-          displayData(record, rawInput, data.data.search_type);
-        } else {
-          $('#resultsContent').html(`<div class="error-message"><i class="fas fa-database"></i><div>❌ NO DATA FOUND</div><div style="font-size: 13px;">Query: ${escapeHtml(rawInput)} not found</div></div>`);
-        }
-      } else if (data.success === true && data.records && data.records.length > 0) {
-        displayData(data.records[0], rawInput);
+  fetch(`${API_URL}?q=${encodeURIComponent(rawInput)}`, {
+    method: 'GET',
+    signal: controller.signal,
+    headers: { 'Accept': 'application/json' }
+  })
+  .then(response => {
+    clearTimeout(timeoutId);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return response.json();
+  })
+  .then(data => {
+    console.log("API Response:", data);
+    
+    if (data.success === true && data.data) {
+      const record = data.data.records && data.data.records.length > 0 ? data.data.records[0] : null;
+      if (record && (record.full_name || record.phone || record.cnic)) {
+        displayData(record, rawInput, data.data.search_type);
       } else {
-        $('#resultsContent').html(`<div class="error-message"><i class="fas fa-database"></i><div>❌ NO DATA FOUND</div><div style="font-size: 13px;">Query: ${escapeHtml(rawInput)} not found</div><div style="font-size: 11px; margin-top: 8px;">${data.error || 'No records found'}</div></div>`);
+        $('#resultsContent').html(`<div class="error-message"><i class="fas fa-database"></i><div>❌ NO DATA FOUND</div><div style="font-size: 13px;">Query: ${escapeHtml(rawInput)} not found</div></div>`);
       }
-    })
-    .catch(error => {
-      console.error("API Error:", error);
-      $('#resultsContent').html(`<div class="error-message"><i class="fas fa-times-circle"></i><div>⚠️ CONNECTION ERROR</div><div style="font-size: 12px;">Unable to connect to database. Please check your connection.</div><div style="font-size: 11px; margin-top: 8px;">${error.message}</div></div>`);
-    })
-    .finally(() => {
-      isSearching = false;
-      btn.disabled = false;
-      btn.innerHTML = '<i class="fas fa-search"></i> SCAN DATABASE';
-    });
-
-  } catch (error) {
-    console.error("Search Error:", error);
+    } else if (data.success === true && data.records && data.records.length > 0) {
+      displayData(data.records[0], rawInput);
+    } else {
+      $('#resultsContent').html(`<div class="error-message"><i class="fas fa-database"></i><div>❌ NO DATA FOUND</div><div style="font-size: 13px;">Query: ${escapeHtml(rawInput)} not found</div><div style="font-size: 11px; margin-top: 8px;">${data.error || 'No records found'}</div></div>`);
+    }
+  })
+  .catch(error => {
+    console.error("API Error:", error);
+    $('#resultsContent').html(`<div class="error-message"><i class="fas fa-times-circle"></i><div>⚠️ CONNECTION ERROR</div><div style="font-size: 12px;">Unable to connect to database. Please check your connection.</div><div style="font-size: 11px; margin-top: 8px;">${error.message}</div></div>`);
+  })
+  .finally(() => {
     isSearching = false;
     btn.disabled = false;
     btn.innerHTML = '<i class="fas fa-search"></i> SCAN DATABASE';
-    $('#resultsContent').html(`<div class="error-message"><i class="fas fa-times-circle"></i><div>⚠️ ERROR</div><div style="font-size: 12px;">${error.message}</div></div>`);
-  }
+  });
 }
 
 // ============================================================
