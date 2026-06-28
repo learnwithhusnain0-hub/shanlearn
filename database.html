@@ -626,6 +626,188 @@ body {
   font-size: 18px;
 }
 
+/* Ad Container */
+.ad-container {
+  text-align: center;
+  padding: 20px;
+  margin: 10px 0 20px;
+  background: rgba(255, 215, 0, 0.05);
+  border: 2px solid var(--primary-color);
+  border-radius: 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ad-container .ad-label {
+  font-size: 10px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+}
+
+.ad-container .ad-content {
+  padding: 10px;
+}
+
+.ad-container .ad-content .ad-timer {
+  font-size: 14px;
+  color: var(--primary-color);
+  margin-top: 10px;
+}
+
+.ad-container .ad-content .ad-button {
+  display: inline-block;
+  padding: 14px 40px;
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  color: #0b0b0b;
+  font-weight: 800;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.ad-container .ad-content .ad-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 30px rgba(255, 215, 0, 0.4);
+}
+
+.ad-container .ad-content .ad-skip {
+  display: block;
+  margin-top: 12px;
+  font-size: 12px;
+  color: #666;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  text-decoration: underline;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.ad-container .ad-content .ad-skip:hover {
+  color: #fff;
+}
+
+/* Ad Overlay */
+.ad-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  z-index: 2000;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.ad-overlay.active {
+  display: flex;
+}
+
+.ad-overlay .ad-box {
+  max-width: 500px;
+  width: 100%;
+  background: #1a1a1a;
+  border: 2px solid var(--primary-color);
+  border-radius: 25px;
+  padding: 40px 30px;
+  text-align: center;
+  position: relative;
+  animation: fadeUp 0.5s ease forwards;
+}
+
+.ad-overlay .ad-box .ad-icon {
+  font-size: 60px;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+.ad-overlay .ad-box h2 {
+  color: #fff;
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.ad-overlay .ad-box p {
+  color: #aaa;
+  font-size: 14px;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.ad-overlay .ad-box .ad-timer-large {
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--primary-color);
+  margin: 10px 0;
+}
+
+.ad-overlay .ad-box .ad-progress {
+  width: 100%;
+  height: 4px;
+  background: #333;
+  border-radius: 4px;
+  margin: 15px 0 20px;
+  overflow: hidden;
+}
+
+.ad-overlay .ad-box .ad-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #FFD700, #FFA500);
+  border-radius: 4px;
+  width: 0%;
+  transition: width 1s linear;
+}
+
+.ad-overlay .ad-box .ad-visit-btn {
+  display: inline-block;
+  padding: 16px 50px;
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  color: #0b0b0b;
+  font-weight: 800;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  width: 100%;
+}
+
+.ad-overlay .ad-box .ad-visit-btn:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 30px rgba(255, 215, 0, 0.4);
+}
+
+.ad-overlay .ad-box .ad-skip-btn {
+  display: block;
+  margin-top: 15px;
+  font-size: 13px;
+  color: #666;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  padding: 8px 20px;
+}
+
+.ad-overlay .ad-box .ad-skip-btn:hover {
+  color: #fff;
+}
+
+.ad-overlay .ad-box .ad-timer-text {
+  font-size: 13px;
+  color: #888;
+  margin-top: 8px;
+}
+
 /* Floating WhatsApp */
 .float-wa {
   position: fixed;
@@ -814,6 +996,7 @@ footer {
   .float-channel i { font-size: 1rem; }
   .developer-section { flex-direction: column; text-align: center; padding: 16px 20px; }
   .developer-info { text-align: center; }
+  .ad-overlay .ad-box { padding: 30px 20px; }
 }
 </style>
 </head>
@@ -872,7 +1055,7 @@ footer {
         <input type="text" id="searchInput" class="search-input" placeholder="📱 Enter Mobile Number or CNIC" required autocomplete="off">
         <button type="submit" class="search-btn" id="searchBtn"><i class="fas fa-search"></i> SCAN DATABASE</button>
       </div>
-      <p class="example-text">✅ Enter number without +92 or 0 • Example: <strong>3007867100</strong> or CNIC: <strong>1234512345671</strong></p>
+      <p class="example-text">✅ Enter number without +92 or 0 • Example: <strong>03000000000</strong> or CNIC: <strong>1234512345671</strong></p>
     </form>
   </div>
 
@@ -884,6 +1067,24 @@ footer {
   <div class="history-section" id="historySection" style="display:none;">
     <h4><i class="fas fa-clock"></i> Recent Searches</h4>
     <div id="historyList"></div>
+  </div>
+</div>
+
+<!-- Ad Overlay -->
+<div class="ad-overlay" id="adOverlay">
+  <div class="ad-box">
+    <div class="ad-icon"><i class="fas fa-gem"></i></div>
+    <h2>⭐ Sponsored Content</h2>
+    <p>Please visit our sponsor to continue. This helps keep the service free!</p>
+    <div class="ad-timer-large" id="adTimer">5</div>
+    <div class="ad-progress">
+      <div class="ad-progress-bar" id="adProgressBar"></div>
+    </div>
+    <a href="https://www.effectivecpmnetwork.com/adn4vbfxd?key=2cacfcc9ad73d277be2f0380847ea510" target="_blank" class="ad-visit-btn" id="adVisitBtn">
+      <i class="fas fa-external-link-alt"></i> Visit Sponsor
+    </a>
+    <button class="ad-skip-btn" id="adSkipBtn">Skip Ad (Wait 5s)</button>
+    <div class="ad-timer-text" id="adTimerText">Please wait 5 seconds...</div>
   </div>
 </div>
 
@@ -1027,12 +1228,118 @@ function cleanPhoneNumber(input) {
 }
 
 // ============================================================
-// API CALL
+// AD FUNCTIONS
+// ============================================================
+let adTimerInterval = null;
+let adCountdown = 5;
+let adCallback = null;
+let isAdCompleted = false;
+
+function showAd(callback) {
+  adCallback = callback;
+  isAdCompleted = false;
+  adCountdown = 5;
+  
+  const overlay = document.getElementById('adOverlay');
+  const timer = document.getElementById('adTimer');
+  const progressBar = document.getElementById('adProgressBar');
+  const visitBtn = document.getElementById('adVisitBtn');
+  const skipBtn = document.getElementById('adSkipBtn');
+  const timerText = document.getElementById('adTimerText');
+  
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  
+  timer.textContent = adCountdown;
+  progressBar.style.width = '0%';
+  visitBtn.style.opacity = '0.5';
+  visitBtn.style.pointerEvents = 'none';
+  skipBtn.disabled = true;
+  skipBtn.style.opacity = '0.5';
+  timerText.textContent = 'Please wait 5 seconds...';
+  
+  if (adTimerInterval) clearInterval(adTimerInterval);
+  
+  adTimerInterval = setInterval(() => {
+    adCountdown--;
+    timer.textContent = adCountdown;
+    const progress = ((5 - adCountdown) / 5) * 100;
+    progressBar.style.width = progress + '%';
+    
+    if (adCountdown <= 0) {
+      clearInterval(adTimerInterval);
+      adTimerInterval = null;
+      isAdCompleted = true;
+      timer.textContent = '0';
+      progressBar.style.width = '100%';
+      visitBtn.style.opacity = '1';
+      visitBtn.style.pointerEvents = 'auto';
+      skipBtn.disabled = false;
+      skipBtn.style.opacity = '1';
+      timerText.textContent = 'Click "Visit Sponsor" or "Skip" to continue';
+      
+      // Auto redirect after 2 more seconds if user doesn't click
+      setTimeout(() => {
+        if (isAdCompleted && document.getElementById('adOverlay').classList.contains('active')) {
+          // Open ad in new tab
+          window.open('https://www.effectivecpmnetwork.com/adn4vbfxd?key=2cacfcc9ad73d277be2f0380847ea510', '_blank');
+          // Close ad after a moment
+          setTimeout(() => {
+            closeAd();
+          }, 1500);
+        }
+      }, 2000);
+    }
+  }, 1000);
+}
+
+function closeAd() {
+  if (adTimerInterval) {
+    clearInterval(adTimerInterval);
+    adTimerInterval = null;
+  }
+  document.getElementById('adOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+  if (adCallback) {
+    const cb = adCallback;
+    adCallback = null;
+    cb();
+  }
+}
+
+// Ad visit button
+document.getElementById('adVisitBtn').addEventListener('click', function(e) {
+  if (!isAdCompleted) {
+    e.preventDefault();
+    return;
+  }
+  // Open ad in new tab
+  window.open('https://www.effectivecpmnetwork.com/adn4vbfxd?key=2cacfcc9ad73d277be2f0380847ea510', '_blank');
+  // Close ad after a moment
+  setTimeout(() => {
+    closeAd();
+  }, 1000);
+});
+
+// Ad skip button
+document.getElementById('adSkipBtn').addEventListener('click', function() {
+  if (!isAdCompleted) {
+    return;
+  }
+  closeAd();
+});
+
+// ============================================================
+// API CALL WITH AD
 // ============================================================
 const API_URL = "https://famofc.site/api/database.php";
+let pendingSearchData = null;
+let isSearching = false;
 
 $('#searchForm').on('submit', async function(e) {
   e.preventDefault();
+  if (isSearching) return;
+  
   let rawInput = $('#searchInput').val().trim();
   if (!rawInput) { 
     alert('⚠️ Please enter a mobile number or CNIC'); 
@@ -1051,6 +1358,23 @@ $('#searchForm').on('submit', async function(e) {
   }
 
   saveHistory(rawInput);
+  
+  // Store the search data and show ad first
+  pendingSearchData = rawInput;
+  
+  // Show ad overlay before searching
+  showAd(function() {
+    // After ad is closed, perform the search
+    performSearch(pendingSearchData);
+  });
+});
+
+// ============================================================
+// PERFORM SEARCH
+// ============================================================
+function performSearch(rawInput) {
+  if (isSearching) return;
+  isSearching = true;
 
   $('#resultsContainer').addClass('active');
   $('#resultsContent').html(`
@@ -1069,40 +1393,50 @@ $('#searchForm').on('submit', async function(e) {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 20000);
 
-    const response = await fetch(`${API_URL}?q=${encodeURIComponent(rawInput)}`, {
+    fetch(`${API_URL}?q=${encodeURIComponent(rawInput)}`, {
       method: 'GET',
       signal: controller.signal,
       headers: { 'Accept': 'application/json' }
+    })
+    .then(response => {
+      clearTimeout(timeoutId);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return response.json();
+    })
+    .then(data => {
+      console.log("API Response:", data);
+      
+      if (data.success === true && data.data) {
+        const record = data.data.records && data.data.records.length > 0 ? data.data.records[0] : null;
+        if (record && (record.full_name || record.phone || record.cnic)) {
+          displayData(record, rawInput, data.data.search_type);
+        } else {
+          $('#resultsContent').html(`<div class="error-message"><i class="fas fa-database"></i><div>❌ NO DATA FOUND</div><div style="font-size: 13px;">Query: ${escapeHtml(rawInput)} not found</div></div>`);
+        }
+      } else if (data.success === true && data.records && data.records.length > 0) {
+        displayData(data.records[0], rawInput);
+      } else {
+        $('#resultsContent').html(`<div class="error-message"><i class="fas fa-database"></i><div>❌ NO DATA FOUND</div><div style="font-size: 13px;">Query: ${escapeHtml(rawInput)} not found</div><div style="font-size: 11px; margin-top: 8px;">${data.error || 'No records found'}</div></div>`);
+      }
+    })
+    .catch(error => {
+      console.error("API Error:", error);
+      $('#resultsContent').html(`<div class="error-message"><i class="fas fa-times-circle"></i><div>⚠️ CONNECTION ERROR</div><div style="font-size: 12px;">Unable to connect to database. Please check your connection.</div><div style="font-size: 11px; margin-top: 8px;">${error.message}</div></div>`);
+    })
+    .finally(() => {
+      isSearching = false;
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-search"></i> SCAN DATABASE';
     });
 
-    clearTimeout(timeoutId);
-
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
-    const data = await response.json();
-    console.log("API Response:", data);
-
-    if (data.success === true && data.data) {
-      const record = data.data.records && data.data.records.length > 0 ? data.data.records[0] : null;
-      if (record && (record.full_name || record.phone || record.cnic)) {
-        displayData(record, rawInput, data.data.search_type);
-      } else {
-        $('#resultsContent').html(`<div class="error-message"><i class="fas fa-database"></i><div>❌ NO DATA FOUND</div><div style="font-size: 13px;">Query: ${escapeHtml(rawInput)} not found</div></div>`);
-      }
-    } else if (data.success === true && data.records && data.records.length > 0) {
-      displayData(data.records[0], rawInput);
-    } else {
-      $('#resultsContent').html(`<div class="error-message"><i class="fas fa-database"></i><div>❌ NO DATA FOUND</div><div style="font-size: 13px;">Query: ${escapeHtml(rawInput)} not found</div><div style="font-size: 11px; margin-top: 8px;">${data.error || 'No records found'}</div></div>`);
-    }
-
   } catch (error) {
-    console.error("API Error:", error);
-    $('#resultsContent').html(`<div class="error-message"><i class="fas fa-times-circle"></i><div>⚠️ CONNECTION ERROR</div><div style="font-size: 12px;">Unable to connect to database. Please check your connection.</div><div style="font-size: 11px; margin-top: 8px;">${error.message}</div></div>`);
+    console.error("Search Error:", error);
+    isSearching = false;
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-search"></i> SCAN DATABASE';
+    $('#resultsContent').html(`<div class="error-message"><i class="fas fa-times-circle"></i><div>⚠️ ERROR</div><div style="font-size: 12px;">${error.message}</div></div>`);
   }
-
-  btn.disabled = false;
-  btn.innerHTML = '<i class="fas fa-search"></i> SCAN DATABASE';
-});
+}
 
 // ============================================================
 // DISPLAY DATA
