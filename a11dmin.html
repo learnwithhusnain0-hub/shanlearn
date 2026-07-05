@@ -1,0 +1,2876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SV6PX5N75Q"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-SV6PX5N75Q');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes, viewport-fit=cover">
+
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="https://i.b.co/hJD9bGbV/IMG-20260615-WA0025-1.png">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/hJD9bGbV/IMG-20260615-WA0025-1.png">
+
+    <title>The News Writrs</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js">
+    </script>
+
+    <style>
+        /* All styles remain same - no changes needed */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: #0b0b0b;
+            color: #f0f0f0;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ---------- ANIMATED BACKGROUND ---------- */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .bg-animation .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 215, 0, 0.08);
+            border-radius: 50%;
+            animation: floatParticle 20s infinite linear;
+        }
+
+        .bg-animation .particle:nth-child(1) {
+            left: 10%;
+            animation-duration: 18s;
+            animation-delay: 0s;
+            width: 8px;
+            height: 8px;
+        }
+        .bg-animation .particle:nth-child(2) {
+            left: 25%;
+            animation-duration: 22s;
+            animation-delay: 2s;
+            width: 5px;
+            height: 5px;
+        }
+        .bg-animation .particle:nth-child(3) {
+            left: 40%;
+            animation-duration: 16s;
+            animation-delay: 4s;
+            width: 10px;
+            height: 10px;
+            opacity: 0.3;
+        }
+        .bg-animation .particle:nth-child(4) {
+            left: 55%;
+            animation-duration: 24s;
+            animation-delay: 1s;
+            width: 4px;
+            height: 4px;
+        }
+        .bg-animation .particle:nth-child(5) {
+            left: 70%;
+            animation-duration: 19s;
+            animation-delay: 3s;
+            width: 7px;
+            height: 7px;
+        }
+        .bg-animation .particle:nth-child(6) {
+            left: 85%;
+            animation-duration: 21s;
+            animation-delay: 5s;
+            width: 9px;
+            height: 9px;
+            opacity: 0.25;
+        }
+        .bg-animation .particle:nth-child(7) {
+            left: 15%;
+            animation-duration: 17s;
+            animation-delay: 6s;
+            width: 5px;
+            height: 5px;
+        }
+        .bg-animation .particle:nth-child(8) {
+            left: 50%;
+            animation-duration: 23s;
+            animation-delay: 2s;
+            width: 6px;
+            height: 6px;
+        }
+        .bg-animation .particle:nth-child(9) {
+            left: 65%;
+            animation-duration: 20s;
+            animation-delay: 4s;
+            width: 8px;
+            height: 8px;
+            opacity: 0.2;
+        }
+        .bg-animation .particle:nth-child(10) {
+            left: 35%;
+            animation-duration: 25s;
+            animation-delay: 7s;
+            width: 4px;
+            height: 4px;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(720deg) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        .bg-orbs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-orbs .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.05;
+            animation: orbFloat 15s ease-in-out infinite;
+        }
+
+        .bg-orbs .orb:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            background: #FFD700;
+            top: -10%;
+            left: -10%;
+            animation-delay: 0s;
+        }
+        .bg-orbs .orb:nth-child(2) {
+            width: 350px;
+            height: 350px;
+            background: #FFA500;
+            bottom: -10%;
+            right: -10%;
+            animation-delay: -5s;
+        }
+        .bg-orbs .orb:nth-child(3) {
+            width: 300px;
+            height: 300px;
+            background: #FFD700;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -10s;
+            opacity: 0.03;
+        }
+
+        @keyframes orbFloat {
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(60px, -40px) scale(1.1);
+            }
+            50% {
+                transform: translate(-30px, 50px) scale(0.9);
+            }
+            75% {
+                transform: translate(-50px, -30px) scale(1.05);
+            }
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ---------- HEADER ---------- */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.18);
+            padding: 10px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: 0.3s;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.4));
+            border-radius: 8px;
+            background: #1a1a1a;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            color: #FFD700;
+            line-height: 1;
+        }
+
+        .admin-badge {
+            background: rgba(255, 215, 0, 0.15);
+            color: #FFD700;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .signin-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            color: #FFD700;
+            padding: 6px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: 0.3s;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .signin-btn:hover {
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        /* ---------- MAIN CONTENT ---------- */
+        .main-content {
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+
+        /* ---------- ADMIN HERO ---------- */
+        .admin-hero {
+            text-align: center;
+            padding: 20px 0 30px;
+        }
+
+        .admin-hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            color: #FFD700;
+            letter-spacing: 3px;
+        }
+
+        .admin-hero .sub-title {
+            color: #888;
+            font-size: 1rem;
+            margin-top: 4px;
+        }
+
+        /* ---------- STATS ---------- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(20, 20, 18, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 215, 0, 0.08);
+            border-radius: 20px;
+            padding: 18px 16px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(255, 215, 0, 0.2);
+        }
+
+        .stat-card .stat-icon {
+            font-size: 2rem;
+            color: #FFD700;
+            margin-bottom: 4px;
+        }
+
+        .stat-card .stat-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.2rem;
+            color: #fff;
+            line-height: 1.2;
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.7rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ---------- TABS ---------- */
+        .admin-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            padding: 6px;
+        }
+
+        .admin-tabs button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 12px;
+            background: transparent;
+            color: #888;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .admin-tabs button:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .admin-tabs button.active {
+            background: rgba(255, 215, 0, 0.12);
+            color: #FFD700;
+        }
+
+        .admin-tabs button .badge {
+            background: rgba(255, 215, 0, 0.15);
+            color: #FFD700;
+            padding: 1px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+        }
+
+        .admin-tabs button .badge.pending {
+            background: rgba(255, 68, 68, 0.15);
+            color: #ff4444;
+            animation: pulseBadge 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulseBadge {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* ---------- SEARCH BOX ---------- */
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            background: rgba(0, 0, 0, 0.4);
+            color: #fff;
+            font-size: 0.9rem;
+            font-family: 'Montserrat', sans-serif;
+            outline: none;
+        }
+
+        .search-box input:focus {
+            border-color: #FFD700;
+        }
+
+        .search-box button {
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, #FFD700, #e6b800);
+            color: #0a0a0a;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            transition: 0.3s;
+        }
+
+        .search-box button:hover {
+            transform: scale(1.02);
+        }
+
+        .search-box .btn-refresh {
+            background: rgba(255, 215, 0, 0.1);
+            color: #FFD700;
+            border: 1px solid rgba(255, 215, 0, 0.15);
+        }
+
+        .search-box .btn-refresh:hover {
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        /* ---------- USER LIST ---------- */
+        .user-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .user-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 215, 0, 0.05);
+            transition: 0.3s;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .user-item:hover {
+            border-color: rgba(255, 215, 0, 0.15);
+            background: rgba(255, 215, 0, 0.02);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .user-email {
+            color: #888;
+            font-size: 0.8rem;
+        }
+
+        .user-balance {
+            color: #FFD700;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .user-device {
+            color: #6bb6ff;
+            font-size: 0.72rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .user-actions button {
+            padding: 6px 14px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.75rem;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .user-actions button:hover {
+            transform: scale(1.04);
+        }
+
+        .btn-manage {
+            background: rgba(255, 215, 0, 0.15);
+            color: #FFD700;
+        }
+
+        .btn-manage:hover {
+            background: rgba(255, 215, 0, 0.25);
+        }
+
+        .btn-notify {
+            background: rgba(107, 182, 255, 0.15);
+            color: #6bb6ff;
+        }
+
+        .btn-notify:hover {
+            background: rgba(107, 182, 255, 0.25);
+        }
+
+        .btn-delete-user {
+            background: rgba(255, 68, 68, 0.08);
+            color: #666;
+        }
+
+        .btn-delete-user:hover {
+            background: rgba(255, 68, 68, 0.15);
+            color: #ff4444;
+        }
+
+        /* ---------- NOTIFY POPUP ---------- */
+        .popup-content textarea {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            background: rgba(0, 0, 0, 0.4);
+            color: #fff;
+            font-size: 0.9rem;
+            font-family: 'Montserrat', sans-serif;
+            outline: none;
+            margin-bottom: 16px;
+            resize: vertical;
+            min-height: 90px;
+            text-align: left;
+        }
+
+        .popup-content textarea:focus {
+            border-color: #FFD700;
+        }
+
+        .popup-content input[type="text"] {
+            text-align: left;
+        }
+
+        .sent-notif-list {
+            text-align: left;
+            max-height: 160px;
+            overflow-y: auto;
+            margin: 12px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 10px;
+        }
+
+        .sent-notif-item {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            padding: 8px 10px;
+            margin-bottom: 6px;
+            font-size: 0.72rem;
+            position: relative;
+        }
+
+        .sent-notif-item .sn-title {
+            color: #FFD700;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .sent-notif-item .sn-msg {
+            color: #999;
+            white-space: pre-wrap;
+        }
+
+        .sent-notif-item .sn-meta {
+            color: #555;
+            font-size: 0.6rem;
+            margin-top: 4px;
+        }
+
+        .sent-notif-item .sn-delete {
+            position: absolute;
+            top: 6px;
+            right: 8px;
+            color: #666;
+            cursor: pointer;
+            font-size: 0.7rem;
+        }
+
+        .sent-notif-item .sn-delete:hover {
+            color: #ff4444;
+        }
+
+        /* ---------- DIAMOND POPUP ---------- */
+        .diamond-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(16px);
+            z-index: 99999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .diamond-popup.active {
+            display: flex;
+        }
+
+        .popup-content {
+            max-width: 420px;
+            width: 100%;
+            background: rgba(20, 20, 18, 0.95);
+            border-radius: 24px;
+            padding: 32px 24px;
+            border: 2px solid #FFD700;
+            text-align: center;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .popup-content h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            color: #FFD700;
+            font-size: 1.8rem;
+        }
+
+        .popup-content .user-detail {
+            color: #aaa;
+            font-size: 0.85rem;
+            margin: 4px 0 16px;
+        }
+
+        .popup-content .balance-display {
+            font-size: 1.4rem;
+            color: #FFD700;
+            font-weight: 700;
+            padding: 10px;
+            background: rgba(255, 215, 0, 0.04);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 215, 0, 0.06);
+            margin-bottom: 16px;
+        }
+
+        .popup-content .breakdown {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 16px;
+            font-size: 0.75rem;
+        }
+
+        .popup-content .breakdown .item {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .popup-content .breakdown .item .label {
+            color: #666;
+        }
+
+        .popup-content .breakdown .item .value {
+            color: #FFD700;
+            font-weight: 700;
+        }
+
+        .popup-content input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            background: rgba(0, 0, 0, 0.4);
+            color: #fff;
+            font-size: 1.2rem;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            outline: none;
+            margin-bottom: 16px;
+        }
+
+        .popup-content input:focus {
+            border-color: #FFD700;
+        }
+
+        .popup-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .popup-actions button {
+            padding: 12px;
+            border-radius: 30px;
+            border: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .popup-actions button:hover {
+            transform: scale(1.04);
+        }
+
+        .popup-actions .btn-add {
+            background: linear-gradient(135deg, #4CAF50, #388E3C);
+            color: #fff;
+            grid-column: 1;
+        }
+
+        .popup-actions .btn-remove {
+            background: linear-gradient(135deg, #ff4444, #cc0000);
+            color: #fff;
+            grid-column: 2;
+        }
+
+        .popup-actions .btn-set {
+            background: linear-gradient(135deg, #FFD700, #e6b800);
+            color: #0a0a0a;
+            grid-column: 1 / -1;
+        }
+
+        .popup-actions .btn-close {
+            background: rgba(255, 255, 255, 0.05);
+            color: #888;
+            grid-column: 1 / -1;
+        }
+
+        /* ---------- TABLE ---------- */
+        .table-container {
+            background: rgba(18, 18, 16, 0.82);
+            backdrop-filter: blur(14px);
+            border-radius: 24px;
+            padding: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.08);
+            overflow-x: auto;
+        }
+
+        .table-container h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            color: #FFD700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .table-container h2 .count {
+            font-size: 0.9rem;
+            color: #888;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .table-container h2 .header-actions {
+            margin-left: auto;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .table-container h2 .header-actions button {
+            padding: 6px 16px;
+            border-radius: 30px;
+            border: none;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .table-container h2 .header-actions .btn-clear-history {
+            background: rgba(255, 68, 68, 0.1);
+            color: #ff4444;
+            border: 1px solid rgba(255, 68, 68, 0.15);
+        }
+
+        .table-container h2 .header-actions .btn-clear-history:hover {
+            background: rgba(255, 68, 68, 0.2);
+            transform: scale(1.04);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        table thead {
+            background: rgba(255, 215, 0, 0.04);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        table thead th {
+            padding: 12px 14px;
+            text-align: left;
+            color: #888;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        table tbody tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            transition: 0.2s;
+        }
+
+        table tbody tr:hover {
+            background: rgba(255, 215, 0, 0.02);
+        }
+
+        table tbody td {
+            padding: 12px 14px;
+            vertical-align: middle;
+            color: #ddd;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-badge.pending {
+            background: rgba(255, 68, 68, 0.12);
+            color: #ff4444;
+            border: 1px solid rgba(255, 68, 68, 0.15);
+        }
+
+        .status-badge.approved {
+            background: rgba(76, 175, 80, 0.12);
+            color: #4CAF50;
+            border: 1px solid rgba(76, 175, 80, 0.15);
+        }
+
+        .status-badge.rejected {
+            background: rgba(255, 68, 68, 0.08);
+            color: #888;
+            border: 1px solid rgba(255, 68, 68, 0.08);
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .action-btns button {
+            padding: 5px 14px;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .action-btns .btn-approve {
+            background: rgba(76, 175, 80, 0.15);
+            color: #4CAF50;
+            border: 1px solid rgba(76, 175, 80, 0.15);
+        }
+
+        .action-btns .btn-approve:hover {
+            background: rgba(76, 175, 80, 0.25);
+            transform: scale(1.04);
+        }
+
+        .action-btns .btn-reject {
+            background: rgba(255, 68, 68, 0.12);
+            color: #ff4444;
+            border: 1px solid rgba(255, 68, 68, 0.12);
+        }
+
+        .action-btns .btn-reject:hover {
+            background: rgba(255, 68, 68, 0.2);
+            transform: scale(1.04);
+        }
+
+        .action-btns .btn-delete-history {
+            background: rgba(255, 68, 68, 0.06);
+            color: #555;
+            border: 1px solid rgba(255, 68, 68, 0.06);
+        }
+
+        .action-btns .btn-delete-history:hover {
+            background: rgba(255, 68, 68, 0.15);
+            color: #ff4444;
+            border-color: rgba(255, 68, 68, 0.15);
+            transform: scale(1.04);
+        }
+
+        .time-ago {
+            font-size: 0.7rem;
+            color: #666;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #555;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+        /* ---------- LOADING ---------- */
+        .loading-row {
+            text-align: center;
+            padding: 30px;
+            color: #555;
+        }
+
+        .loading-row i {
+            font-size: 1.5rem;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ---------- CUSTOM POPUP ---------- */
+        .custom-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(14px);
+            z-index: 99999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            animation: fadeInOverlay 0.4s ease;
+            padding: 20px;
+        }
+
+        .custom-popup-overlay.active {
+            display: flex;
+        }
+
+        .custom-popup {
+            max-width: 460px;
+            width: 100%;
+            background: rgba(20, 20, 18, 0.95);
+            border-radius: 30px;
+            padding: 36px 32px;
+            border: 2px solid #FFD700;
+            text-align: center;
+            position: relative;
+            animation: scaleIn 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+        }
+
+        .custom-popup .gold-border-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #FFD700, #FFA500, #FFD700, transparent);
+            background-size: 300% 100%;
+            animation: goldSlide 4s ease-in-out infinite;
+            border-radius: 30px 30px 0 0;
+        }
+
+        @keyframes goldSlide {
+            0% {
+                background-position: -300% 0;
+            }
+            50% {
+                background-position: 300% 0;
+            }
+            100% {
+                background-position: -300% 0;
+            }
+        }
+
+        @keyframes fadeInOverlay {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .custom-popup .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 14px;
+            font-size: 1.4rem;
+            color: #555;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .custom-popup .popup-close:hover {
+            color: #FFD700;
+            transform: rotate(90deg);
+        }
+
+        .custom-popup .popup-icon {
+            font-size: 3.5rem;
+            margin-bottom: 12px;
+        }
+
+        .custom-popup .popup-icon.success {
+            color: #4CAF50;
+        }
+        .custom-popup .popup-icon.error {
+            color: #ff4444;
+        }
+        .custom-popup .popup-icon.warning {
+            color: #FFD700;
+        }
+        .custom-popup .popup-icon.info {
+            color: #4285F4;
+        }
+
+        .custom-popup h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: #FFD700;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .custom-popup p {
+            color: #bbb;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .custom-popup .popup-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .custom-popup .popup-actions button {
+            padding: 10px 32px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.3s;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .custom-popup .popup-actions .btn-primary {
+            background: linear-gradient(135deg, #FFD700, #e6b800);
+            color: #0a0a0a;
+        }
+
+        .custom-popup .popup-actions .btn-primary:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .custom-popup .popup-actions .btn-danger {
+            background: linear-gradient(135deg, #ff4444, #cc0000);
+            color: #fff;
+        }
+
+        .custom-popup .popup-actions .btn-danger:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 30px rgba(255, 68, 68, 0.3);
+        }
+
+        .custom-popup .popup-actions .btn-secondary {
+            background: transparent;
+            color: #888;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .custom-popup .popup-actions .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+
+        /* ---------- RESPONSIVE ---------- */
+        @media (max-width: 600px) {
+            .site-header {
+                padding: 8px 14px;
+            }
+            .logo-text {
+                font-size: 1.1rem;
+            }
+            .logo-icon {
+                width: 32px;
+                height: 32px;
+            }
+            .admin-tabs {
+                flex-direction: column;
+            }
+            .admin-tabs button {
+                justify-content: center;
+            }
+            .table-container {
+                padding: 12px;
+                border-radius: 16px;
+            }
+            table {
+                font-size: 0.75rem;
+            }
+            table thead th,
+            table tbody td {
+                padding: 8px 10px;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .stat-card {
+                padding: 12px 10px;
+            }
+            .stat-card .stat-value {
+                font-size: 1.6rem;
+            }
+            .custom-popup {
+                padding: 28px 20px;
+            }
+            .custom-popup h3 {
+                font-size: 1.5rem;
+            }
+            .action-btns button {
+                padding: 4px 10px;
+                font-size: 0.65rem;
+            }
+            .user-item {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .user-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+            .user-actions {
+                justify-content: flex-start;
+            }
+            .popup-actions {
+                grid-template-columns: 1fr;
+            }
+            .popup-actions .btn-add,
+            .popup-actions .btn-remove {
+                grid-column: 1;
+            }
+            .popup-content .breakdown {
+                grid-template-columns: 1fr;
+            }
+            .search-box {
+                flex-wrap: wrap;
+            }
+            .search-box button {
+                flex: 1;
+            }
+            .table-container h2 .header-actions {
+                margin-left: 0;
+                width: 100%;
+                justify-content: flex-start;
+                margin-top: 8px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+            .stat-card {
+                padding: 10px 8px;
+            }
+            .stat-card .stat-value {
+                font-size: 1.3rem;
+            }
+            table thead th,
+            table tbody td {
+                padding: 6px 6px;
+                font-size: 0.65rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CUSTOM POPUP -->
+    <div class="custom-popup-overlay" id="customPopup">
+        <div class="custom-popup">
+            <div class="gold-border-top"></div>
+            <button class="popup-close" id="popupCloseBtn"><i class="fas fa-times"></i></button>
+            <div class="popup-icon" id="popupIcon">✅</div>
+            <h3 id="popupTitle">Success</h3>
+            <p id="popupMessage">Your action was completed successfully.</p>
+            <div class="popup-actions" id="popupActions">
+                <button class="btn-primary" id="popupConfirmBtn">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DIAMOND MANAGEMENT POPUP -->
+    <div class="diamond-popup" id="diamondPopup">
+        <div class="popup-content">
+            <h2>💎 Manage Diamonds</h2>
+            <div class="user-detail" id="popupUserInfo">👤 User: loading...</div>
+            <div class="balance-display">
+                Current Balance: <span id="popupCurrentBalance">0</span> 💎
+            </div>
+            <div class="breakdown">
+                <div class="item">
+                    <div class="label">Main Balance</div>
+                    <div class="value" id="popupMainBalance">0</div>
+                </div>
+                <div class="item">
+                    <div class="label">Referral Bonus</div>
+                    <div class="value" id="popupReferralBonus">0</div>
+                </div>
+                <div class="item">
+                    <div class="label">Team Earning</div>
+                    <div class="value" id="popupTeamEarning">0</div>
+                </div>
+            </div>
+            <input type="number" id="diamondAmount" placeholder="Enter amount..." min="1" />
+            <div class="popup-actions">
+                <button class="btn-add" onclick="confirmAddDiamonds()"><i class="fas fa-plus"></i> Add</button>
+                <button class="btn-remove" onclick="confirmRemoveDiamonds()"><i class="fas fa-minus"></i> Remove</button>
+                <button class="btn-set" onclick="confirmSetBalance()"><i class="fas fa-edit"></i> Set Custom</button>
+                <button class="btn-close" onclick="closeDiamondPopup()"><i class="fas fa-times"></i> Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEND NOTIFICATION POPUP -->
+    <div class="diamond-popup" id="notifyPopup">
+        <div class="popup-content">
+            <h2>🔔 Send Notification</h2>
+            <div class="user-detail" id="notifyUserInfo">👤 User: loading...</div>
+
+            <input type="text" id="notifyTitle" placeholder="Notification title..." maxlength="80" />
+            <textarea id="notifyMessage" placeholder="Type your message here..." maxlength="500"></textarea>
+
+            <div class="popup-actions" style="grid-template-columns: 1fr 1fr; margin-bottom:6px;">
+                <button class="btn-add" onclick="sendNotificationToUser()"><i class="fas fa-paper-plane"></i> Send</button>
+                <button class="btn-close" onclick="closeNotifyPopup()"><i class="fas fa-times"></i> Close</button>
+            </div>
+
+            <div style="text-align:left; font-size:0.75rem; color:#888; margin-top:10px;">Previously sent to this user:</div>
+            <div class="sent-notif-list" id="sentNotifList">
+                <div style="text-align:center; color:#555; font-size:0.7rem; padding:10px;">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ANIMATED BACKGROUND -->
+    <div class="bg-animation">
+        <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+        <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+        <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    <div class="bg-orbs">
+        <div class="orb"></div><div class="orb"></div><div class="orb"></div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="logo-area">
+            <img class="logo-icon" src="https://i.ibb.co/ds4SFQsf/IMG-20260615-WA0025-1.webp" alt="Logo" />
+            <span class="logo-text">LEARN WITH SHAN</span>
+            <span class="admin-badge"><i class="fas fa-user-shield"></i> ADMIN</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+            <button class="signin-btn" id="headerSignInBtn"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+            <a href="index.html" style="color:#888; font-size:0.8rem; padding:6px 12px; border:1px solid rgba(255,255,255,0.05); border-radius:30px;"><i class="fas fa-arrow-left"></i></a>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content container">
+
+        <!-- HERO -->
+        <div class="admin-hero">
+            <h1>🛡️ Admin Panel</h1>
+            <p class="sub-title">Manage users, withdrawals, diamonds, and monitor platform activity</p>
+        </div>
+
+        <!-- STATS -->
+        <div class="stats-grid" id="statsGrid">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-users"></i></div>
+                <div class="stat-value" id="totalUsers">0</div>
+                <div class="stat-label">Total Users</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-gem"></i></div>
+                <div class="stat-value" id="totalDiamonds">0</div>
+                <div class="stat-label">Total Diamonds</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-eye"></i></div>
+                <div class="stat-value" id="totalAds">0</div>
+                <div class="stat-label">Total Ads Watched</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                <div class="stat-value" id="pendingRequests">0</div>
+                <div class="stat-label">Pending Withdrawals</div>
+            </div>
+        </div>
+
+        <!-- TABS -->
+        <div class="admin-tabs" id="adminTabs">
+            <button class="active" data-tab="withdrawals">
+                <i class="fas fa-hand-holding-usd"></i> Withdrawals
+                <span class="badge pending" id="pendingBadge">0</span>
+            </button>
+            <button data-tab="users">
+                <i class="fas fa-users"></i> All Users
+                <span class="badge" id="usersBadge">0</span>
+            </button>
+            <button data-tab="settings">
+                <i class="fas fa-cog"></i> Settings
+            </button>
+        </div>
+
+        <!-- TAB: WITHDRAWALS -->
+        <div class="tab-content active" id="tab-withdrawals">
+            <div class="table-container">
+                <h2>
+                    💰 Withdrawal Requests 
+                    <span class="count" id="withdrawCount"></span>
+                    <span class="header-actions">
+                        <button class="btn-clear-history" onclick="clearAllWithdrawals()">
+                            <i class="fas fa-trash-alt"></i> Clear All History
+                        </button>
+                    </span>
+                </h2>
+                <div id="withdrawalsList">
+                    <div class="loading-row"><i class="fas fa-spinner fa-spin"></i> Loading withdrawals...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: USERS -->
+        <div class="tab-content" id="tab-users">
+            <div class="table-container">
+                <h2>👥 All Users <span class="count" id="usersCount"></span></h2>
+                
+                <!-- Search Box -->
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="🔍 Search by email or name..." />
+                    <button onclick="searchUsers()"><i class="fas fa-search"></i> Search</button>
+                    <button class="btn-refresh" onclick="loadAllUsers()"><i class="fas fa-sync"></i> Refresh</button>
+                </div>
+
+                <div id="usersList">
+                    <div class="loading-row"><i class="fas fa-spinner fa-spin"></i> Loading users...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: SETTINGS -->
+        <div class="tab-content" id="tab-settings">
+            <div class="table-container">
+                <h2>⚙️ Settings</h2>
+                <div style="padding: 10px 0;">
+                    <div style="background: rgba(255,255,255,0.02); border-radius: 16px; padding: 20px; margin-bottom: 16px;">
+                        <h3 style="color: #FFD700; font-size: 1rem; margin-bottom: 8px;">Admin Access</h3>
+                        <p style="color: #888; font-size: 0.9rem;">Currently logged in as: <strong id="adminEmail" style="color: #FFD700;">-</strong></p>
+                        <p style="color: #555; font-size: 0.8rem; margin-top: 4px;">Only <strong style="color: #FFD700;">learnwithhusnain0@gmail.com</strong> has admin access</p>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.02); border-radius: 16px; padding: 20px; margin-bottom: 16px;">
+                        <h3 style="color: #FFD700; font-size: 1rem; margin-bottom: 8px;">Platform Stats</h3>
+                        <div id="platformStats" style="color: #888; font-size: 0.9rem; line-height: 2;">
+                            Loading stats...
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.02); border-radius: 16px; padding: 20px;">
+                        <h3 style="color: #FFD700; font-size: 1rem; margin-bottom: 8px;">Actions</h3>
+                        <button onclick="refreshData()" style="background: rgba(255,215,0,0.1); border: 1px solid rgba(255,215,0,0.15); color: #FFD700; padding: 10px 24px; border-radius: 12px; cursor: pointer; font-family: 'Montserrat', sans-serif; font-weight: 600;">
+                            <i class="fas fa-sync"></i> Refresh Data
+                        </button>
+                        <button onclick="signOut()" style="background: rgba(255,68,68,0.1); border: 1px solid rgba(255,68,68,0.15); color: #ff4444; padding: 10px 24px; border-radius: 12px; cursor: pointer; font-family: 'Montserrat', sans-serif; font-weight: 600; margin-left: 10px;">
+                            <i class="fas fa-sign-out-alt"></i> Sign Out
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ============================================================
+        // FIREBASE CONFIG
+        // ============================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyDr8cOagJ0dXLiil62JvH4q02mIcmxX9pc",
+            authDomain: "learnwithshan-4be25.firebaseapp.com",
+            projectId: "learnwithshan-4be25",
+            storageBucket: "learnwithshan-4be25.firebasestorage.app",
+            messagingSenderId: "632640212736",
+            appId: "1:632640212736:web:554cba768fb7c0d1e46de5",
+            measurementId: "G-SV6PX5N75Q"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // ============================================================
+        // DOM ELEMENTS
+        // ============================================================
+        const headerSignInBtn = document.getElementById('headerSignInBtn');
+        const adminTabs = document.getElementById('adminTabs');
+        const pendingBadge = document.getElementById('pendingBadge');
+        const usersBadge = document.getElementById('usersBadge');
+
+        // ============================================================
+        // STATE
+        // ============================================================
+        let selectedUserId = null;
+        let selectedUserData = null;
+        let allUsers = [];
+        let pendingAction = null;
+        let pendingAmount = 0;
+
+        // ============================================================
+        // CUSTOM POPUP
+        // ============================================================
+        function showCustomPopup(type, title, message, buttonText, callback) {
+            const popup = document.getElementById('customPopup');
+            const icon = document.getElementById('popupIcon');
+            const titleEl = document.getElementById('popupTitle');
+            const msgEl = document.getElementById('popupMessage');
+            const confirmBtn = document.getElementById('popupConfirmBtn');
+            const closeBtn = document.getElementById('popupCloseBtn');
+
+            const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
+            icon.textContent = icons[type] || 'ℹ️';
+            icon.className = 'popup-icon ' + type;
+            titleEl.textContent = title;
+            msgEl.textContent = message;
+            confirmBtn.textContent = buttonText || 'OK';
+
+            popup.classList.add('active');
+
+            const handleConfirm = function() {
+                popup.classList.remove('active');
+                confirmBtn.removeEventListener('click', handleConfirm);
+                closeBtn.removeEventListener('click', handleClose);
+                if (callback) callback();
+            };
+            const handleClose = function() {
+                popup.classList.remove('active');
+                confirmBtn.removeEventListener('click', handleConfirm);
+                closeBtn.removeEventListener('click', handleClose);
+                if (callback) callback();
+            };
+
+            confirmBtn.addEventListener('click', handleConfirm);
+            closeBtn.addEventListener('click', handleClose);
+            popup.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    popup.classList.remove('active');
+                    confirmBtn.removeEventListener('click', handleConfirm);
+                    closeBtn.removeEventListener('click', handleClose);
+                    if (callback) callback();
+                }
+            });
+        }
+
+        // ============================================================
+        // AUTH STATE
+        // ============================================================
+        let isAdmin = false;
+        let currentUser = null;
+
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                currentUser = user;
+                headerSignInBtn.innerHTML =
+                    `<i class="fas fa-user"></i> ${user.displayName || user.email.split('@')[0]}`;
+
+                try {
+                    const adminDoc = await db.collection('settings').doc('admin').get();
+                    let adminEmails = [];
+                    if (adminDoc.exists) {
+                        const data = adminDoc.data();
+                        if (data.emails && Array.isArray(data.emails)) {
+                            adminEmails = data.emails;
+                        } else if (data.email) {
+                            adminEmails = [data.email];
+                        }
+                    }
+                    isAdmin = adminEmails.includes(user.email);
+                    document.getElementById('adminEmail').textContent = user.email;
+
+                    if (isAdmin) {
+                        loadData();
+                        loadAllUsers();
+                    } else {
+                        document.getElementById('withdrawalsList').innerHTML = `
+                                <div class="empty-state">
+                                    <i class="fas fa-lock" style="color: #ff4444;"></i>
+                                    <p style="color: #ff4444;">Access Denied</p>
+                                    <p style="color: #555; font-size: 0.85rem;">You don't have admin privileges.</p>
+                                    <p style="color: #555; font-size: 0.75rem;">Contact learnwithhusnain0@gmail.com for access.</p>
+                                </div>
+                            `;
+                        document.getElementById('usersList').innerHTML = `
+                                <div class="empty-state">
+                                    <i class="fas fa-lock" style="color: #ff4444;"></i>
+                                    <p style="color: #ff4444;">Access Denied</p>
+                                </div>
+                            `;
+                        document.getElementById('statsGrid').style.display = 'none';
+                        document.querySelectorAll('.admin-tabs button').forEach(b => b.style.opacity = '0.5');
+                        document.querySelectorAll('.admin-tabs button').forEach(b => b.style.cursor = 'not-allowed');
+                        pendingBadge.textContent = '!';
+                        usersBadge.textContent = '!';
+                    }
+                } catch (error) {
+                    console.error('Admin check error:', error);
+                    isAdmin = false;
+                }
+            } else {
+                currentUser = null;
+                isAdmin = false;
+                headerSignInBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+                document.getElementById('withdrawalsList').innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-sign-in-alt" style="color: #FFD700;"></i>
+                            <p style="color: #FFD700;">Please sign in to access admin panel</p>
+                            <button onclick="showLoginPopup()" style="margin-top:12px; background:rgba(255,215,0,0.1); border:1px solid rgba(255,215,0,0.2); color:#FFD700; padding:10px 24px; border-radius:12px; cursor:pointer; font-family:'Montserrat',sans-serif; font-weight:600;">
+                                <i class="fas fa-sign-in-alt"></i> Sign In
+                            </button>
+                        </div>
+                    `;
+                document.getElementById('usersList').innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-sign-in-alt" style="color: #FFD700;"></i>
+                            <p style="color: #FFD700;">Please sign in to access admin panel</p>
+                        </div>
+                    `;
+                document.getElementById('statsGrid').style.display = 'none';
+                document.querySelectorAll('.admin-tabs button').forEach(b => b.style.opacity = '0.5');
+                document.querySelectorAll('.admin-tabs button').forEach(b => b.style.cursor = 'not-allowed');
+                pendingBadge.textContent = '!';
+                usersBadge.textContent = '!';
+                document.getElementById('adminEmail').textContent = '-';
+            }
+        });
+
+        // ============================================================
+        // SIMPLE LOGIN POPUP
+        // ============================================================
+        function showLoginPopup() {
+            const existing = document.querySelector('.login-overlay');
+            if (existing) existing.remove();
+
+            const overlayDiv = document.createElement('div');
+            overlayDiv.className = 'login-overlay';
+            overlayDiv.id = 'loginOverlay';
+            overlayDiv.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.9);
+                    backdrop-filter: blur(16px);
+                    z-index: 9999;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    animation: fadeInOverlay 0.5s ease;
+                    padding: 20px;
+                `;
+            overlayDiv.innerHTML = `
+                    <div class="login-box" style="max-width:440px; width:100%; background:rgba(20,20,18,0.95); border-radius:30px; padding:40px 30px; border:2px solid #FFD700; text-align:center; position:relative; animation:scaleIn 0.5s cubic-bezier(0.22,1,0.36,1); max-height:90vh; overflow-y:auto;">
+                        <div class="gold-border-top" style="position:absolute; top:0; left:0; width:100%; height:3px; background:linear-gradient(90deg, transparent, #FFD700, #FFA500, #FFD700, transparent); background-size:300% 100%; animation:goldSlide 4s ease-in-out infinite; border-radius:30px 30px 0 0;"></div>
+                        <button class="close-popup" id="closeLoginPopupBtn" style="position:absolute; top:12px; right:16px; font-size:1.6rem; color:#666; background:transparent; border:none; cursor:pointer; transition:0.3s; z-index:10; padding:4px 8px; border-radius:50%;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <img class="logo-img" src="https://i.ibb.co/ds4SFQsf/IMG-20260615-WA0025-1.webp" alt="Logo" style="width:70px; height:70px; border-radius:16px; margin-bottom:16px; border:2px solid rgba(255,215,0,0.2);" />
+                        <h2 style="font-family:'Bebas Neue',sans-serif; color:#FFD700; font-size:2rem; letter-spacing:2px;">🔐 Admin Sign In</h2>
+                        <p class="sub-text" style="color:#999; font-size:0.9rem; margin:8px 0 20px;">Sign in with your admin account</p>
+                        <div class="form-group" style="margin-bottom:14px; text-align:left;">
+                            <label style="display:block; font-size:0.75rem; color:#aaa; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Email</label>
+                            <input type="email" id="loginEmail" placeholder="your@email.com" style="width:100%; padding:14px 16px; border-radius:14px; border:1px solid rgba(255,215,0,0.15); background:rgba(0,0,0,0.4); color:#fff; font-size:0.95rem; font-family:'Montserrat',sans-serif; outline:none; transition:0.3s;" />
+                        </div>
+                        <div class="form-group" style="margin-bottom:14px; text-align:left;">
+                            <label style="display:block; font-size:0.75rem; color:#aaa; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Password</label>
+                            <input type="password" id="loginPassword" placeholder="Enter password" style="width:100%; padding:14px 16px; border-radius:14px; border:1px solid rgba(255,215,0,0.15); background:rgba(0,0,0,0.4); color:#fff; font-size:0.95rem; font-family:'Montserrat',sans-serif; outline:none; transition:0.3s;" />
+                        </div>
+                        <button class="email-btn" id="emailSignInBtn" style="width:100%; background:linear-gradient(135deg, #FFD700, #e6b800); color:#0a0a0a; border:none; padding:14px; border-radius:30px; font-weight:700; font-size:1rem; cursor:pointer; transition:0.3s; display:flex; align-items:center; justify-content:center; gap:10px;">
+                            <i class="fas fa-sign-in-alt"></i> Sign In
+                        </button>
+                        <div class="divider" style="display:flex; align-items:center; gap:16px; margin:16px 0; color:#555; font-size:0.75rem; text-transform:uppercase; letter-spacing:2px;">
+                            <span style="flex:1; height:1px; background:linear-gradient(90deg, transparent, rgba(255,215,0,0.2), transparent);"></span>
+                            or
+                            <span style="flex:1; height:1px; background:linear-gradient(90deg, transparent, rgba(255,215,0,0.2), transparent);"></span>
+                        </div>
+                        <button class="google-btn" id="googleSignInBtn" style="width:100%; background:linear-gradient(135deg, #4285F4, #34A853); color:#fff; border:none; padding:14px; border-radius:30px; font-weight:700; font-size:1rem; cursor:pointer; transition:0.3s; display:flex; align-items:center; justify-content:center; gap:10px;">
+                            <i class="fab fa-google"></i> Sign in with Google
+                        </button>
+                        <div class="error-msg" id="loginError" style="color:#ff4444; font-size:0.8rem; margin-top:10px; display:none;">Invalid credentials.</div>
+                        <br>
+                        <a href="admin.html" class="back-link" style="display:inline-block; margin-top:12px; color:#666; font-size:0.85rem; transition:0.3s; text-decoration:none;"><i class="fas fa-arrow-left"></i> Back</a>
+                    </div>
+                `;
+            document.body.appendChild(overlayDiv);
+
+            document.getElementById('closeLoginPopupBtn').addEventListener('click', function() {
+                overlayDiv.remove();
+            });
+            overlayDiv.addEventListener('click', function(e) {
+                if (e.target === this) overlayDiv.remove();
+            });
+
+            document.getElementById('emailSignInBtn').addEventListener('click', function() {
+                const email = document.getElementById('loginEmail').value.trim();
+                const password = document.getElementById('loginPassword').value.trim();
+                const errorEl = document.getElementById('loginError');
+
+                if (!email || !password) {
+                    errorEl.textContent = 'Please enter both email and password.';
+                    errorEl.style.display = 'block';
+                    return;
+                }
+
+                this.disabled = true;
+                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
+                errorEl.style.display = 'none';
+
+                auth.signInWithEmailAndPassword(email, password)
+                    .then(() => {
+                        overlayDiv.remove();
+                    })
+                    .catch((error) => {
+                        errorEl.textContent = error.message;
+                        errorEl.style.display = 'block';
+                        this.disabled = false;
+                        this.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+                    });
+            });
+
+            document.getElementById('googleSignInBtn').addEventListener('click', function() {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                provider.setCustomParameters({ prompt: 'select_account' });
+                auth.signInWithPopup(provider)
+                    .then(() => {
+                        overlayDiv.remove();
+                    })
+                    .catch((error) => {
+                        document.getElementById('loginError').textContent = error.message;
+                        document.getElementById('loginError').style.display = 'block';
+                    });
+            });
+
+            document.querySelectorAll('.login-box input').forEach(input => {
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        document.getElementById('emailSignInBtn').click();
+                    }
+                });
+            });
+        }
+
+        // ============================================================
+        // SIGN OUT
+        // ============================================================
+        function signOut() {
+            auth.signOut().then(() => {
+                showCustomPopup('success', 'Signed Out', 'You have been signed out successfully.', 'OK');
+            });
+        }
+
+        // ============================================================
+        // LOAD DATA
+        // ============================================================
+        async function loadData() {
+            if (!isAdmin) return;
+
+            await loadWithdrawals();
+            await loadStats();
+            await loadPlatformStats();
+        }
+
+        // ============================================================
+        // LOAD ALL USERS (For Users Tab)
+        // ============================================================
+        async function loadAllUsers() {
+            const container = document.getElementById('usersList');
+            container.innerHTML = '<div class="loading-row"><i class="fas fa-spinner fa-spin"></i> Loading users...</div>';
+
+            try {
+                const snapshot = await db.collection('users')
+                    .orderBy('totalDiamonds', 'desc')
+                    .get();
+
+                allUsers = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    const total = (data.totalDiamonds || 0) + (data.referralBonus || 0) + (data.teamEarning || 0);
+                    allUsers.push({
+                        id: doc.id,
+                        ...data,
+                        total: total
+                    });
+                });
+
+                renderUsers(allUsers);
+                usersBadge.textContent = allUsers.length;
+                document.getElementById('usersCount').textContent = `(${allUsers.length})`;
+
+            } catch (error) {
+                console.error('Load users error:', error);
+                container.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-exclamation-circle" style="color:#ff4444;"></i>
+                            <p style="color:#ff4444;">Error loading users: ${error.message}</p>
+                        </div>
+                    `;
+            }
+        }
+
+        // ============================================================
+        // RENDER USERS
+        // ============================================================
+        function renderUsers(users) {
+            const container = document.getElementById('usersList');
+
+            if (users.length === 0) {
+                container.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-users"></i>
+                            <p>No users found.</p>
+                        </div>
+                    `;
+                return;
+            }
+
+            let html = '<div class="user-list">';
+            users.forEach((user, index) => {
+                const name = user.displayName || 'User';
+                const email = user.email || 'No email';
+                const total = user.total || 0;
+                const device = user.deviceInfo || null;
+                const deviceLabel = device
+                    ? `${device.name || 'Unknown'} • ${device.os || ''} • ${device.browser || ''}`
+                    : 'No device data yet';
+
+                html += `
+                        <div class="user-item">
+                            <div class="user-info">
+                                <span class="user-name">${index + 1}. ${name}</span>
+                                <span class="user-email">${email}</span>
+                                <span class="user-device" title="${(device && device.userAgent) ? device.userAgent.replace(/"/g, '&quot;') : ''}">
+                                    <i class="fas fa-mobile-alt"></i> ${deviceLabel}
+                                </span>
+                                <span class="user-balance">${total.toLocaleString()} 💎</span>
+                            </div>
+                            <div class="user-actions">
+                                <button class="btn-manage" onclick="openDiamondPopup('${user.id}')">
+                                    <i class="fas fa-gem"></i> Manage
+                                </button>
+                                <button class="btn-notify" onclick="openNotifyPopup('${user.id}')">
+                                    <i class="fas fa-bell"></i> Notify
+                                </button>
+                                <button class="btn-delete-user" onclick="deleteUser('${user.id}')" title="Delete User">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+            });
+            html += '</div>';
+
+            container.innerHTML = html;
+        }
+
+        // ============================================================
+        // SEARCH USERS
+        // ============================================================
+        function searchUsers() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            if (!query) {
+                renderUsers(allUsers);
+                return;
+            }
+
+            const filtered = allUsers.filter(user => {
+                const name = (user.displayName || '').toLowerCase();
+                const email = (user.email || '').toLowerCase();
+                return name.includes(query) || email.includes(query);
+            });
+
+            renderUsers(filtered);
+        }
+
+        // ============================================================
+        // OPEN DIAMOND POPUP
+        // ============================================================
+        async function openDiamondPopup(userId) {
+            selectedUserId = userId;
+
+            try {
+                const doc = await db.collection('users').doc(userId).get();
+                if (!doc.exists) {
+                    showToast('User not found', 'error');
+                    return;
+                }
+
+                selectedUserData = doc.data();
+                const total = (selectedUserData.totalDiamonds || 0) +
+                    (selectedUserData.referralBonus || 0) +
+                    (selectedUserData.teamEarning || 0);
+
+                document.getElementById('popupUserInfo').textContent =
+                    `👤 ${selectedUserData.displayName || 'User'} (${selectedUserData.email || 'No email'})`;
+                document.getElementById('popupCurrentBalance').textContent = total.toLocaleString();
+                document.getElementById('popupMainBalance').textContent = (selectedUserData.totalDiamonds || 0).toLocaleString();
+                document.getElementById('popupReferralBonus').textContent = (selectedUserData.referralBonus || 0).toLocaleString();
+                document.getElementById('popupTeamEarning').textContent = (selectedUserData.teamEarning || 0).toLocaleString();
+                document.getElementById('diamondAmount').value = '';
+                document.getElementById('diamondPopup').classList.add('active');
+
+            } catch (error) {
+                console.error('Error:', error);
+                showToast('Failed to load user data', 'error');
+            }
+        }
+
+        // ============================================================
+        // CLOSE DIAMOND POPUP
+        // ============================================================
+        function closeDiamondPopup() {
+            document.getElementById('diamondPopup').classList.remove('active');
+        }
+
+        // ============================================================
+        // SEND NOTIFICATION TO USER
+        // ============================================================
+        let notifyTargetUserId = null;
+        let notifyTargetUserData = null;
+
+        async function openNotifyPopup(userId) {
+            notifyTargetUserId = userId;
+            document.getElementById('notifyTitle').value = '';
+            document.getElementById('notifyMessage').value = '';
+
+            try {
+                const doc = await db.collection('users').doc(userId).get();
+                if (!doc.exists) {
+                    showToast('User not found', 'error');
+                    return;
+                }
+                notifyTargetUserData = doc.data();
+                document.getElementById('notifyUserInfo').textContent =
+                    `👤 ${notifyTargetUserData.displayName || 'User'} (${notifyTargetUserData.email || 'No email'})`;
+                document.getElementById('notifyPopup').classList.add('active');
+                loadSentNotifications(userId);
+            } catch (error) {
+                console.error('Error:', error);
+                showToast('Failed to load user data', 'error');
+            }
+        }
+
+        function closeNotifyPopup() {
+            document.getElementById('notifyPopup').classList.remove('active');
+            notifyTargetUserId = null;
+            notifyTargetUserData = null;
+        }
+
+        async function sendNotificationToUser() {
+            const title = document.getElementById('notifyTitle').value.trim();
+            const message = document.getElementById('notifyMessage').value.trim();
+
+            if (!title || !message) {
+                showToast('Please enter both title and message', 'warning');
+                return;
+            }
+            if (!notifyTargetUserId) {
+                showToast('No user selected', 'error');
+                return;
+            }
+
+            try {
+                await db.collection('notifications').add({
+                    userId: notifyTargetUserId,
+                    title: title,
+                    message: message,
+                    read: false,
+                    createdAt: new Date().toISOString(),
+                    sentBy: (auth.currentUser && auth.currentUser.email) || 'admin'
+                });
+                showToast('Notification sent!', 'success');
+                document.getElementById('notifyTitle').value = '';
+                document.getElementById('notifyMessage').value = '';
+                loadSentNotifications(notifyTargetUserId);
+            } catch (error) {
+                console.error('Send notification error:', error);
+                showToast('Failed to send notification: ' + error.message, 'error');
+            }
+        }
+
+        async function loadSentNotifications(userId) {
+            const listEl = document.getElementById('sentNotifList');
+            listEl.innerHTML = '<div style="text-align:center; color:#555; font-size:0.7rem; padding:10px;">Loading...</div>';
+
+            try {
+                const snapshot = await db.collection('notifications')
+                    .where('userId', '==', userId)
+                    .get();
+
+                if (snapshot.empty) {
+                    listEl.innerHTML = '<div style="text-align:center; color:#555; font-size:0.7rem; padding:10px;">No notifications sent yet</div>';
+                    return;
+                }
+
+                let items = [];
+                snapshot.forEach(doc => items.push({ id: doc.id, ...doc.data() }));
+                items.sort((a, b) => (b.createdAt || '') > (a.createdAt || '') ? 1 : -1);
+
+                listEl.innerHTML = items.map(n => `
+                        <div class="sent-notif-item">
+                            <span class="sn-delete" onclick="deleteSentNotification('${n.id}')" title="Delete"><i class="fas fa-trash"></i></span>
+                            <div class="sn-title">${(n.title || '').replace(/</g, '&lt;')}</div>
+                            <div class="sn-msg">${(n.message || '').replace(/</g, '&lt;')}</div>
+                            <div class="sn-meta">${n.createdAt ? new Date(n.createdAt).toLocaleString() : ''} ${n.read ? '• ✅ Read' : '• 🔵 Unread'}</div>
+                        </div>
+                    `).join('');
+            } catch (error) {
+                console.error('Load sent notifications error:', error);
+                listEl.innerHTML = '<div style="text-align:center; color:#ff4444; font-size:0.7rem; padding:10px;">Failed to load</div>';
+            }
+        }
+
+        async function deleteSentNotification(notifId) {
+            try {
+                await db.collection('notifications').doc(notifId).delete();
+                showToast('Notification deleted', 'success');
+                if (notifyTargetUserId) loadSentNotifications(notifyTargetUserId);
+            } catch (error) {
+                console.error('Delete notification error:', error);
+                showToast('Failed to delete notification', 'error');
+            }
+        }
+
+        // ============================================================
+        // CONFIRM ADD DIAMONDS
+        // ============================================================
+        function confirmAddDiamonds() {
+            const amount = parseInt(document.getElementById('diamondAmount').value);
+            if (!amount || amount <= 0) {
+                showToast('Please enter a valid amount', 'warning');
+                return;
+            }
+
+            pendingAmount = amount;
+            pendingAction = 'add';
+            
+            showConfirmPopup(
+                `Add ${amount.toLocaleString()} diamonds?`,
+                `This will add ${amount.toLocaleString()} diamonds to ${selectedUserData.displayName || 'User'}'s account.`,
+                function() {
+                    executeAction();
+                },
+                function() {
+                    pendingAction = null;
+                    pendingAmount = 0;
+                }
+            );
+        }
+
+        // ============================================================
+        // CONFIRM REMOVE DIAMONDS
+        // ============================================================
+        function confirmRemoveDiamonds() {
+            const amount = parseInt(document.getElementById('diamondAmount').value);
+            if (!amount || amount <= 0) {
+                showToast('Please enter a valid amount', 'warning');
+                return;
+            }
+
+            const total = (selectedUserData.totalDiamonds || 0) +
+                (selectedUserData.referralBonus || 0) +
+                (selectedUserData.teamEarning || 0);
+
+            if (amount > total) {
+                showToast(`Cannot remove ${amount.toLocaleString()}. User only has ${total.toLocaleString()} diamonds.`,
+                    'warning');
+                return;
+            }
+
+            pendingAmount = amount;
+            pendingAction = 'remove';
+            
+            showConfirmPopup(
+                `Remove ${amount.toLocaleString()} diamonds?`,
+                `This will remove ${amount.toLocaleString()} diamonds from ${selectedUserData.displayName || 'User'}'s account.`,
+                function() {
+                    executeAction();
+                },
+                function() {
+                    pendingAction = null;
+                    pendingAmount = 0;
+                }
+            );
+        }
+
+        // ============================================================
+        // CONFIRM SET BALANCE
+        // ============================================================
+        function confirmSetBalance() {
+            const amount = parseInt(document.getElementById('diamondAmount').value);
+            if (!amount || amount < 0) {
+                showToast('Please enter a valid amount', 'warning');
+                return;
+            }
+
+            pendingAmount = amount;
+            pendingAction = 'set';
+            
+            showConfirmPopup(
+                `Set balance to ${amount.toLocaleString()} diamonds?`,
+                `This will set ${selectedUserData.displayName || 'User'}'s balance to ${amount.toLocaleString()} diamonds.`,
+                function() {
+                    executeAction();
+                },
+                function() {
+                    pendingAction = null;
+                    pendingAmount = 0;
+                }
+            );
+        }
+
+        // ============================================================
+        // SHOW CONFIRM POPUP
+        // ============================================================
+        function showConfirmPopup(title, message, onConfirm, onCancel) {
+            const popup = document.getElementById('customPopup');
+            const icon = document.getElementById('popupIcon');
+            const titleEl = document.getElementById('popupTitle');
+            const msgEl = document.getElementById('popupMessage');
+            const actions = document.getElementById('popupActions');
+            const closeBtn = document.getElementById('popupCloseBtn');
+
+            icon.textContent = '❓';
+            icon.className = 'popup-icon warning';
+            titleEl.textContent = title;
+            msgEl.textContent = message;
+            actions.innerHTML = `
+                    <button class="btn-secondary" id="popupCancelBtn">Cancel</button>
+                    <button class="btn-danger" id="popupConfirmBtn">Confirm</button>
+                `;
+
+            popup.classList.add('active');
+
+            const newConfirmBtn = document.getElementById('popupConfirmBtn');
+            const cancelBtn = document.getElementById('popupCancelBtn');
+
+            const handleConfirm = function() {
+                popup.classList.remove('active');
+                actions.innerHTML = `<button class="btn-primary" id="popupConfirmBtn">OK</button>`;
+                if (onConfirm) onConfirm();
+            };
+
+            const handleCancel = function() {
+                popup.classList.remove('active');
+                actions.innerHTML = `<button class="btn-primary" id="popupConfirmBtn">OK</button>`;
+                if (onCancel) onCancel();
+            };
+
+            newConfirmBtn.onclick = handleConfirm;
+            cancelBtn.onclick = handleCancel;
+            closeBtn.onclick = handleCancel;
+            
+            popup.onclick = function(e) {
+                if (e.target === this) {
+                    popup.classList.remove('active');
+                    actions.innerHTML = `<button class="btn-primary" id="popupConfirmBtn">OK</button>`;
+                    if (onCancel) onCancel();
+                }
+            };
+        }
+
+        // ============================================================
+        // EXECUTE ACTION
+        // ============================================================
+        async function executeAction() {
+            const userId = selectedUserId;
+            const action = pendingAction;
+            const amount = pendingAmount;
+
+            if (!userId || !action) {
+                showToast('Missing user or action. Please try again.', 'error');
+                return;
+            }
+
+            try {
+                console.log('🔵 Processing action:', action, 'Amount:', amount, 'User:', userId);
+
+                const freshDoc = await db.collection('users').doc(userId).get();
+                if (!freshDoc.exists) {
+                    showToast('User not found', 'error');
+                    return;
+                }
+
+                const freshData = freshDoc.data();
+                const userRef = db.collection('users').doc(userId);
+                let updateData = {};
+                let message = '';
+
+                if (action === 'add') {
+                    updateData.totalDiamonds = firebase.firestore.FieldValue.increment(amount);
+                    message = `✅ ${amount.toLocaleString()} diamonds added!`;
+                    console.log('📌 Adding', amount, 'to totalDiamonds');
+
+                } else if (action === 'remove') {
+                    let remaining = amount;
+                    let mainBalance = freshData.totalDiamonds || 0;
+                    let referralBonus = freshData.referralBonus || 0;
+                    let teamEarning = freshData.teamEarning || 0;
+
+                    if (remaining > 0 && mainBalance > 0) {
+                        const deduct = Math.min(remaining, mainBalance);
+                        mainBalance -= deduct;
+                        remaining -= deduct;
+                    }
+                    if (remaining > 0 && referralBonus > 0) {
+                        const deduct = Math.min(remaining, referralBonus);
+                        referralBonus -= deduct;
+                        remaining -= deduct;
+                    }
+                    if (remaining > 0 && teamEarning > 0) {
+                        const deduct = Math.min(remaining, teamEarning);
+                        teamEarning -= deduct;
+                        remaining -= deduct;
+                    }
+
+                    updateData.totalDiamonds = mainBalance;
+                    updateData.referralBonus = referralBonus;
+                    updateData.teamEarning = teamEarning;
+                    message = `✅ ${amount.toLocaleString()} diamonds removed!`;
+                    console.log('📌 Removing', amount, 'from balance');
+
+                } else if (action === 'set') {
+                    const currentTotal = (freshData.totalDiamonds || 0) +
+                        (freshData.referralBonus || 0) +
+                        (freshData.teamEarning || 0);
+
+                    if (amount > currentTotal) {
+                        const diff = amount - currentTotal;
+                        updateData.totalDiamonds = firebase.firestore.FieldValue.increment(diff);
+                    } else if (amount < currentTotal) {
+                        const diff = currentTotal - amount;
+                        let mainBalance = freshData.totalDiamonds || 0;
+                        let newMain = Math.max(0, mainBalance - diff);
+                        updateData.totalDiamonds = newMain;
+                    }
+                    message = `✅ Balance set to ${amount.toLocaleString()} diamonds!`;
+                    console.log('📌 Setting balance to', amount);
+                }
+
+                if (Object.keys(updateData).length > 0) {
+                    await userRef.update(updateData);
+                    console.log('✅ Update successful');
+                    showToast(message, 'success');
+                } else {
+                    showToast('No changes made', 'info');
+                }
+
+                pendingAction = null;
+                pendingAmount = 0;
+                selectedUserId = null;
+                selectedUserData = null;
+
+                setTimeout(() => {
+                    loadAllUsers();
+                    loadStats();
+                    loadWithdrawals();
+                    closeDiamondPopup();
+                }, 500);
+
+            } catch (error) {
+                console.error('❌ Action error:', error);
+                showToast(`❌ Error: ${error.message}`, 'error');
+                pendingAction = null;
+                pendingAmount = 0;
+            }
+        }
+
+        // ============================================================
+        // DELETE USER
+        // ============================================================
+        async function deleteUser(userId) {
+            showConfirmPopup(
+                'Delete User',
+                'Are you sure you want to permanently delete this user and all their data?',
+                async function() {
+                    try {
+                        await db.collection('users').doc(userId).delete();
+                        showCustomPopup('success', 'Deleted!', 'User has been deleted successfully.', 'OK',
+                            function() { loadAllUsers();
+                                loadStats(); });
+                    } catch (error) {
+                        console.error('Delete error:', error);
+                        showCustomPopup('error', 'Error', `Failed to delete: ${error.message}`, 'OK');
+                    }
+                }
+            );
+        }
+
+        // ============================================================
+        // SHOW TOAST
+        // ============================================================
+        function showToast(message, type = 'info') {
+            const colors = {
+                success: '#4CAF50',
+                error: '#ff4444',
+                warning: '#FFD700',
+                info: '#4285F4'
+            };
+
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                    position: fixed;
+                    bottom: 80px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: rgba(20,20,18,0.95);
+                    color: #fff;
+                    padding: 14px 24px;
+                    border-radius: 12px;
+                    border-left: 4px solid ${colors[type] || colors.info};
+                    z-index: 999999;
+                    font-family: 'Montserrat', sans-serif;
+                    font-size: 0.9rem;
+                    max-width: 90%;
+                    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+                    animation: fadeIn 0.3s ease;
+                `;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
+        }
+
+        // ============================================================
+        // LOAD WITHDRAWALS
+        // ============================================================
+        async function loadWithdrawals() {
+            try {
+                const snapshot = await db.collection('users').get();
+                let allWithdrawals = [];
+                let pendingCount = 0;
+
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    if (data.withdrawals && Array.isArray(data.withdrawals)) {
+                        data.withdrawals.forEach(w => {
+                            // Add a unique ID for each withdrawal
+                            const uniqueId = `${doc.id}_${w.email}_${w.amount}_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`;
+                            allWithdrawals.push({
+                                ...w,
+                                userId: doc.id,
+                                userEmail: data.email || 'Unknown',
+                                userName: data.displayName || 'User',
+                                uniqueId: uniqueId
+                            });
+                            if (w.status === 'pending') pendingCount++;
+                        });
+                    }
+                });
+
+                allWithdrawals.sort((a, b) => {
+                    let dateA = 0,
+                        dateB = 0;
+                    if (a.createdAt) {
+                        if (a.createdAt.toDate) dateA = a.createdAt.toDate().getTime();
+                        else if (typeof a.createdAt === 'string') dateA = new Date(a.createdAt).getTime();
+                        else if (a.createdAt.seconds) dateA = a.createdAt.seconds * 1000;
+                    }
+                    if (b.createdAt) {
+                        if (b.createdAt.toDate) dateB = b.createdAt.toDate().getTime();
+                        else if (typeof b.createdAt === 'string') dateB = new Date(b.createdAt).getTime();
+                        else if (b.createdAt.seconds) dateB = b.createdAt.seconds * 1000;
+                    }
+                    return dateB - dateA;
+                });
+
+                pendingBadge.textContent = pendingCount;
+                document.getElementById('withdrawCount').textContent = `(${allWithdrawals.length})`;
+
+                if (allWithdrawals.length === 0) {
+                    document.getElementById('withdrawalsList').innerHTML = `
+                            <div class="empty-state">
+                                <i class="fas fa-hand-holding-usd"></i>
+                                <p>No withdrawal requests yet.</p>
+                            </div>
+                        `;
+                    return;
+                }
+
+                let html = `
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Email</th>
+                                    <th>Amount</th>
+                                    <th>Method</th>
+                                    <th>Account</th>
+                                    <th>Status</th>
+                                    <th>Requested</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    `;
+
+                allWithdrawals.forEach((w, index) => {
+                    const statusClass = w.status || 'pending';
+                    const statusText = w.status || 'Pending';
+
+                    let date = 'Recently';
+                    if (w.createdAt) {
+                        if (w.createdAt.toDate) {
+                            date = w.createdAt.toDate().toLocaleString();
+                        } else if (typeof w.createdAt === 'string') {
+                            date = new Date(w.createdAt).toLocaleString();
+                        } else if (w.createdAt.seconds) {
+                            date = new Date(w.createdAt.seconds * 1000).toLocaleString();
+                        } else {
+                            date = String(w.createdAt);
+                        }
+                    }
+
+                    const isPending = statusClass === 'pending';
+                    const isProcessed = statusClass === 'approved' || statusClass === 'rejected';
+
+                    html += `
+                            <tr>
+                                <td><strong>${w.userName}</strong></td>
+                                <td style="font-size:0.8rem; color:#888;">${w.userEmail}</td>
+                                <td style="color:#FFD700; font-weight:700;">${w.amount || 0} 💎</td>
+                                <td>${w.method || '-'}</td>
+                                <td>${w.account || '-'}</td>
+                                <td>
+                                    <span class="status-badge ${statusClass}">${statusText}</span>
+                                </td>
+                                <td class="time-ago">${date}</td>
+                                <td>
+                                    <div class="action-btns">
+                                        ${isPending ? `
+                                            <button class="btn-approve" onclick="approveWithdrawal(${index})">
+                                                <i class="fas fa-check"></i> Approve
+                                            </button>
+                                            <button class="btn-reject" onclick="rejectWithdrawal(${index})">
+                                                <i class="fas fa-times"></i> Reject
+                                            </button>
+                                        ` : `
+                                            <span style="color:#555; font-size:0.7rem;">Processed</span>
+                                        `}
+                                        ${isProcessed ? `
+                                            <button class="btn-delete-history" onclick="deleteWithdrawal(${index})" title="Delete this withdrawal record">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        ` : ''}
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
+                });
+
+                html += `</tbody></table>`;
+
+                document.getElementById('withdrawalsList').innerHTML = html;
+                window._allWithdrawals = allWithdrawals;
+
+            } catch (error) {
+                console.error('Load withdrawals error:', error);
+                document.getElementById('withdrawalsList').innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-exclamation-circle" style="color:#ff4444;"></i>
+                            <p style="color:#ff4444;">Error loading withdrawals: ${error.message}</p>
+                        </div>
+                    `;
+            }
+        }
+
+        // ============================================================
+        // DELETE SINGLE WITHDRAWAL
+        // ============================================================
+        async function deleteWithdrawal(index) {
+            const withdrawals = window._allWithdrawals || [];
+            if (index >= withdrawals.length) return;
+
+            const w = withdrawals[index];
+
+            showConfirmPopup(
+                'Delete Withdrawal Record',
+                `Are you sure you want to delete this ${w.status || 'processed'} withdrawal record for ${w.userName}?<br><br>
+                <strong>Amount:</strong> ${w.amount} 💎<br>
+                <strong>Method:</strong> ${w.method || '-'}<br>
+                <strong>Account:</strong> ${w.account || '-'}<br>
+                <br><em style="color:#888;font-size:0.85rem;">This action cannot be undone.</em>`,
+                async function() {
+                    try {
+                        const userRef = db.collection('users').doc(w.userId);
+                        const userDoc = await userRef.get();
+
+                        if (!userDoc.exists) {
+                            showCustomPopup('error', 'Error', 'User not found.', 'OK');
+                            return;
+                        }
+
+                        const data = userDoc.data();
+                        const currentWithdrawals = data.withdrawals || [];
+
+                        // Find and remove the matching withdrawal
+                        const updatedWithdrawals = currentWithdrawals.filter(item => {
+                            // Match by key fields
+                            return !(item.email === w.email &&
+                                item.amount === w.amount &&
+                                item.method === w.method &&
+                                item.account === w.account &&
+                                (item.status || 'pending') === (w.status || 'pending'));
+                        });
+
+                        // If no change, try to match by index in the array
+                        if (updatedWithdrawals.length === currentWithdrawals.length) {
+                            // Remove by index (last resort)
+                            const indexToRemove = currentWithdrawals.findIndex(item => {
+                                return item.email === w.email &&
+                                    item.amount === w.amount &&
+                                    item.method === w.method &&
+                                    item.account === w.account;
+                            });
+                            if (indexToRemove !== -1) {
+                                currentWithdrawals.splice(indexToRemove, 1);
+                                await userRef.update({ withdrawals: currentWithdrawals });
+                            } else {
+                                showCustomPopup('error', 'Error', 'Could not find the withdrawal record to delete.', 'OK');
+                                return;
+                            }
+                        } else {
+                            await userRef.update({ withdrawals: updatedWithdrawals });
+                        }
+
+                        showCustomPopup('success', '✅ Deleted!',
+                            `Withdrawal record for ${w.userName} has been deleted.`,
+                            'OK', function() { loadData();
+                                loadAllUsers(); });
+
+                    } catch (error) {
+                        console.error('Delete withdrawal error:', error);
+                        showCustomPopup('error', 'Error', `Failed to delete: ${error.message}`, 'OK');
+                    }
+                }
+            );
+        }
+
+        // ============================================================
+        // CLEAR ALL WITHDRAWAL HISTORY
+        // ============================================================
+        async function clearAllWithdrawals() {
+            showConfirmPopup(
+                '⚠️ Clear All Withdrawal History',
+                `Are you sure you want to delete ALL withdrawal history?<br><br>
+                This will permanently remove all withdrawal records from all users.<br>
+                <strong style="color:#ff4444;">This action cannot be undone!</strong>`,
+                async function() {
+                    try {
+                        const snapshot = await db.collection('users').get();
+                        let batch = db.batch();
+                        let count = 0;
+
+                        snapshot.forEach(doc => {
+                            const userRef = db.collection('users').doc(doc.id);
+                            batch.update(userRef, { withdrawals: [] });
+                            count++;
+                        });
+
+                        await batch.commit();
+
+                        showCustomPopup('success', '✅ Cleared!',
+                            `All withdrawal history (${count} users) has been cleared.`,
+                            'OK', function() { loadData();
+                                loadAllUsers(); });
+
+                    } catch (error) {
+                        console.error('Clear withdrawals error:', error);
+                        showCustomPopup('error', 'Error', `Failed to clear history: ${error.message}`, 'OK');
+                    }
+                }
+            );
+        }
+
+        // ============================================================
+        // APPROVE WITHDRAWAL
+        // ============================================================
+        async function approveWithdrawal(index) {
+            const withdrawals = window._allWithdrawals || [];
+            if (index >= withdrawals.length) return;
+
+            const w = withdrawals[index];
+
+            showConfirmPopup(
+                'Approve Withdrawal',
+                `Are you sure you want to approve ${w.amount} diamonds withdrawal for ${w.userName}?`,
+                async function() {
+                    try {
+                        const userRef = db.collection('users').doc(w.userId);
+                        const userDoc = await userRef.get();
+
+                        if (!userDoc.exists) {
+                            showCustomPopup('error', 'Error', 'User not found.', 'OK');
+                            return;
+                        }
+
+                        const data = userDoc.data();
+                        const withdrawals = data.withdrawals || [];
+
+                        const updatedWithdrawals = withdrawals.map(item => {
+                            if (item.email === w.email &&
+                                item.amount === w.amount &&
+                                item.method === w.method &&
+                                item.account === w.account &&
+                                item.status === 'pending') {
+                                return { ...item, status: 'approved' };
+                            }
+                            return item;
+                        });
+
+                        await userRef.update({ withdrawals: updatedWithdrawals });
+
+                        showCustomPopup('success', '✅ Approved!',
+                            `Withdrawal of ${w.amount} diamonds for ${w.userName} has been approved.`,
+                            'OK', function() { loadData();
+                                loadAllUsers(); });
+
+                    } catch (error) {
+                        console.error('Approve error:', error);
+                        showCustomPopup('error', 'Error', `Failed to approve: ${error.message}`, 'OK');
+                    }
+                }
+            );
+        }
+
+        // ============================================================
+        // REJECT WITHDRAWAL
+        // ============================================================
+        async function rejectWithdrawal(index) {
+            const withdrawals = window._allWithdrawals || [];
+            if (index >= withdrawals.length) return;
+
+            const w = withdrawals[index];
+
+            showConfirmPopup(
+                'Reject Withdrawal',
+                `Are you sure you want to reject ${w.amount} diamonds withdrawal for ${w.userName}?`,
+                async function() {
+                    try {
+                        const userRef = db.collection('users').doc(w.userId);
+                        const userDoc = await userRef.get();
+
+                        if (!userDoc.exists) {
+                            showCustomPopup('error', 'Error', 'User not found.', 'OK');
+                            return;
+                        }
+
+                        const data = userDoc.data();
+                        const withdrawals = data.withdrawals || [];
+
+                        const updatedWithdrawals = withdrawals.map(item => {
+                            if (item.email === w.email &&
+                                item.amount === w.amount &&
+                                item.method === w.method &&
+                                item.account === w.account &&
+                                item.status === 'pending') {
+                                return { ...item, status: 'rejected' };
+                            }
+                            return item;
+                        });
+
+                        await userRef.update({ withdrawals: updatedWithdrawals });
+
+                        showCustomPopup('success', '❌ Rejected!',
+                            `Withdrawal of ${w.amount} diamonds for ${w.userName} has been rejected.`,
+                            'OK', function() { loadData();
+                                loadAllUsers(); });
+
+                    } catch (error) {
+                        console.error('Reject error:', error);
+                        showCustomPopup('error', 'Error', `Failed to reject: ${error.message}`, 'OK');
+                    }
+                }
+            );
+        }
+
+        // ============================================================
+        // LOAD STATS
+        // ============================================================
+        async function loadStats() {
+            try {
+                const snapshot = await db.collection('users').get();
+
+                let totalUsers = snapshot.size;
+                let totalDiamonds = 0;
+                let totalAds = 0;
+                let pendingRequests = 0;
+
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    totalDiamonds += (data.totalDiamonds || 0) + (data.referralBonus || 0) + (data.teamEarning || 0);
+                    totalAds += data.totalAdsWatched || 0;
+
+                    if (data.withdrawals && Array.isArray(data.withdrawals)) {
+                        data.withdrawals.forEach(w => {
+                            if (w.status === 'pending') pendingRequests++;
+                        });
+                    }
+                });
+
+                document.getElementById('totalUsers').textContent = totalUsers;
+                document.getElementById('totalDiamonds').textContent = totalDiamonds.toLocaleString() + ' 💎';
+                document.getElementById('totalAds').textContent = totalAds;
+                document.getElementById('pendingRequests').textContent = pendingRequests;
+
+            } catch (error) {
+                console.error('Load stats error:', error);
+            }
+        }
+
+        // ============================================================
+        // LOAD PLATFORM STATS
+        // ============================================================
+        async function loadPlatformStats() {
+            try {
+                const snapshot = await db.collection('users').get();
+
+                let totalUsers = snapshot.size;
+                let totalDiamonds = 0;
+                let totalAds = 0;
+                let totalWithdrawals = 0;
+                let totalApproved = 0;
+
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    totalDiamonds += (data.totalDiamonds || 0) + (data.referralBonus || 0) + (data.teamEarning || 0);
+                    totalAds += data.totalAdsWatched || 0;
+
+                    if (data.withdrawals && Array.isArray(data.withdrawals)) {
+                        totalWithdrawals += data.withdrawals.length;
+                        data.withdrawals.forEach(w => {
+                            if (w.status === 'approved') totalApproved++;
+                        });
+                    }
+                });
+
+                document.getElementById('platformStats').innerHTML = `
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:4px 0;">
+                            <div>👥 Total Users: <strong style="color:#fff;">${totalUsers}</strong></div>
+                            <div>💎 Total Diamonds: <strong style="color:#FFD700;">${totalDiamonds.toLocaleString()}</strong></div>
+                            <div>👁️ Total Ads Watched: <strong style="color:#fff;">${totalAds}</strong></div>
+                            <div>💰 Total Withdrawals: <strong style="color:#fff;">${totalWithdrawals}</strong></div>
+                            <div>✅ Approved Withdrawals: <strong style="color:#4CAF50;">${totalApproved}</strong></div>
+                            <div>⏳ Pending: <strong style="color:#ff4444;">${totalWithdrawals - totalApproved}</strong></div>
+                        </div>
+                    `;
+
+            } catch (error) {
+                console.error('Load platform stats error:', error);
+                document.getElementById('platformStats').innerHTML = `Error loading stats: ${error.message}`;
+            }
+        }
+
+        // ============================================================
+        // REFRESH DATA
+        // ============================================================
+        function refreshData() {
+            if (!isAdmin) {
+                showCustomPopup('warning', 'Access Denied', 'You need admin privileges to refresh data.', 'OK');
+                return;
+            }
+            loadData();
+            loadAllUsers();
+            showCustomPopup('success', 'Refreshed!', 'All data has been refreshed.', 'OK');
+        }
+
+        // ============================================================
+        // TAB SWITCHING
+        // ============================================================
+        document.querySelectorAll('.admin-tabs button').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.admin-tabs button').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const tabName = this.dataset.tab;
+                document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+                const targetTab = document.getElementById(`tab-${tabName}`);
+                if (targetTab) targetTab.classList.add('active');
+
+                if (tabName === 'users' && isAdmin) {
+                    loadAllUsers();
+                }
+            });
+        });
+
+        // ============================================================
+        // HEADER SIGN IN BUTTON
+        // ============================================================
+        headerSignInBtn.addEventListener('click', function() {
+            if (auth.currentUser) {
+                signOut();
+            } else {
+                showLoginPopup();
+            }
+        });
+
+        // ============================================================
+        // INITIAL LOAD
+        // ============================================================
+        console.log('✅ Admin Panel loaded successfully!');
+        console.log('📌 Admin email: learnwithhusnain0@gmail.com');
+        console.log('📌 Withdrawal history delete feature added!');
+
+        if (auth.currentUser) {
+            // Auth state will handle loading data
+        }
+    </script>
+
+</body>
+</html>
